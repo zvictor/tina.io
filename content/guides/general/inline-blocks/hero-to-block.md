@@ -1,10 +1,9 @@
 ---
 title: Convert Hero to a Block
 ---
+This simple inline editing configuration is a great start, but the end goal of this demo is to create a Home page built with _[Inline Blocks](https://tinacms.org/docs/inline-editing/inline-blocks)_. In this step, we will add `InlineBlocks` to the homepage and convert our `Hero` into a block.
 
-This simple inline editing configuration is a great start, but the end goal of this demo is to create a Home page built with [_Inline Blocks_](https://tinacms.org/docs/inline-editing/inline-blocks). In this step, we will add `InlineBlocks` to the homepage and convert our `Hero` into a block.
-
-> If you're wanting to get a better feel for the 'Blocks' concept, there is a great blog that dives deeper into [_what blocks are_](/blog/what-are-blocks).
+> If you're wanting to get a better feel for the 'Blocks' concept, there is a great blog that dives deeper into _[what blocks are](/blog/what-are-blocks)_.
 
 ## Add _InlineBlocks_
 
@@ -70,9 +69,9 @@ export function Hero() {
 
 // 2. Define the block component with Hero
 export const heroBlock = {
-  Component: ({ index }) => (
+  Component: ({ index, data }) => (
     <BlocksControls index={index}>
-      <Hero />
+      <Hero {...data} />
     </BlocksControls>
   ),
   template: {},
@@ -99,9 +98,9 @@ export function Hero() {
 }
 
 export const heroBlock = {
-  Component: ({ index }) => (
+  Component: ({ index, data }) => (
     <BlocksControls index={index}>
-      <Hero />
+      <Hero {...data} />
     </BlocksControls>
   ),
   template: {
@@ -115,7 +114,7 @@ export const heroBlock = {
 }
 ```
 
-The `fields` array is empty for now, but this is where we can add additional metadata to edit in a [_Settings Modal_](/guides/general/inline-blocks/settings-modal). We will cover this in a few steps.
+The `fields` array is empty for now, but this is where we can add additional metadata to edit in a _[Settings Modal](/guides/general/inline-blocks/settings-modal)_. We will cover this in a few steps.
 
 ## Add _heroBlock_ to Home
 
@@ -158,7 +157,6 @@ export default function Home() {
 +const HOME_BLOCKS = {
 +  hero: heroBlock,
 +};
-
 ```
 
 Since `heroBlock` renders the hero component, we can remove the `Hero` right before `InlineBlocks.`
