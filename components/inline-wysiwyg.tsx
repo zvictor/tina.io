@@ -16,6 +16,13 @@ export function InlineWysiwyg(props: any) {
       <InlineWysiwyg
         {...props}
         sticky={'calc(var(--tina-toolbar-height) + var(--tina-padding-small))'}
+        imageProps={{
+          directory: 'public/img/',
+          parse: filename => 'img/' + filename,
+          previewSrc(src: string) {
+            return cms.api.github.getDownloadUrl('public/' + src)
+          },
+        }}
       />
     )
   }

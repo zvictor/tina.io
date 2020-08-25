@@ -7,6 +7,26 @@
         "id": "/docs/getting-started/introduction",
         "slug": "/docs/getting-started/introduction",
         "title": "Introduction"
+      },
+      {
+        "id": "/docs/getting-started/cms-set-up",
+        "slug": "/docs/getting-started/cms-set-up",
+        "title": "Set Up the CMS"
+      },
+      {
+        "id": "/docs/getting-started/edit-content",
+        "slug": "/docs/getting-started/edit-content",
+        "title": "Edit Content"
+      },
+      {
+        "id": "/docs/getting-started/backends",
+        "slug": "/docs/getting-started/backends",
+        "title": "Backends"
+      },
+      {
+        "id": "/docs/getting-started/faq",
+        "slug": "/docs/getting-started/faq",
+        "title": "FAQ"
       }
     ]
   },
@@ -243,9 +263,92 @@
     ]
   },
   {
+    "title": "Guides",
+    "id": "guides",
+    "items": [
+      {
+        "id": "/guides",
+        "slug": "/guides",
+        "title": "Overview"
+      },
+      {
+        "id": "/guides#general",
+        "href": "/guides#general",
+        "title": "General",
+        "items": [
+          {
+            "id": "/guides/general/inline-blocks/overview",
+            "slug": "/guides/general/inline-blocks/overview",
+            "title": "Inline Blocks"
+          }
+        ]
+      },
+      {
+        "id": "/guides#nextjs",
+        "href": "/guides#nextjs",
+        "title": "Next.js",
+        "items": [
+          {
+            "id": "/guides/nextjs/adding-tina/overview",
+            "slug": "/guides/nextjs/adding-tina/overview",
+            "title": "Adding Tina"
+          },
+          {
+            "id": "/guides/nextjs/git/getting-started",
+            "slug": "/guides/nextjs/git/getting-started",
+            "title": "Git Backend"
+          },
+          {
+            "id": "/guides/nextjs/github/initial-setup",
+            "slug": "/guides/nextjs/github/initial-setup",
+            "title": "GitHub Backend"
+          },
+          {
+            "id": "/guides/nextjs/tina-with-strapi/overview",
+            "slug": "/guides/nextjs/tina-with-strapi/overview",
+            "title": "Strapi Backend"
+          }
+        ]
+      },
+      {
+        "id": "/guides#gatsby",
+        "href": "/guides#gatsby",
+        "title": "Gatsby",
+        "items": [
+          {
+            "id": "/guides/gatsby/adding-tina/project-setup",
+            "slug": "/guides/gatsby/adding-tina/project-setup",
+            "title": "Adding Tina"
+          },
+          {
+            "id": "/guides/gatsby/git/installation",
+            "slug": "/guides/gatsby/git/installation",
+            "title": "Git Backend"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Release Notes",
+    "id": "releases",
+    "items": [
+      {
+        "id": "/docs/releases",
+        "href": "/docs/releases",
+        "title": "All Releases"
+      }
+    ]
+  },
+  {
     "title": "Packages",
     "id": "packages",
     "items": [
+      {
+        "id": "/packages",
+        "slug": "/packages",
+        "title": "All Packages"
+      },
       {
         "id": "/packages/react-tinacms-date",
         "slug": "/packages/react-tinacms-date",

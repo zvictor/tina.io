@@ -2,37 +2,31 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { NextSeo } from 'next-seo'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import {
-  DocsLayout,
-  MarkdownContent,
-  DocsTextWrapper,
-  Wrapper,
-  Footer,
-} from 'components/layout'
-import {
-  DocsNav,
-  NavToggle,
-  DocsHeaderNav,
-  Overlay,
-  DocsPagination,
-} from 'components/ui'
-import { InlineTextareaField, useInlineForm } from 'react-tinacms-inline'
-import { TinaIcon } from 'components/logo'
+import { DocsLayout, MarkdownContent } from 'components/layout'
+import { NavToggle, DocsPagination, LastEdited } from 'components/ui'
+import { InlineTextareaField } from 'react-tinacms-inline'
 import { useGithubMarkdownForm } from 'react-tinacms-github'
 import { getDocProps } from 'utils/docs/getDocProps'
-import { OpenAuthoringSiteForm } from 'components/layout/OpenAuthoringSiteForm'
+import { InlineGithubForm } from 'components/layout/InlineGithubForm'
 import { GithubError } from 'next-tinacms-github'
 import { InlineWysiwyg } from 'components/inline-wysiwyg'
 import { usePlugin } from 'tinacms'
 import Toc from '../../components/toc'
-import { createTocListener, slugify, formatDate } from 'utils'
-import fs from 'fs'
-import path from 'path'
+import { createTocListener } from 'utils'
+import { useLastEdited } from 'utils/useLastEdited'
+import { openGraphImage } from 'utils/open-graph-image'
+import Error from 'next/error'
+import { NotFoundError } from 'utils/error/NotFoundError'
 
 function DocTemplate(props) {
+  // fallback workaround
+  if (props.notFound) {
+    return <Error statusCode={404} />
+  }
+
   // Registers Tina Form
   const [data, form] = useGithubMarkdownForm(props.file, formOptions)
-  const [open, setOpen] = useState(false)
+
   const isBrowser = typeof window !== `undefined`
   const contentRef = React.useRef<HTMLDivElement>(null)
   const frontmatter = data.frontmatter
@@ -52,66 +46,47 @@ function DocTemplate(props) {
   }, [contentRef, data])
 
   usePlugin(form)
+  useLastEdited(form)
 
   return (
-    <OpenAuthoringSiteForm
-      form={form}
-      path={props.file.fileRelativePath}
-      preview={props.preview}
-    >
-      <DocsLayout isEditing={props.preview}>
-        <NextSeo
-          title={frontmatter.title}
-          titleTemplate={'%s | TinaCMS Docs'}
-          description={excerpt}
-          openGraph={{
-            title: frontmatter.title,
-            description: excerpt,
-            images: [
-              {
-                url:
-                  'https://res.cloudinary.com/forestry-demo/image/upload/l_text:tuner-regular.ttf_90_center:' +
-                  encodeURIComponent(frontmatter.title) +
-                  ',g_center,x_0,y_50,w_850,c_fit,co_rgb:EC4815/v1581087220/TinaCMS/tinacms-social-empty-docs.png',
-                width: 1200,
-                height: 628,
-                alt: frontmatter.title + ` | TinaCMS Docs`,
-              },
-            ],
-          }}
-        />
-        <DocsNavToggle open={open} onClick={() => setOpen(!open)} />
-        <DocsMobileTinaIcon docs />
-        <DocsNav open={open} navItems={props.docsNav} />
-        <DocsContent>
-          <DocsHeaderNav color={'light'} open={open} />
-          <DocsTextWrapper>
-            <DocsGrid>
-              <DocGridHeader>
-                <DocsPageTitle>
-                  <InlineTextareaField name="frontmatter.title" />
-                </DocsPageTitle>
-              </DocGridHeader>
-              <DocGridToc>
-                <Toc tocItems={tocItems} activeIds={activeIds} />
-              </DocGridToc>
-              <DocGridContent ref={contentRef}>
-                <hr />
-                <InlineWysiwyg name="markdownBody">
-                  <MarkdownContent escapeHtml={false} content={markdownBody} />
-                </InlineWysiwyg>
-                <DocsPagination
-                  prevPage={props.prevPage}
-                  nextPage={props.nextPage}
-                />
-              </DocGridContent>
-            </DocsGrid>
-          </DocsTextWrapper>
-          <Footer light preview={props.preview} />
-        </DocsContent>
-        <Overlay open={open} onClick={() => setOpen(false)} />
+    <InlineGithubForm form={form}>
+      <NextSeo
+        title={frontmatter.title}
+        titleTemplate={'%s | TinaCMS Docs'}
+        description={excerpt}
+        openGraph={{
+          title: frontmatter.title,
+          description: excerpt,
+          images: [openGraphImage(frontmatter.title, '| TinaCMS Docs')],
+        }}
+      />
+      <DocsLayout navItems={props.docsNav}>
+        <DocsGrid>
+          <DocGridHeader>
+            <DocsPageTitle>
+              <InlineTextareaField name="frontmatter.title" />
+            </DocsPageTitle>
+          </DocGridHeader>
+          <DocGridToc>
+            <Toc tocItems={tocItems} activeIds={activeIds} />
+          </DocGridToc>
+          <DocGridContent ref={contentRef}>
+            <hr />
+            <InlineWysiwyg name="markdownBody">
+              <MarkdownContent escapeHtml={false} content={markdownBody} />
+            </InlineWysiwyg>
+            <LastEdited date={frontmatter.last_edited} />
+            {(props.prevPage?.slug !== null ||
+              props.nextPage?.slug !== null) && (
+              <DocsPagination
+                prevPage={props.prevPage}
+                nextPage={props.nextPage}
+              />
+            )}
+          </DocGridContent>
+        </DocsGrid>
       </DocsLayout>
-    </OpenAuthoringSiteForm>
+    </InlineGithubForm>
   )
 }
 
@@ -128,20 +103,20 @@ export const getStaticProps: GetStaticProps = async function(props) {
   const slug = slugs.join('/')
 
   try {
-    return {
-      props: {
-        ...(await getDocProps(props, slug)).props,
-      },
-    }
+    return await getDocProps(props, slug)
   } catch (e) {
     if (e instanceof GithubError) {
       return {
         props: {
-          previewError: { ...e }, //workaround since we cant return error as JSON
+          error: { ...e }, //workaround since we cant return error as JSON
         },
       }
-    } else {
-      throw e
+    } else if (e instanceof NotFoundError) {
+      return {
+        props: {
+          notFound: true,
+        },
+      }
     }
   }
 }
@@ -151,7 +126,7 @@ export const getStaticPaths: GetStaticPaths = async function() {
   const contentDir = './content/docs/'
   const files = await fg(`${contentDir}**/*.md`)
   return {
-    fallback: false,
+    fallback: 'unstable_blocking',
     paths: files
       .filter(file => !file.endsWith('index.md'))
       .map(file => {
@@ -199,7 +174,8 @@ export const DocsGrid = styled.div`
   display: grid;
   width: 100%;
   position: relative;
-  grid-auto-columns: 2rem auto 2rem;
+  grid-auto-columns: minmax(1.5rem, 4rem) minmax(280px, 768px)
+    minmax(1.5rem, 4rem);
   grid-template-areas:
     '. header .'
     '. toc .'
@@ -207,16 +183,18 @@ export const DocsGrid = styled.div`
   padding-top: 2rem;
   padding-bottom: 3rem;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 830px) {
     grid-template-areas:
       '. header header .'
       '. content toc .';
-    grid-auto-columns: auto 768px 23rem auto;
+    margin: 0 auto;
+    grid-auto-columns: minmax(2rem, auto) fit-content(768px) 240px
+      minmax(0, auto);
     grid-column-gap: 2rem;
   }
 
-  @media (min-width: 1700px) {
-    grid-auto-columns: auto 768px 24rem auto;
+  @media (min-width: 1600px) {
+    grid-auto-columns: auto 768px 330px auto;
     grid-column-gap: 3rem;
   }
 `
@@ -224,10 +202,8 @@ export const DocsGrid = styled.div`
 export const DocGridHeader = styled.div`
   grid-area: header;
   width: 100%;
-  justify-self: center;
-  max-width: 768px;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 830px) {
     max-width: none;
   }
 `
@@ -235,10 +211,8 @@ export const DocGridHeader = styled.div`
 export const DocGridToc = styled.div`
   grid-area: toc;
   width: 100%;
-  justify-self: center;
-  max-width: 768px;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 830px) {
     padding-top: 4.5rem;
   }
 `
@@ -250,8 +224,6 @@ interface ContentProps {
 export const DocGridContent = styled.div<ContentProps>`
   grid-area: content;
   width: 100%;
-  justify-self: center;
-  max-width: 768px;
 `
 
 export const DocsPageTitle = styled.h1`
@@ -263,7 +235,7 @@ export const DocsPageTitle = styled.h1`
   font-family: var(--font-tuner);
   font-style: normal;
 
-  @media (max-width: 1499px) {
+  @media (max-width: 1199px) {
     margin: 0 0 1.25rem 0 !important;
   }
 `
@@ -277,25 +249,4 @@ export const DocsNavToggle = styled(NavToggle)`
   @media (min-width: 999px) {
     display: none;
   }
-`
-
-export const DocsMobileTinaIcon = styled(TinaIcon)`
-  position: relative;
-  display: block;
-  padding: 1rem 0;
-
-  h1 {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @media (min-width: 1000px) {
-    display: none;
-  }
-`
-
-export const DocsContent = styled.div`
-  grid-area: content;
 `

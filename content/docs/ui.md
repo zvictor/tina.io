@@ -9,9 +9,15 @@ consumes:
     details: Shows toolbar interface
 ---
 
-The `tinacms` package provides two possible user interfaces: the sidebar and the toolbar.
+There are two main UI components that support the content editing interface: the sidebar and the toolbar.
 
-The main difference between the two UIs is aesthetics. Both provide access to [Screen Plugins](/blog/screen-plugins) and buttons for _saving_ and _resetting_ [Forms](). The main difference is in how they expect the Form's content to be edited: Form's are rendered within the sidebar, while the toolbar is designed to work with [Inline Editing](/docs/ui/inline-editing). Also, widgets can be added to the toolbar as plugins, as in the case of the Branch Switcher provided by `react-tinacms-github` .
+The main difference between the two UIs is aesthetics. Both provide access to [Screen Plugins](/blog/screen-plugins) and buttons for _saving_ and _resetting_ [Forms](/docs/plugins/forms). The main difference is in how they expect the Form's content to be edited: Form's are rendered within the sidebar, while the toolbar is designed to work with [Inline Editing](/docs/ui/inline-editing).
+
+While the sidebar and toolbar are fundamental to Tina's editing interface, there are other components or plugins that can extend the UI:
+
+- [Screen Plugins](/docs/plugins/screens): can render modal UI and handle various content editing needs.
+- [Toolbar Widgets](/docs/plugins/toolbar-widgets): can be added to the toolbar as plugins, as in the case of the Branch Switcher provided by `react-tinacms-github`.
+- [Inline Forms & Fields](/docs/ui/inline-editing): transform the site itself into the editing interface.
 
 ## Enabling the User Interface
 
@@ -19,6 +25,7 @@ By default neither UI is enabled. You can enable one (or both) by setting their 
 
 ```ts
 new TinaCMS({
+  enabled: true,
   sidebar: true,
   toolbar: true,
 })
@@ -28,6 +35,7 @@ This will enable the UIs with their default configuration. If you need to config
 
 ```ts
 new TinaCMS({
+  enabled: true,
   sidebar: {
     position: 'displace',
   },
@@ -61,8 +69,6 @@ A site configured to use Tina will display a **blue edit button in the lower-lef
 
 Sidebar contents are **contextual**. For example, when using Tina with Markdown files, a conventional implementation will display a form for the current page's markdown file. In the event a page is composed of multiple files, it is possible to add multiple forms to the sidebar for that page's context. All forms available in the current context will then be displayed.
 
-<!-- TODO: add toolbar photo here -->
-
 ### Toolbar Configuration
 
 ```ts
@@ -77,6 +83,8 @@ interface ToolbarOptions {
 | key         | usage                                                                                                                                                          |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **buttons** | _Deprecated — [Configure on the form instead](/docs/forms#customizing-form-buttons)_: Customizes the string displayed on either the 'save' or 'reset' buttons. |
+
+![tina toolbar ui](/img/toolbar-ex.jpg)
 
 On its own, the toolbar will display the 'Save' and 'Reset' buttons, along with a form status indicator to show whether there are unsaved changes. [Custom Widgets](/guides/nextjs/github/toolbar-plugins) can also be added to extend functionality for the particular workflow.
 

@@ -1,5 +1,6 @@
 ---
 title: Configure the Custom App File
+last_edited: '2020-08-04T22:42:00.334Z'
 ---
 
 Now we will set up TinaCMS to work with the GitHub App. First, create a new file in the `pages` directory called `_app.tsx`. This is a special file in Next.js that allows us to configure a [custom app](https://nextjs.org/docs/advanced-features/custom-app). Our custom `_app.tsx` will do a few things:
@@ -12,7 +13,7 @@ Now we will set up TinaCMS to work with the GitHub App. First, create a new file
 
 **pages/\_app.tsx**
 
-```tsx
+```tsx,copy
 import App from 'next/app'
 import { TinaCMS, TinaProvider } from 'tinacms'
 import { GithubClient, TinacmsGithubProvider } from 'react-tinacms-github'
@@ -26,7 +27,7 @@ export default class Site extends App {
      * 1. Create the TinaCMS instance
      */
     this.cms = new TinaCMS({
-      enabled: !!props.pageProps.preview
+      enabled: !!props.pageProps.preview,
       apis: {
         /**
          * 2. Register the GithubClient

@@ -1,15 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { Button } from '.'
-import { DynamicLink } from './DynamicLink'
+import { Button } from '../ui'
+import { DynamicLink } from '../ui/DynamicLink'
 import data from '../../content/docs-navigation.json'
-import { SearchContainer } from '../search/styles'
-import Search from '../search'
-
-const searchIndices = [
-  { name: `Tina-Docs-Next`, title: `Docs`, hitComp: `DocHit` },
-  { name: `Tina-Blogs-Next`, title: `Blog`, hitComp: `BlogHit` },
-]
 
 interface NavProps {
   color?: 'white' | 'secondary' | 'seafoam' | 'light'
@@ -32,18 +25,6 @@ export const DocsHeaderNav = styled(
               </li>
             )
           })}
-        <li key="nav-search">
-          <Search collapse indices={searchIndices} />
-        </li>
-        <li>
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=tinacms&repo=tinacms&type=star&count=true&size=large"
-            frameBorder="0"
-            scrolling="0"
-            width="145px"
-            height="30px"
-          ></iframe>
-        </li>
       </ul>
     )
   })
@@ -52,23 +33,14 @@ export const DocsHeaderNav = styled(
   list-style-type: none;
   display: flex;
   justify-content: flex-end;
-  padding: 1rem 0;
+  padding: 1rem 0.5rem;
 
   li {
     position: relative;
     margin: 0 0.5rem;
   }
 
-  iframe {
-    margin: 1.5rem 3.5rem 0.5rem 1.25rem;
-    display: block;
-
-    @media (min-width: 685px) {
-      display: none;
-    }
-  }
-
-  @media (max-width: 999px) {
+  @media (max-width: 829px) {
     display: none;
   }
 
@@ -98,7 +70,7 @@ export const DocsHeaderNav = styled(
       --color-background: var(--color-light);
       --color-foreground: var(--color-primary);
 
-      ${Button}, ${SearchContainer} {
+      ${Button} {
         border: 1px solid var(--color-light-dark);
       }
     `};

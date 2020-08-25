@@ -1,36 +1,32 @@
 import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import Error from 'next/error'
+import { useRouter } from 'next/router'
 import { GithubError } from 'next-tinacms-github'
-import path from 'path'
 import fs from 'fs'
 
-import {
-  DocsLayout,
-  Wrapper,
-  DocsTextWrapper,
-  Footer,
-  MarkdownContent,
-} from 'components/layout'
-import { DocsNav, DocsHeaderNav, Overlay, DocsPagination } from 'components/ui'
+import { DocsLayout, MarkdownContent } from 'components/layout'
+import { DocsPagination } from 'components/ui'
+// @ts-ignore
+const path = __non_webpack_require__('path')
+
 import { getPackageProps } from '../../utils/docs/getPackageProps'
-import {
-  DocsNavToggle,
-  DocsMobileTinaIcon,
-  DocsContent,
-  DocsGrid,
-  DocGridHeader,
-  DocsPageTitle,
-  DocGridToc,
-  DocGridContent,
-} from 'pages/docs/[...slug]'
+import { DocsGrid, DocGridToc, DocGridContent } from 'pages/docs/[...slug]'
 import { createTocListener } from 'utils'
 import Toc from 'components/toc'
+import { openGraphImage } from 'utils/open-graph-image'
 
 export default function Packages(props) {
+  const router = useRouter()
+
+  if (props.hasError === true) {
+    const code = props.errorCode ? props.errorCode : 404
+    return <Error statusCode={code} />
+  }
+
   const excerpt = 'A package for Tinacms.'
 
-  const [open, setOpen] = useState(false)
   const contentRef = React.useRef<HTMLDivElement>(null)
   const isBrowser = typeof window !== `undefined`
   const tocItems = props.tocItems
@@ -47,7 +43,7 @@ export default function Packages(props) {
   }, [contentRef])
 
   return (
-    <DocsLayout isEditing={false}>
+    <>
       <NextSeo
         title={props.name}
         titleTemplate={'%s | TinaCMS Docs'}
@@ -55,43 +51,28 @@ export default function Packages(props) {
         openGraph={{
           title: props.name,
           description: excerpt,
-          images: [
-            {
-              url:
-                'https://res.cloudinary.com/forestry-demo/image/upload/l_text:tuner-regular.ttf_90_center:' +
-                encodeURIComponent(props.name) +
-                ',g_center,x_0,y_50,w_850,c_fit,co_rgb:EC4815/v1581087220/TinaCMS/tinacms-social-empty-docs.png',
-              width: 1200,
-              height: 628,
-              alt: props.name + ` | TinaCMS Docs`,
-            },
-          ],
+          images: [openGraphImage(props.name, ' | TinaCMS Docs')],
         }}
       />
-      <DocsNavToggle open={open} onClick={() => setOpen(!open)} />
-      <DocsMobileTinaIcon />
-      <DocsNav open={open} navItems={props.docsNav} />
-      <DocsContent>
-        <DocsHeaderNav color={'light'} open={open} />
-        <DocsTextWrapper>
-          <DocsGrid>
+      <DocsLayout navItems={props.docsNav}>
+        <DocsGrid>
+          {!router.isFallback && (
             <DocGridToc>
               <Toc tocItems={tocItems} activeIds={activeIds} />
             </DocGridToc>
-            <DocGridContent ref={contentRef}>
-              <MarkdownContent escapeHtml={false} content={props.content} />
-              <DocsPagination
-                prevPage={props.prevPage}
-                nextPage={props.nextPage}
-              />
-            </DocGridContent>
-          </DocsGrid>
-        </DocsTextWrapper>
-        <Footer light preview={false} />
-      </DocsContent>
-
-      <Overlay open={open} onClick={() => setOpen(false)} />
-    </DocsLayout>
+          )}
+          <DocGridContent ref={contentRef}>
+            <MarkdownContent escapeHtml={false} content={props.content} />
+            <hr />
+            <a href={props.link}>View on GitHub -></a>
+            <DocsPagination
+              prevPage={props.prevPage}
+              nextPage={props.nextPage}
+            />
+          </DocGridContent>
+        </DocsGrid>
+      </DocsLayout>
+    </>
   )
 }
 
@@ -104,7 +85,7 @@ export const getStaticProps: GetStaticProps = async function(props) {
     if (e instanceof GithubError) {
       return {
         props: {
-          previewError: { ...e }, //workaround since we cant return error as JSON
+          error: { ...e }, //workaround since we cant return error as JSON
         },
       }
     } else {
@@ -114,13 +95,11 @@ export const getStaticProps: GetStaticProps = async function(props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async function() {
-  const filePath = path.join(process.cwd(), 'content/packages.json')
+  const filePath = path.resolve(process.cwd(), './content/packages.json')
   const file = await JSON.parse(fs.readFileSync(filePath, 'utf8'))
 
   return {
-    paths: file.packages.map((p: { name: any }) => ({
-      params: { slug: p.name },
-    })),
-    fallback: false,
+    paths: [],
+    fallback: true,
   }
 }

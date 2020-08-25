@@ -1,20 +1,10 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { readFile } from 'utils/readFile'
-import { getMarkdownPreviewProps } from 'utils/getMarkdownFile'
-import {
-  DocsLayout,
-  DocsTextWrapper,
-  Wrapper,
-  MarkdownContent,
-  Footer,
-} from 'components/layout'
+import { getMarkdownPreviewProps } from 'utils/getMarkdownPreviewProps'
+import { DocsLayout, MarkdownContent } from 'components/layout'
 import { NextSeo } from 'next-seo'
-import { DocsNav, DocsPagination, Overlay, DocsHeaderNav } from 'components/ui'
+import { DocsPagination, LastEdited } from 'components/ui'
 import {
-  DocsNavToggle,
-  DocsMobileTinaIcon,
-  DocsContent,
   DocsGrid,
   DocGridHeader,
   DocsPageTitle,
@@ -24,31 +14,64 @@ import {
 import { useRouter } from 'next/router'
 import { getGuideNavProps } from 'utils/guide_helpers'
 import { useMemo } from 'react'
-import { OpenAuthoringSiteForm } from 'components/layout/OpenAuthoringSiteForm'
 import { usePlugin, useFormScreenPlugin } from 'tinacms'
 import { InlineTextareaField } from 'react-tinacms-inline'
 import { useGithubMarkdownForm, useGithubJsonForm } from 'react-tinacms-github'
 import { InlineWysiwyg } from 'components/inline-wysiwyg'
 import { getJsonPreviewProps } from 'utils/getJsonPreviewProps'
 import { MarkdownCreatorPlugin } from 'utils/plugins'
-import { fileToUrl, createTocListener, formatDate } from 'utils'
+import { fileToUrl, createTocListener } from 'utils'
 import Toc from '../../../../components/toc'
-import fs from 'fs'
+import { useLastEdited } from 'utils/useLastEdited'
+import { InlineGithubForm } from 'components/layout/InlineGithubForm'
+import { NavSectionProps } from 'components/DocumentationNavigation'
+import { openGraphImage } from 'utils/open-graph-image'
 
-export default function GuideTemplate(props) {
-  const [open, setOpen] = React.useState(false)
+interface GuideTemplateProps {
+  tocItems: string
+  breadcrumb: { category: string }
+  guideMeta: GitFile
+  markdownFile: GitFile
+  allGuides: NavSectionProps[]
+}
+
+type GitFile = {
+  fileRelativePath: string
+  sha: string
+  data: any
+}
+
+export default function GuideTemplate({
+  tocItems,
+  breadcrumb,
+  guideMeta,
+  markdownFile,
+  allGuides,
+}: GuideTemplateProps) {
   const isBrowser = typeof window !== `undefined`
   const contentRef = React.useRef<HTMLDivElement>(null)
-  const tocItems = props.tocItems
   const [activeIds, setActiveIds] = React.useState([])
   const router = useRouter()
   const currentPath = router.asPath
+  const excerpt = markdownFile.data.excerpt
+
+  /** Handles active TOC */
+  React.useEffect(() => {
+    if (!isBrowser || !contentRef.current) {
+      return
+    }
+
+    const activeTocListener = createTocListener(contentRef, setActiveIds)
+    window.addEventListener('scroll', activeTocListener)
+
+    return () => window.removeEventListener('scroll', activeTocListener)
+  }, [contentRef])
 
   const [{ frontmatter, markdownBody }, stepForm] = useGithubMarkdownForm(
-    props.markdownFile
+    markdownFile
   )
 
-  const [guide, guideForm] = useGithubJsonForm(props.guideMeta, {
+  const [guide, guideForm] = useGithubJsonForm(guideMeta, {
     label: 'Guide Metadata',
     fields: [
       { component: 'text', name: 'title', label: 'Title' },
@@ -68,6 +91,10 @@ export default function GuideTemplate(props) {
       },
     ],
   })
+
+  const guideTitle = guide?.title || 'TinaCMS Guides'
+  const guideNav = useGuideNav(guide, allGuides)
+  const { prev, next } = usePrevNextSteps(guide, currentPath)
 
   usePlugin(
     useMemo(
@@ -108,94 +135,50 @@ export default function GuideTemplate(props) {
       []
     )
   )
-
-  React.useEffect(() => {
-    if (!isBrowser || !contentRef.current) {
-      return
-    }
-
-    const activeTocListener = createTocListener(contentRef, setActiveIds)
-    window.addEventListener('scroll', activeTocListener)
-
-    return () => window.removeEventListener('scroll', activeTocListener)
-  }, [contentRef])
-
   usePlugin(stepForm)
   useFormScreenPlugin(guideForm)
-
-  const guideTitle = guide?.title || 'TinaCMS Guides'
-  const guideNav = useGuideNav(guide, props.allGuides)
-  const { prev, next } = usePrevNextSteps(guide, currentPath)
-  const excerpt = props.markdownFile.data.excerpt
+  useLastEdited(stepForm)
 
   return (
-    <OpenAuthoringSiteForm
-      form={stepForm}
-      path={props.markdownFile.fileRelativePath}
-      preview={props.preview}
-    >
-      <DocsLayout isEditing={props.editMode}>
-        <NextSeo
-          title={frontmatter.title}
-          titleTemplate={'%s | TinaCMS Docs'}
-          description={excerpt}
-          openGraph={{
-            title: frontmatter.title,
-            description: excerpt,
-            images: [
-              {
-                url:
-                  'https://res.cloudinary.com/forestry-demo/image/upload/l_text:tuner-regular.ttf_90_center:' +
-                  encodeURIComponent(guideTitle) +
-                  ',g_center,x_0,y_50,w_850,c_fit,co_rgb:EC4815/v1581087220/TinaCMS/tinacms-social-empty-docs.png',
-                width: 1200,
-                height: 628,
-                alt: guideTitle,
-              },
-            ],
-          }}
-        />
-        <DocsNavToggle open={open} onClick={() => setOpen(!open)} />
-        <DocsMobileTinaIcon docs />
-        <DocsNav open={open} navItems={guideNav} />
-        <DocsContent>
-          <DocsHeaderNav color={'light'} open={open} />
-          <DocsTextWrapper>
-            <DocsGrid>
-              <DocGridHeader>
-                <DocsPageTitle>
-                  <InlineTextareaField name="frontmatter.title" />
-                </DocsPageTitle>
-              </DocGridHeader>
-              <DocGridToc>
-                <Toc tocItems={tocItems} activeIds={activeIds} />
-              </DocGridToc>
-              <DocGridContent ref={contentRef}>
-                <hr />
-                <InlineWysiwyg name="markdownBody">
-                  <MarkdownContent escapeHtml={false} content={markdownBody} />
-                </InlineWysiwyg>
-                <DocsPagination prevPage={prev} nextPage={next} />
-              </DocGridContent>
-            </DocsGrid>
-          </DocsTextWrapper>
-          <Footer light editMode={props.editMode} />
-        </DocsContent>
-        <Overlay open={open} onClick={() => setOpen(false)} />
+    <InlineGithubForm form={stepForm}>
+      <NextSeo
+        title={frontmatter.title}
+        titleTemplate={'%s | TinaCMS Docs'}
+        description={excerpt}
+        openGraph={{
+          title: frontmatter.title,
+          description: excerpt,
+          images: [
+            openGraphImage(guideTitle, ' | TinaCMS Docs', frontmatter.title),
+          ],
+        }}
+      />
+      <DocsLayout navItems={guideNav} guide={breadcrumb}>
+        <DocsGrid>
+          <DocGridHeader>
+            <DocsPageTitle>
+              <InlineTextareaField name="frontmatter.title" />
+            </DocsPageTitle>
+          </DocGridHeader>
+          <DocGridToc>
+            <Toc tocItems={tocItems} activeIds={activeIds} />
+          </DocGridToc>
+          <DocGridContent ref={contentRef}>
+            <hr />
+            <InlineWysiwyg name="markdownBody">
+              <MarkdownContent escapeHtml={false} content={markdownBody} />
+            </InlineWysiwyg>
+            <LastEdited date={frontmatter.last_edited} />
+            <DocsPagination prevPage={prev} nextPage={next} />
+          </DocGridContent>
+        </DocsGrid>
       </DocsLayout>
-    </OpenAuthoringSiteForm>
+    </InlineGithubForm>
   )
 }
 
 export const getStaticProps: GetStaticProps = async function(ctx) {
-  const path = require('path')
   const { category, guide, step } = ctx.params
-  const pathToGuide = path.join(
-    process.cwd(),
-    './content/guides',
-    category,
-    guide
-  )
   const {
     props: { file: guideMeta },
   } = await getJsonPreviewProps(
@@ -216,6 +199,9 @@ export const getStaticProps: GetStaticProps = async function(ctx) {
     props: {
       preview,
       currentGuide: guideMeta.data,
+      breadcrumb: {
+        category,
+      },
       guideMeta,
       markdownFile,
       allGuides: await getGuideNavProps(),
@@ -269,9 +255,10 @@ function usePrevNextSteps(guide: any, currentPath: string) {
     }
     let prev = null,
       next = null
+    const currentPathStripped = currentPath.replace(/\/$/, '')
     const allSteps = guide.steps
     const currentItemIndex = allSteps.findIndex(
-      step => step.slug == currentPath
+      step => step.slug.replace(/\/$/, '') == currentPathStripped
     )
     if (currentItemIndex >= 0) {
       prev = allSteps[currentItemIndex - 1]
