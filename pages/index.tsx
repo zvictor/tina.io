@@ -310,8 +310,92 @@ const HomePage = (props: any) => {
           </div>
           <div className={styles.heroGridGraphic}>
             <div className={styles.heroGridGraphicWrapper}>
-              <h1>Test</h1>
+              <div className={styles.slider}>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+              </div>
+              {/* End Slider */}
+              <div className={styles.slider}>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+              </div>
+              {/* End Slider */}
+              <div className={styles.slider}>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+                <div className={styles.slide}>
+                  <div className={styles.slideCard}>
+                    <GithubLogo />
+                  </div>
+                </div>
+              </div>
+              {/* End Slider */}
             </div>
+            {/* End heroGridGraphicWrapper */}
           </div>
         </div>
         {/* End Hero Wrapper*/}
