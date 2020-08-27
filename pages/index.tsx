@@ -309,7 +309,9 @@ const HomePage = (props: any) => {
             </div>
           </div>
           <div className={styles.heroGridGraphic}>
-            <h1>Test</h1>
+            <div className={styles.heroGridGraphicWrapper}>
+              <h1>Test</h1>
+            </div>
           </div>
         </div>
         {/* End Hero Wrapper*/}

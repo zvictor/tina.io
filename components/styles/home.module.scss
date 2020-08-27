@@ -36,14 +36,12 @@
   width: 100%;
   background-repeat: repeat-x;
   margin: 0;
-  overflow: hidden;
 
   @include fluid-type(400px, 2000px, 14px, 20px);
 }
 
 .heroGrid {
   position: relative;
-  overflow: hidden;
   width: 100%;
   display: grid;
   grid-template-areas: '. graphic .' '. content .';
@@ -67,6 +65,12 @@
 
 .heroGridGraphic {
   grid-area: graphic;
+  // position: relative;
+}
+
+.heroGridGraphicWrapper {
+  position: sticky;
+  top: 1rem;
 }
 
 .header {
@@ -187,7 +191,7 @@
   width: 100%;
   display: grid;
   grid-template-rows: auto auto auto;
-  grid-gap: 2rem;
+  grid-gap: 4rem;
 }
 
 .heroFeatureCard {
