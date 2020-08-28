@@ -310,91 +310,107 @@ const HomePage = (props: any) => {
           </div>
           <div className={styles.heroGridGraphic}>
             <div className={styles.heroGridGraphicWrapper}>
-              <div className={styles.sliderWrapper}>
-                <div className={styles.slider}>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
+              <div className={styles.stack}>
+                <div className={styles.stackLayer}>
+                  <div className={styles.websiteGraphic}>
+                    <img src="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg" />
                   </div>
                 </div>
-                {/* End Slider */}
-                <div className={styles.slider}>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
+                <div className={styles.stackLayer}>
+                  <div className={styles.slider}>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
+                  {/* End Slider */}
+                </div>
+                <div className={styles.stackLayer}>
+                  <div className={styles.slider}>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
+                  {/* End Slider */}
+                </div>
+                <div className={styles.stackLayer}>
+                  <div className={styles.slider}>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
+                    </div>
+                    <div className={styles.slide}>
+                      <div className={styles.slideCard}>
+                        <GithubLogo />
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
+                  {/* End Slider */}
+                </div>
+                <div className={styles.stackLayer}>
+                  <div className={styles.websiteGraphic}>
+                    <img src="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg" />
                   </div>
                 </div>
-                {/* End Slider */}
-                <div className={styles.slider}>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                  <div className={styles.slide}>
-                    <div className={styles.slideCard}>
-                      <GithubLogo />
-                    </div>
-                  </div>
-                </div>
-                {/* End Slider */}
               </div>
               {/* End Slider Wrapper */}
             </div>
