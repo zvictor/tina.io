@@ -340,7 +340,22 @@ const HomePage = (props: any) => {
                     className={`${styles.card} ${styles.cardFirst} ${isSticky &&
                       styles.cardOutline}`}
                   >
-                    <img src="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg" />
+                    <video
+                      autoplay=""
+                      loop=""
+                      muted=""
+                      playsinline=""
+                      poster="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg"
+                    >
+                      <source
+                        src="https://res.cloudinary.com/forestry-demo/video/upload/q_100,h_584/v1571425758/tina-hero-demo-v2.webm"
+                        type="video/webm"
+                      />
+                      <source
+                        src="https://res.cloudinary.com/forestry-demo/video/upload/q_80,h_584/v1571425758/tina-hero-demo-v2.mp4"
+                        type="video/mp4"
+                      />
+                    </video>
                   </div>
                 </div>
                 <div className={styles.stackLayer}>
