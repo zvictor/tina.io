@@ -325,7 +325,7 @@ const HomePage = (props: any) => {
                     </div>
                     <div className={styles.slide}>
                       <div className={styles.slideCard}>
-                        <GithubLogo />
+                        <NextLogo />
                       </div>
                     </div>
                     <div className={styles.slide}>
@@ -355,7 +355,7 @@ const HomePage = (props: any) => {
                     </div>
                     <div className={styles.slide}>
                       <div className={styles.slideCard}>
-                        <GithubLogo />
+                        <ReactLogo />
                       </div>
                     </div>
                     <div className={styles.slide}>
