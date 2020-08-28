@@ -408,7 +408,7 @@ const HomePage = (props: any) => {
                 </div>
                 <div className={styles.stackLayer}>
                   <div className={styles.websiteGraphic}>
-                    <img src="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg" />
+                    <TinaIconSvg />
                   </div>
                 </div>
               </div>
