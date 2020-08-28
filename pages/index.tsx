@@ -197,6 +197,8 @@ const HomePage = (props: any) => {
   usePlugin(form)
   const [activeLibraries, setActiveLibraries] = React.useState(DefaultLibraries)
   const [userOverride, setUserOverride] = React.useState(false)
+  const [isSticky, setIsSticky] = React.useState(false)
+  const stickyGraphicRef = React.useRef<HTMLDivElement>(null)
 
   const randomizeLibraries = () => {
     if (userOverride) return
@@ -257,6 +259,22 @@ const HomePage = (props: any) => {
     return () => clearInterval(interval)
   }, [userOverride])
 
+  React.useEffect(() => {
+    if (!stickyGraphicRef.current) return
+
+    const cachedRef = stickyGraphicRef.current,
+      observer = new IntersectionObserver(
+        ([e]) => setIsSticky(e.intersectionRatio < 1),
+        { threshold: [1] }
+      )
+
+    observer.observe(cachedRef)
+
+    return function() {
+      observer.unobserve(cachedRef)
+    }
+  }, [stickyGraphicRef.current])
+
   return (
     <InlineForm form={form}>
       <div className={styles.pageWrapper}>
@@ -309,105 +327,52 @@ const HomePage = (props: any) => {
             </div>
           </div>
           <div className={styles.heroGridGraphic}>
-            <div className={styles.heroGridGraphicWrapper}>
-              <div className={styles.stack}>
+            <div
+              ref={stickyGraphicRef}
+              className={styles.heroGridGraphicWrapper}
+            >
+              <div
+                className={`${styles.stack} ${isSticky &&
+                  styles.stackExpanded}`}
+              >
                 <div className={styles.stackLayer}>
-                  <div className={styles.websiteGraphic}>
+                  <div
+                    className={`${styles.card} ${styles.cardFirst} ${isSticky &&
+                      styles.cardOutline}`}
+                  >
                     <img src="https://res.cloudinary.com/forestry-demo/video/upload/so_0/v1571425758/tina-hero-demo-v2.jpg" />
                   </div>
                 </div>
                 <div className={styles.stackLayer}>
-                  <div className={styles.slider}>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <NextLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
+                  <div
+                    className={`${styles.card} ${isSticky &&
+                      styles.cardOutline} ${styles.cardBigLogo}`}
+                  >
+                    <NextLogo />
                   </div>
-                  {/* End Slider */}
                 </div>
                 <div className={styles.stackLayer}>
-                  <div className={styles.slider}>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <ReactLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
+                  <div
+                    className={`${styles.card} ${isSticky &&
+                      styles.cardOutline}`}
+                  >
+                    <ReactLogo />
                   </div>
-                  {/* End Slider */}
                 </div>
                 <div className={styles.stackLayer}>
-                  <div className={styles.slider}>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
-                    <div className={styles.slide}>
-                      <div className={styles.slideCard}>
-                        <GithubLogo />
-                      </div>
-                    </div>
+                  <div
+                    className={`${styles.card} ${isSticky &&
+                      styles.cardOutline}`}
+                  >
+                    <GithubLogo />
                   </div>
-                  {/* End Slider */}
                 </div>
                 <div className={styles.stackLayer}>
-                  <div className={styles.websiteGraphic}>
+                  <div
+                    className={`${styles.card} ${styles.cardPrimary} ${
+                      styles.cardLittleLogo
+                    } ${isSticky && styles.cardOutline}`}
+                  >
                     <TinaIconSvg />
                   </div>
                 </div>

@@ -48,16 +48,22 @@
   display: grid;
   grid-template-areas: '. graphic .' '. content .';
   grid-template-columns: minmax(0, auto) minmax(300px, 600px) minmax(0, auto);
-  background: linear-gradient(-130deg, var(--color-seafoam) 40%, white 80%);
+  background: linear-gradient(
+    -130deg,
+    var(--color-seafoam-dark) -35vw,
+    var(--color-seafoam) 35vw,
+    white 75vw
+  );
+  background-attachment: fixed;
   padding: 7rem 0 11rem 0;
-  grid-gap: 4rem 1rem;
+  grid-gap: 2rem 1rem;
 
   @media screen and (min-width: 900px) {
     grid-template-areas: '. content graphic .';
     grid-template-columns:
-      minmax(0, auto) minmax(400px, 500px) minmax(300px, 830px)
+      minmax(0, auto) minmax(400px, 500px) minmax(300px, 500px)
       minmax(0, auto);
-    grid-gap: 4rem;
+    grid-gap: 6rem;
   }
 }
 
@@ -74,12 +80,12 @@
 
 .heroGridGraphicWrapper {
   position: sticky;
-  top: 4rem;
+  top: -1px;
   height: calc(80vh - 8rem);
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding-bottom: 4rem;
   perspective: 800px;
 }
 
@@ -108,7 +114,7 @@
 }
 
 .heroContent {
-  margin-bottom: 7rem;
+  margin-bottom: 40vh;
 
   svg {
     width: 5rem;
@@ -181,92 +187,35 @@
   overflow: visible;
 }
 
-.websiteGraphic {
-  width: 45%;
-  padding-top: 35%;
-  position: relative;
-  transform: translate3d(-50%, 0, 0);
-  left: 30%;
-  border-radius: 1rem;
-  overflow: hidden;
-  background-color: var(--color-primary);
-
-  svg {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    width: 30%;
-    height: auto;
-    fill: white;
-  }
-
-  img {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 1rem;
-    border: 4px solid var(--color-primary);
-    opacity: 1;
-    transition: transform var(--animation-length-long) var(--ease-out);
-  }
-}
-
-.websiteGraphicOutline {
-  &:after {
-    opacity: 1;
-  }
-}
-
 .stack {
   position: relative;
-  min-width: 35rem;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.1));
-  transform: rotateX(0) rotateY(-10deg) rotateZ(0) translate3d(30%, -11vh, 40vh);
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  transform-origin: 50% 50%;
+  transform: rotateX(0) rotateY(-10deg) rotateZ(0) translate3d(0, 0, 5rem);
   transition: transform var(--animation-length-long) var(--ease-out);
+}
 
-  /* 3d Layer Expand Animation */
-  &:not(:hover) {
-    * {
-      &:after {
-        opacity: 0 !important;
-      }
+.stackExpanded {
+  transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 75%, 0);
+  > * {
+    transform: var(--rotationTransform) translate3d(0, 0, 0);
+
+    &:after {
+      opacity: 1;
     }
-  }
-  &:hover {
-    transform: translate3d(0, 0, 0);
-    > * {
-      transform: var(--rotationTransform) translate3d(0, 0, 46vh);
 
-      &:after {
-        opacity: 1;
-      }
+    $zOffsetIncrement: 24;
+    $numberOfLayers: 6;
+    $numberOfGaps: $numberOfLayers - 1;
+    $zOffsetBase: $zOffsetIncrement * ($numberOfGaps / 2 + 1);
 
-      $zOffsetIncrement: 24;
-      $numberOfLayers: 6;
-      $numberOfGaps: $numberOfLayers - 1;
-      $zOffsetBase: $zOffsetIncrement * ($numberOfGaps / 2 + 1);
+    @for $i from 1 through $numberOfLayers {
+      $zOffset: $zOffsetBase - ($i * $zOffsetIncrement);
 
-      @for $i from 1 through $numberOfLayers {
-        $zOffset: $zOffsetBase - ($i * $zOffsetIncrement);
-
-        &:nth-child(#{$i}) {
-          transform: var(--rotationTransform) translate3d(0, 0, #{$zOffset}vh);
-        }
+      &:nth-child(#{$i}) {
+        transform: var(--rotationTransform) translate3d(0, 0, #{$zOffset}vh);
       }
     }
   }
@@ -274,11 +223,9 @@
 
 .stackLayer {
   position: absolute;
-  top: 50%;
+  top: 0%;
   left: 0%;
   width: 100%;
-  height: 10rem;
-  // transform: var(--rotationTransform) translate3d(0, 0, 0);
   z-index: 100;
   overflow: visible;
   transition: transform var(--animation-length-long) var(--ease-out);
@@ -304,131 +251,50 @@
   }
 }
 
-.slider {
+.card {
+  width: 100%;
+  padding-top: 60%;
   position: relative;
-  display: block;
-  width: 100%;
-  z-index: 100;
-  transition: transform var(--animation-length) var(--ease-out);
-
-  > * {
-    // opacity: 0.1;
-    opacity: 0;
-
-    &:nth-child(2) {
-      opacity: 1;
-
-      div {
-        &:after {
-          opacity: 1;
-        }
-      }
-    }
-
-    &:nth-child(3) {
-      // opacity: 0.4;
-      opacity: 0;
-    }
-
-    &:nth-child(4) {
-      // opacity: 0.2;
-      opacity: 0;
-    }
-  }
-
-  &:nth-child(2) {
-    z-index: 90;
-    &:hover {
-      transform: var(--rotationTransform) translate3d(calc(-35% - 2rem), 0, 0);
-
-      > * {
-        opacity: 0.15;
-
-        &:nth-child(2) {
-          opacity: 0.15;
-        }
-
-        &:nth-child(3) {
-          opacity: 0.4;
-
-          div {
-            &:after {
-              opacity: 0;
-            }
-          }
-        }
-
-        &:nth-child(4) {
-          opacity: 1;
-
-          div {
-            &:after {
-              opacity: 1;
-            }
-          }
-        }
-
-        &:nth-child(5) {
-          opacity: 0.4;
-        }
-      }
-    }
-  }
-
-  &:nth-child(3) {
-    z-index: 80;
-  }
-
-  &:nth-child(4) {
-    z-index: 70;
-  }
-}
-
-.slide {
-  position: absolute;
-  display: inline-block;
-  width: 45%;
-  height: 0;
-  padding-top: 35%;
-  overflow: visible;
-  top: 0;
-  left: 30%;
-  transform: translate3d(calc(-50% - 100% - 2rem), 0, 0);
-  transition: opacity var(--animation-length) var(--ease-out);
-
-  &:nth-child(2) {
-    transform: translate3d(-50%, 0, 0);
-  }
-
-  &:nth-child(3) {
-    transform: translate3d(calc(-50% + 100% + 2rem), 0, 0);
-  }
-
-  &:nth-child(4) {
-    transform: translate3d(calc(-50% + 200% + 4rem), 0, 0);
-  }
-
-  &:nth-child(5) {
-    transform: translate3d(calc(-50% + 300% + 6rem), 0, 0);
-  }
-
-  &:nth-child(6) {
-    transform: translate3d(calc(-50% + 400% + 8rem), 0, 0);
-  }
-}
-
-.slideCard {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: white;
+  transform: translate3d(0, 0, 0);
   border-radius: 1rem;
-  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.13);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: visible;
+  font-size: 16px;
+
+  svg {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 8em;
+    height: auto;
+    fill: white;
+  }
+
+  img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 1rem;
+    opacity: 0;
+    background-color: transparent;
+    z-index: -1;
+    transition: opacity var(--animation-length) ease-out;
+    box-shadow: -3rem 4rem 6rem rgba(0, 0, 0, 0.1);
+  }
 
   &:after {
     content: '';
@@ -441,12 +307,46 @@
     border-radius: 1rem;
     border: 4px solid var(--color-primary);
     opacity: 0;
-    transition: opacity var(--animation-length) var(--ease-out);
+    background-color: white;
+    z-index: -1;
+    transition: opacity var(--animation-length-long) var(--ease-out);
   }
+}
 
+.cardLittleLogo {
   svg {
-    width: 40%;
-    height: auto;
+    width: 6em;
+  }
+}
+
+.cardBigLogo {
+  svg {
+    width: 10em;
+  }
+}
+
+.cardPrimary {
+  &:after {
+    background-color: var(--color-primary);
+  }
+}
+
+.cardFirst {
+  &:before {
+    opacity: 1;
+  }
+  &:after {
+    z-index: 1;
+    background: transparent;
+  }
+}
+
+.cardOutline {
+  &:after {
+    opacity: 1 !important;
+  }
+  &:before {
+    opacity: 1 !important;
   }
 }
 
