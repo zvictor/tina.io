@@ -268,6 +268,13 @@ const HomePageTemplate = {
       description: 'Update the call to action',
       component: 'group',
       fields: CallToActionFields
+    },
+    {
+      label: 'Test it',
+      name: 'test',
+      description: '',
+      component: 'group',
+      fields: CallToActionFields
     }
   ],
 }

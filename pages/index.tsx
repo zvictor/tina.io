@@ -147,7 +147,7 @@ const HomePage = (props: any) => {
 
   usePlugin(form)
 
-  const { hero, demo, ecosystem, features, valueProps, cta } = formData
+  const { hero, demo, ecosystem, features, valueProps, cta, test } = formData
   const featuredItem = features.items.find((item) => item.isFeatured)
   const cardItems = features.items.filter((item) => !item.isFeatured)
 
@@ -204,6 +204,29 @@ const HomePage = (props: any) => {
             </div>
           </div>
         </Container>
+      </div>
+      <div className="learnTina">
+        <div className="learnContainer">
+          <div className="learnImageWrapper">
+            <img className="learnImage" src="img/flyingTina.png" alt="" />
+          </div>
+          <div className="learnContent">
+            <h3 className="headingLarge">{test.headline}</h3>
+            <p className="textLarge">
+              {test.subline}
+            </p>
+            <div className="buttonGroup">
+              {test.actionItems.map((item) => {
+                const { variant, label, icon, url } = item
+                return (
+                  <a href={url} className={`button ${variant === 'button' ? "buttonOrange" : 'buttonGhost'}`}>
+                    {label} {icon === 'arrowRight' && <IconRight />}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        </div>
       </div>
       <section className="section black">
         <Container width="narrow" center>

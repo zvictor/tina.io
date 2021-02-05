@@ -124,5 +124,10 @@
     "headline": "Learn Tina",
     "subline": "Learn Tina through Interactive & Fun Tutorials.",
     "actionItems": [{ "variant": "button", "label": "Get Started", "icon": "arrowRight", "url": "#" } ]
+  },
+  "test": {
+    "headline": "This is a test",
+    "subline": "Hope this works better than last time",
+    "actionItems": [{ "variant": "button", "label": "CLICK IT!", "icon": "arrowRight", "url": "#" } ]
   }
 }
