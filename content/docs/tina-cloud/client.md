@@ -2,11 +2,7 @@
 title: Tina Cloud Client
 ---
 
-The Tina Cloud Client allows you to interact with an automatically generated GraphQL API using TinaCMS. Included are multiple GraphQL adapters that give you a consistent GraphQL API regardless of your datasource.
-
-_For example, if your content is Git-backed, you might want to use your local content in development. While in your production Cloud Editing Environment, you can use our "Tina Teams" server to fetch your content. The API for both backends will be consistent, so you can easily switch between the two datasources without changing your site's code._
-
-If you like to work in TypeScript, the [tina-graphql-gateway-cli](https://github.com/tinacms/tina-graphql-gateway/tree/master/packages/cli) package can generate types using the same schema definition that the GraphQL adapters will use.
+The Tina Cloud Client allows you to interact with an automatically generated GraphQL API using TinaCMS. The API can be set up to work with your local filesystem, which is ideal for development, but it can also connect to Github via Tina's Content API for editing on your live website.
 
 ## Prerequisites
 
@@ -91,9 +87,9 @@ export default defineSchema({
   collections: [
     {
       /*
-      Each collection references a list of files 
-      matching the pattern in `path`. In this case, 
-      all files in the `_posts` directory will be 
+      Each collection references a list of files
+      matching the pattern in `path`. In this case,
+      all files in the `_posts` directory will be
       included in this collection.
       */
       path: '_posts',
@@ -127,16 +123,6 @@ export default defineSchema({
 Now that we have defined our content model, we can connect our site to the Tina.io Content API
 
 _Make sure your .tina directory is pushed to git_
-
-#### Creating a Tina.io app
-
-The Tina.io content API connects to your Github repository, and puts the content behind Tina.io's expressive content API.
-
-- Navigate to [Tina.io](https://auth.tinajs.dev/)
-- Create a realm
-- Create an app
-
-You will then see a client-id for your new app. We will use this shortly.
 
 #### Using the data within our Next.JS site
 
@@ -349,6 +335,16 @@ Next steps:
 
 There are a few ways to store the authentication token:
 
+#### Creating a Tina.io app
+
+The Tina.io content API connects to your Github repository, and puts the content behind Tina.io's expressive content API.
+
+- Navigate to [Tina.io](https://auth.tinajs.dev/)
+- Create a realm
+- Create an app
+
+You will then see a client-id for your new app. We will use this shortly.
+
 ### Local storage (Default)
 
 Storing tokens in browser local storage persists the user session between refreshes & across browser tabs. One thing to note is; if an attacker is able to inject code in your site using a cross-site scripting (XSS) attack, your token would be vulernable.
@@ -405,6 +401,7 @@ The goal of this package is to give developers the ability to automatically buil
 
 ```ts
 const query = gql => gql`
+  #graphql
   query ContentQuery($section: String!, $relativePath: String!) {
     getDocument(section: $section, relativePath: $relativePath) {
       __typename
@@ -423,22 +420,18 @@ const variables = {
   relativePath: 'welcome.md',
   section: 'pages',
 }
-const payload = await client.requestWithForm(query, {
+const payload = await client.request(query, {
   variables,
 })
 ```
 
-Note the function name `requestWithForm` - this will take your query and "hydrate" it with additional fields needed by Tina. We also expose a `request` function, which won't add any Tina form fields.
-
-> It may be desirable to support other GraphQL clients like Apollo in the future, there's not much stopping us from doing this, but for simplicity, we're using `fetch` and not doing any caching or normalization on the client.
-
 ### Using the data on your site
 
-As you can see there's nothing particularly special about this process - you query for data, pass it to your components, and render it out as you would with any other Headless CMS with a GraphQL API. Maintaining this workflow is one of the goals of this project, we'd like for it to be just as capable as any other CMS in that sense. However since we have a 100% type-safe schema that represents all of your content models, it means we can take things a bit further...
+As you can see there's nothing particularly special about this process - you query for data, pass it to your components, and render it out as you would with any other headless CMS with a GraphQL API. Maintaining this workflow is one of the goals of this project, we'd like for it to be just as capable as any other CMS in that sense. However since we have a 100% type-safe schema that represents all of your content models, it means we can take things a bit further...
 
-## Connecting to Tina forms
+## The problem: configuring TinaCMS forms
 
-When working with Tina, you'll inevitably face a fork in the road: save content to a CMS, or use a free-form data store like `.json` or `.md` files. The tradeoffs are many, but a few things jump out as big questions you'll need to answer:
+When working with the TinaCMS toolkit, you'll inevitably face a fork in the road: save content to a CMS, or use a free-form data store like `.json` or `.md` files. The tradeoffs are many, but a few things jump out as big questions you'll need to answer:
 
 ### Using free-form data stores
 
@@ -464,6 +457,8 @@ Cons:
 - You need to duplicate your content model definitions as Tina forms, and you need to make sure they generate the same data types.
 - You'll need a form for each record you fetch, and in many CMSs this is abstracted away behind a GraphQL API (more on this below)
 
+## The solution: Automatic form generation from the Tina Cloud client
+
 We hope to offer the best of both options, using Tina forms while still having a single source of truth and the full power of a proper CMS all wrapped up under an expressive GraphQL API.
 
 So to continue on with the code samples from above, passing the query and variables into the `useGraphqlForms` hook will initialize a form for each node in the query:
@@ -473,7 +468,7 @@ import { useGraphqlForms, useDocumentCreatorPlugin } from 'tina-graphql-gateway'
 
 //...
 
-const [result, isLoading] = useGraphqlForms({
+const [payload, isLoading] = useGraphqlForms({
   query: query,
   variables: variables,
 })
@@ -488,30 +483,11 @@ useDocumentCreatorPlugin({
 })
 ```
 
-The `result` variable here will have the identical data that you passed in from the `payload` variable, but as a side-effect we've generated Tina forms for each document node in your query and registered them with the CMS context.
+By providing `useGraphqlForms` with your `query`, you'll get the same `payload` that you would receive had you run the query yourself, but now you also get the added benefit of a Tina sidebar with forms for all of the nodes from your query.
+
+In constrast with hand-rolling your Tina forms, this approach allows you to rely on your `defineSchema` logic for form building, that way the frontend and the backend have a shared knowledge about the shape of your content.
 
 ---
-
-## Why don't we use the `useForm` hook from `tinacms`?
-
-If you're familiar with TinaCMS you'll notice that this looks similar to the hook it provides, but there are some slight differences:
-
-With the TinaCMS hook:
-
-- We pass the form config as an argument
-- The sidebar isn't automatically registered
-- The values we get back are **form** values
-
-With the `tina-graphql-gateway` hook:
-
-- We don't need to set any form configuration (this is already done in your template definitions), instead we passed our query.
-- The sidebar is automatically registered
-
-The key benefit here is you'll receive the data you queried for, meaning you don't need to do anything special for your content to work with Tina.
-
-### Under the hood
-
-When the hook receives a result from `requestWithForm`, there are additional fields that reflect what you would pass into Tina's [form configuration](https://tina.io/docs/plugins/forms/#form-configuration). Instead of requiring you to provide this (and force you to deal with multiple sources of truth), we initialize the form for you with all of the fields being built automatically.
 
 ### Keeping the benefits of GraphQL
 
