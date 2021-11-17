@@ -120,7 +120,7 @@
         "slug": "/docs/media-cloudinary/"
       },
       {
-        "title": "CMS Toolkit",
+        "title": "Using the CMS Toolkit with Tina Cloud",
         "id": "/docs/reference/toolkit/overview/",
         "slug": "/docs/reference/toolkit/overview/",
         "items": [
@@ -231,7 +231,7 @@
         ]
       },
       {
-        "title": "Legacy API",
+        "title": "CMS Toolkit",
         "slug": "/docs/toolkit/",
         "expandOnSelect": true,
         "description": "The JavaScript toolkit for building content management interfaces",
@@ -519,7 +519,7 @@
       },
       {
         "id": "/guides#experimental",
-        "title": "Legacy Guides",
+        "title": "Experimental Guides",
         "slug": "/guides#experimental",
         "expandOnSelect": true,
         "items": [
