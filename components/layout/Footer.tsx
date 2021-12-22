@@ -102,6 +102,7 @@ const FooterBottom = styled.div`
 const FootnoteLinks = styled.span`
   display: inline-block;
   padding: 0.5rem 0 0.5rem 1rem;
+  color: inherit;
 `
 
 const Footnote = styled.span`
