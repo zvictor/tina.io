@@ -186,8 +186,8 @@ export const Footer = styled(({ light, ...styleProps }) => {
         <LinkNav />
 
         <FooterSocial>
-          <a href="https://discord.com/invite/zumN63Ybpf" target="blank">
-          <img width="150px"height="30px"src="https://res.cloudinary.com/forestry-demo/image/upload/v1643902505/tina-io/Discord-Logo_Wordmark-White.svg" alt="Discord Logo"/>
+        <img width="150px"height="30px"src="https://res.cloudinary.com/forestry-demo/image/upload/v1643902505/tina-io/Discord-Logo_Wordmark-White.svg" alt="Discord Logo"/>
+          <a style="text-decoration: none" href="https://discord.com/invite/zumN63Ybpf" target="blank">
           <p>Join our community Discord</p> 
           </a>
           <iframe
