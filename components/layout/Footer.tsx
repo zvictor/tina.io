@@ -187,8 +187,7 @@ export const Footer = styled(({ light, ...styleProps }) => {
 
         <FooterSocial>
           <a href="https://discord.com/invite/zumN63Ybpf" target="blank">
-            <p>Join our community Discord</p>
-            <DiscordIconSvg/>
+            <p>Join our community Discord <span><DiscordIconSvg/></span></p>
           </a>
           <iframe
             src="https://ghbtns.com/github-btn.html?user=tinacms&repo=tinacms&type=star&count=true&size=large"
