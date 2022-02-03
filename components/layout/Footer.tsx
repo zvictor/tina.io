@@ -187,7 +187,7 @@ export const Footer = styled(({ light, ...styleProps }) => {
 
         <FooterSocial>
         <img width="150px"height="30px"src="https://res.cloudinary.com/forestry-demo/image/upload/v1643902505/tina-io/Discord-Logo_Wordmark-White.svg" alt="Discord Logo"/>
-          <a style="text-decoration: none" href="https://discord.com/invite/zumN63Ybpf" target="blank">
+          <a href="https://discord.com/invite/zumN63Ybpf" target="blank">
           <p>Join our community Discord</p> 
           </a>
           <iframe
