@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { LinkNav } from '../ui/LinkNav'
 import TwitterIconSvg from '../../public/svg/twitter-icon.svg'
 import GithubIconSvg from '../../public/svg/github-icon.svg'
+import DiscordIconSvg from "../../public/svg/discord-logo.svg"
 import { EmailForm } from '../forms/EmailForm'
 import { TinaIcon } from 'components/logo'
 import Link from 'next/link'
@@ -183,7 +184,12 @@ export const Footer = styled(({ light, ...styleProps }) => {
       <FooterTop>
         <TinaIcon />
         <LinkNav />
+
         <FooterSocial>
+          <a href="https://discord.com/invite/zumN63Ybpf" target="blank">
+            <p>Join our community Discord</p>
+            <DiscordIconSvg/>
+          </a>
           <iframe
             src="https://ghbtns.com/github-btn.html?user=tinacms&repo=tinacms&type=star&count=true&size=large"
             frameBorder="0"
