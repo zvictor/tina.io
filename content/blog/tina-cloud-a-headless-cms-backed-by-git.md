@@ -37,7 +37,7 @@ To overcome these limitations, Tina Cloud provides a GraphQL interface to your r
 
 ### Bring visual editing to the whole team with Tina Cloud
 
-The best websites result from collaboration between engineers, designers, writers, and marketers. These people need the ability to work from a single source of truth and Tina Cloud offers a simple **dashboard** for admins to manage sites and collaborators.![Tina Cloud Dashboard: Apps Tab](/img/blog/tina-cloud-dashboard.png 'Tina Cloud Dashboard: Apps Tab')
+The best websites result from collaboration between engineers, designers, writers, and marketers. These people need the ability to work from a single source of truth and Tina Cloud offers a simple **dashboard** for admins to manage sites and collaborators.![Tina Cloud Dashboard: Projects Tab](/img/blog/tina-cloud-dashboard.png 'Tina Cloud Dashboard: Projects Tab')
 
 Tina Cloud provides user management, authentication, and basic roles for your editing team. Give your team members access, even if they don’t have a GitHub account. ✨
 
@@ -48,6 +48,6 @@ In the future, we’ll look back at clunky, conventional CMSs and wonder why we 
 We believe in portability, which is why our headless CMS stores your content in open-specification file formats in a repository that _you_ control. Also, we are still very committed to TinaCMS’s storage-agnostic approach and Tina Cloud will be one of the many backend storage solutions available to you.
 Tina Cloud is the foundation we need to show the world how powerful Git-backed, visual content management can be.
 
-**Private Alpha**
+**Public Beta**
 
-> _Tina Cloud is currently open to a limited set of Next.js projects, sign for [early access](https://tina.io/cloud/) to get into the alpha._
+> _Tina Cloud is currently in [public beta](/blog/tina-is-in-beta/), [sign up](https://app.tina.io) to get started with Next.js._

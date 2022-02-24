@@ -1,11 +1,13 @@
 ---
 title: Creating our Application
-last_edited: '2021-07-19T10:00:00.000Z'
+last_edited: '2021-08-13T17:36:53.377Z'
 ---
 
 ## Create a Next.js application
 
-We are going to be using the Next.js Blog Starter for this guide, so from your terminal run the following: 
+> Note: If you already have a NextJS site, you can skip this first step.
+
+We are going to be using the Next.js Blog Starter for this guide, so from your terminal run the following:
 
 ```bash
 npx create-next-app --example blog-starter tina-quickstart
@@ -18,20 +20,9 @@ cd tina-quickstart
 We created a quick way to bootstrap a Tina application to show the power of visual editing, from your terminal enter the following command:
 
 ```bash,copy
-npx @tinacms/cli init
+npx @tinacms/cli@latest init
 ```
 
-> Heads up, this will override the `_app.js`, which has a stylesheet in it. Make sure to add it back otherwise the styles will be broken.
-
-Your import section should now look like
-
-```diff 
-import dynamic from 'next/dynamic'
-import { TinaEditProvider } from 'tinacms/dist/edit-state'
-+ import '../styles/index.css'
-
-...
-```
 This command does a few things in your Next.js application:
 
 1. Install all required dependencies for Tina
@@ -48,7 +39,7 @@ Now that we have a basic Tina setup you can launch your application using the fo
 yarn tina-dev
 ```
 
-Once you have launch the application you have a couple of new URLS:
+Once you have launched the application you have a couple of new URLS:
 
 - `http://localhost:3000/demo/blog/HelloWorld`
 - `http://localhost:4001/altair/`
@@ -58,8 +49,8 @@ The first URL brings you to a demo of TinaCMS, it will show you the power of Tin
 > Want to see your changes? Open up the file located at `/content/HelloWorld.md` and the changes you've made will be there!
 
 <video controls autoplay=true muted loop>
-  <source src="/gif/tina-init.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
+<source src="/gif/tina-init.mp4" type="video/mp4" />
+Your browser does not support the video tag.
 </video>
 
 > This works by using our Content API which will go into greater depth during this guide.

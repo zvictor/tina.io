@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import ReactMarkdown from 'react-markdown/with-html'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import CodeStyle from '../styles/Code'
@@ -17,7 +17,7 @@ interface MarkdownContentProps {
   skipHtml?: boolean
 }
 
-function WithCodeStyles({ language: tags, value }) {
+export function WithCodeStyles({ language: tags, value }) {
   const [language, ...other] = tags?.split(',') || []
   const copy = other.includes('copy') || language === 'copy'
   return (
@@ -30,7 +30,7 @@ function WithCodeStyles({ language: tags, value }) {
   )
 }
 
-const copyToClipboard = (text: string) => {
+export const copyToClipboard = (text: string) => {
   const el = document.createElement('textarea')
   el.value = text
   document.body.appendChild(el)
@@ -77,7 +77,7 @@ const StyledCopyCodeButton = styled.button`
   border-radius: 0 0 0 5px;
 
   &:hover {
-    color: var(--color-primary);
+    color: var(--color-orange);
     opacity: 1;
   }
 `

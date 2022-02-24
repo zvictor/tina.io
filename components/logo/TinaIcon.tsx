@@ -24,19 +24,21 @@ export const TinaIcon = styled(({ docs, ...styleProps }: TinaIconProps) => {
   )
 })`
   text-decoration: none;
-  fill: var(--color-primary);
+  fill: var(--color-orange);
 
   h1 {
     margin: 0;
-    font-size: 1.75rem;
     display: flex;
     align-items: center;
   }
 
   span {
-    margin-left: 1rem;
+    font-size: 1.5rem;
+    margin-left: 0.675rem;
     font-family: var(--font-tuner);
-    color: var(--color-primary);
+    font-weight: bold;
+    color: var(--color-orange);
+    margin-top: 0.5rem;
   }
 
   svg {

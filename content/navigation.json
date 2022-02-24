@@ -2,19 +2,13 @@
   {
     "id": "docs",
     "label": "Docs",
-    "href": "/docs",
+    "href": "/docs/",
     "external": false
   },
   {
     "id": "blog",
     "label": "Blog",
     "href": "/blog",
-    "external": false
-  },
-  {
-    "id": "cloud",
-    "label": "Tina Cloud",
-    "href": "/cloud",
     "external": false
   },
   {

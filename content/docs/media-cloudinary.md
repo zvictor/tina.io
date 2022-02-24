@@ -12,7 +12,7 @@ yarn add next-tinacms-cloudinary @tinacms/auth
 
 ## Connect with Cloudinary
 
-You need some credentials provided by Cloudinary to set this up properly. If you do not already have an account, you can ([register here](https://cloudinary.com/users/register/free).
+You need to provide your Cloudinary credentials to connect to your media library. Do [register on Cloudinary](https://cloudinary.com/users/register/free) if you don't have an account yet, your account details are displayed on the Cloudinary dashboard.
 
 **next-tinacms-cloudinary** uses environment variables within the context of a Next.js site to properly access your Cloudinary account.
 
@@ -32,7 +32,6 @@ This is also where we can update our `mediaOptions` on the cms object.
 
 ```tsx
 import { TinaEditProvider } from "tinacms/dist/edit-state";
-import { TinaCloudCloudinaryMediaStore } from 'next-tinacms-cloudinary'
 
 const TinaCMS = dynamic(() => import("tinacms"), { ssr: false });
 
@@ -42,9 +41,12 @@ const App = ({ Component, pageProps }) => {
       <TinaEditProvider
         editMode={
           <TinaCMS
-            ...
-            mediaStore={TinaCloudCloudinaryMediaStore}
-            {...pageProps}
+            // ...
+            mediaStore={async () => {
+              // Load media store dynamically so it only loads in edit mode
+              const pack = await import("next-tinacms-cloudinary");
+              return pack.TinaCloudCloudinaryMediaStore;
+            }}
           >
          ...
          </TinaCMS>
@@ -60,7 +62,7 @@ Then add a new catch all API route for media.
 
 Call `createMediaHandler` to set up routes and connect your instance of the Media Store to your Cloudinary account.
 
-Import `isAuthorized` from [`tina-cloud-next`](https://github.com/tinacms/tinacms/tree/main/packages/tina-cloud-next).
+Import `isAuthorized` from ["@tinacms/auth"](https://github.com/tinacms/tinacms/tree/main/packages/%40tinacms/auth).
 
 The `authorized` key will make it so only authorized users within Tina Cloud can upload and make media edits.
 
@@ -82,6 +84,10 @@ export default createMediaHandler({
   api_secret: process.env.CLOUDINARY_API_SECRET,
   authorized: async (req, _res) => {
     try {
+      if (process.env.NEXT_PUBLIC_USE_LOCAL_CLIENT) {
+        return true
+      }
+
       const user = await isAuthorized(req)
 
       return user && user.verified

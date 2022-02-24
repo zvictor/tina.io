@@ -2,25 +2,7 @@
 title: The TinaCMS CLI
 ---
 
-The _TinaCMS CLI_ can be used to set up your project with TinaCMS schema configuration, and run a local version of the TinaCMS API (using your file system's content). For a real-world example of how this is being used checkout the [Tina Cloud Starter](https://github.com/tinacms/tina-cloud-starter).
-
-## Installation
-
-The CLI can be installed as a dev dependency in your project.
-
-Npm:
-
-```bash
-npm install --save-dev @tinacms/cli
-```
-
-Yarn:
-
-```bash
-yarn add --dev @tinacms/cli
-```
-
-## Usage
+## Available Commands
 
 ```sh
 > yarn run tinacms
@@ -34,100 +16,68 @@ Options:
 Commands:
   server:start [options]    Start Filesystem Graphql Server
   schema:compile [options]  Compile schema into static files for the server
-  schema:types [options]    Generate a GraphQL query for your site's schema,
-                            (and optionally Typescript types)
-  init [options]            Add TinaCMS to an existing project
+  schema:types [options]    Generate a GraphQL query for your site's schema, (and optionally Typescript types)
+  init [options]            Add Tina Cloud to an existing project
+  audit [options]           Audit your schema and the files to check for errors
   help [command]            display help for command
 ```
 
-## Getting started
+## Basic Usage:
 
-The simplest way to get started is to add a `.tina/schema.ts` file
+### init
 
-```
-mkdir .tina && touch .tina/schema.ts
-```
+> The init command must be run inside of a Next.js project
 
-### `defineSchema`
-
-`defineSchema` tells the CMS how to build your content API.
-
-```ts
-// .tina/schema.ts
-import { defineSchema } from '@tinacms/cli'
-
-export default defineSchema({
-  collections: [
-    {
-      label: 'Blog Posts',
-      name: 'post',
-      path: 'content/posts',
-      fields: [
-        {
-          type: 'string'
-          label: 'Title',
-          name: 'title',
-        },
-      ],
-    },
-  ],
-})
+```bash,copy
+npx @tinacms/cli init
 ```
 
-## Run the local GraphQL server
+This will,
 
-Let's add some content so we can test out the GraphQL server
+1. Install all of the dependencies you need
+2. Setup a basic content model in your [`schema.ts` file](/docs/schema/)
+3. Drop in a ready to go `_app.js` file
+4. Add an editable page at http://localhost:3000/demo/blog/helloWorld
 
-#### Add an author
+### `tinacms server:start`
 
-```sh
-mkdir content && mkdir content/authors && touch content/authors/napoleon.md
-```
+> To run this command, you must have a valid `.tina/schema.ts` file.
 
-Now let's add some content to the author
+`server:start` will compile the schema into static files, generates typescript types for you to use in your project and starts a graphQL server on http://localhost:4001
 
-```markdown
----
-name: Napoleon
----
-```
+This command also takes the following arguments
 
-#### Add a post
+| Argument        | Description                                                                                                                                                             |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-c`            | `-c` allows you to run a command as a child process. For example, you could run your next project alongside the graphQL server `yarn tinacms server:start -c next dev`. |
+| `--port <port>` | Specify a port to run the server on. (default 4001)                                                                                                                     |
+| `--noWatch`     | Don't regenerate config on file changes. This option is good to add when building in CI or if you do not want to watch the file system for changes.                     |
+| `--noSDK`       | Don't generate the generated client SDK. [Read here](/docs/graphql/client/) for more details about the SDK                                                              |
 
-```sh
-mkdir content/posts && touch content/posts/voteForPedro.md
-```
 
-Now we add some content to the post
 
-```markdown
----
-title: Vote For Pedro
-author: content/authors/napoleon.md
----
 
-You should really vote for Pedro.
-```
+## Advanced Usage:
+### `tinacms schema:compile`
 
-#### Start the filesystem server
+`schema:compile` is used to compile and transpile the schema files into static file(s) ready to be used with the server. The compilation can be found in the `.tina/__generated__/config` directory.
 
-```sh
-> yarn run tinacms server:start
 
-Started Filesystem GraphQL server on port: 4001
-Visit the playground at http://localhost:4001/altair/
-Generating Tina config
-...
-```
+### `tinacms schema:types` 
 
-The below query can be run against your locally-running GraphQL server
+`schema:types` will generate a GraphQL query for your site's schema and typescript files. You will find the generated files in the `.tina/__generated__/` directory.
 
-<iframe loading="lazy" src="/api/graphiql/?query=%7B%0A%20%20getDocument(collection%3A%20%22post%22%2C%20relativePath%3A%20%22voteForPedro.json%22)%20%7B%0A%20%20%20%20...on%20PostDocument%20%7B%0A%20%20%20%20%20%20data%20%7B%0A%20%20%20%20%20%20%20%20title%0A%20%20%20%20%20%20%20%20author%20%7B%0A%20%20%20%20%20%20%20%20%20%20...on%20AuthorDocument%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20data%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D" width="800" height="400" />
+### `tinacms audit` (Experimental)
 
-## Next Steps
+`audit` is used for checking for errors in your in your files. It currently does two things.
 
-[Enable live-editing on your Next.js site](/docs/tinacms-context/)
+1. Checks to see if the files have the correct extension
+2. Submits each file as a Graphql mutation and checks for Graphql errors
 
-[Deep dive on the Tina schema](/docs/schema/)
+By default the mutation will not change the content of the files.
 
-[Learn all about the GraphQL API](/docs/graphql/)
+Takes the following options,
+
+| Argument  | Description                                                                                                                                                                                                                                                             |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--clean` | When this flag is used, it really submits the Graphql mutations to the file system. This means that it will clean out any fields that are not defined in your `schema.ts`. It is a good practice to do a `git commit` before doing this so one can undo changes easily. |

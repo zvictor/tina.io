@@ -171,9 +171,9 @@ Most CMSs have come up with various ways to help with this: separate sandbox env
 
 ## Meet Tina Content API
 
-Today we're introducing a tool that marries the power of a headless CMS with the convenience and portability of file-based content. **The Tina Content API is a GraphQL service that sources content from your local filesystem**. It will soon be available via [Tina Cloud](https://tina.io/cloud/), which connects to your GitHub repository to offer an identical, cloud-based, headless API.
+Today we're introducing a tool that marries the power of a headless CMS with the convenience and portability of file-based content. **The Tina Content API is a GraphQL service that sources content from your local filesystem**. It will soon be available via [Tina Cloud](/cloud/), which connects to your GitHub repository to offer an identical, cloud-based, headless API.
 
-> Tina Cloud is currently open to a limited set of Next.js projects, [sign up](https://tina.io/cloud/) for early access to get into the private alpha.
+> _Tina Cloud is currently in [public beta](/blog/tina-is-in-beta/), [sign up](https://app.tina.io) to get started with Next.js._
 
 To get a sense for how this works, let's make some tweaks to the blog demo.
 
@@ -197,7 +197,7 @@ export default defineSchema({
   collections: [
     {
       label: 'Posts',
-      name: 'posts',
+      name: 'post',
       /*
        * Indicates where to save this kind of content (eg. the "_posts" folder)
        */
@@ -257,7 +257,7 @@ export default defineSchema({
       ],
     },
     {
-      name: 'authors',
+      name: 'author',
       label: 'Authors',
       path: '_authors',
       templates: [
@@ -315,7 +315,7 @@ Let's test it out:
 ```graphql
 # Point your request to http://localhost:4001/graphql
 {
-  getPostsList {
+  getPostList {
     data {
       ... on SimplePost_Doc_Data {
         title
@@ -332,7 +332,7 @@ And here is the result:
   "errors": [
     {
       "message": "Unexpected value of type string for boolean value",
-      "path": ["getPostsList"]
+      "path": ["getPostList"]
     }
   ],
   ...
@@ -344,7 +344,7 @@ This error is coming from our old friend `featured: "false"`. This is exactly th
 ```json
 {
   "data": {
-    "getPostsList": [
+    "getPostList": [
       {
         "data": {
           "title": "Dynamic Routing and Static Generation"
@@ -360,7 +360,7 @@ We can use GraphQL to replace all of our bespoke filesystem data-fetching logic 
 
 ```graphql
 query BlogPostQuery($relativePath: String!) {
-  getPostsDocument(relativePath: $relativePath) {
+  getPostDocument(relativePath: $relativePath) {
     data {
       ... on SimplePost_Doc_Data {
         title

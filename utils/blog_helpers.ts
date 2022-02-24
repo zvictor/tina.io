@@ -64,11 +64,18 @@ export function formatDate(fullDate) {
   let date = new Date(fullDate)
   // normalizes UTC with local timezone
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
-  const dateOptions = {
+  const dateOptions: Intl.DateTimeFormatOptions = {
     formatMatcher: 'best fit',
     month: 'long',
     year: 'numeric',
     day: 'numeric',
   }
   return date.toLocaleDateString('en-US', dateOptions)
+}
+
+export const isRelevantPost = (post: { date: string, last_edited: string }) => {
+  if(post.last_edited){
+    return new Date(post.last_edited).getTime() >= new Date('2021-04-01').getTime()
+  }
+  return new Date(post.date).getTime() >= new Date('2021-04-01').getTime()
 }

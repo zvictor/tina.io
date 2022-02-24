@@ -1,10 +1,12 @@
 ---
 title: Content Modeling with TinaCMS
+id: /docs/schema/
+next: '/docs/features/data-fetching'
 ---
 
-The Tina schema is a way of defining the shape of your content for your entire site. With traditional content management systems you may have done this sort of content modeling via GUI, however, given its tight coupling to Git, TinaCMS considers the filesystem the ultimate source of truth and leverages a "content-modeling as code" approach.
+The Tina schema defines the shape of your content. With traditional content management systems you may have done this sort of content modeling via a GUI; however, given its tight coupling to Git, TinaCMS considers the filesystem the ultimate source of truth and leverages a "content-modeling as code" approach.
 
-To that end, your schema is defined in a file called `.tina/schema.ts` (only `.ts` is supported for now).
+Your schema is defined in a file called `.tina/schema.ts` (only `.ts` is supported for now).
 
 ```ts
 // .tina/schema.ts
@@ -23,27 +25,10 @@ export default defineSchema({
           name: 'title',
         },
         {
-          type: 'reference',
-          label: 'Author',
-          name: 'author',
-          collection: 'authors',
-        },
-      ],
-    },
-    {
-      label: 'Authors',
-      name: 'authors',
-      path: 'content/authors',
-      fields: [
-        {
           type: 'string',
-          label: 'Name',
-          name: 'name',
-        },
-        {
-          type: 'string',
-          label: 'Avatar',
-          name: 'avatar',
+          label: 'Post Body',
+          name: 'body',
+          isBody: true,
         },
       ],
     },
@@ -51,66 +36,29 @@ export default defineSchema({
 })
 ```
 
-# `collections`
+Each item in your `collections` array represents its own entity.
 
-The top-level key in the schema is an array of _collections_, a `collection` informs the API about _where_ to save content. You can see from the example that a `posts` document would be stored in `content/posts`. You can supply either `fields` or `templates` to define shape of your collection. If all your collection documents share the same fields, just use `fields`, but if you need to use different templates inside a collection (e.g about page, pricing page, jobs page inside a pagescollections) then use templates.
+> Note: The `isBody` property is used to output a given field to the markdown body, instead of its frontmatter.
 
-```ts
-{
-  label: 'Blog Posts',
-  name: 'post',          // The unique identifier for your collection
-  path: 'content/posts', // Where your collection documents will be stored
-  format: "json" .       // Documents are stored as markdown by default
-  // You can define either an array of `fields` OR `templates`
-  fields: [...]
-  // OR
-  templates: [...]
-}
-```
+## Using different data types
 
-# `fields`
-
-Fields determine the shape of your content:
-
-```js
-{
-  label: "Title",
-  name: "title",
-  type: "string"
-}
-```
-
-There are a few key ingredients to building out any shape you could want:
-
-## The `type` property
-
-Types fall into two general categories: _scalar_ types and _nonscalar_ types. A _scalar_ type refers to a single value, for example: `"Hello, World"`, `true`, `3` are all scalar values.
+Each of a collection's fields can be of the following `type`
 
 ### _scalar_
 
-- `string`
-- `datetime`
-- `boolean`
-- `image`
-- `number`
+- [string](/docs/reference/types/string/)
+- [datetime](/docs/reference/types/datetime/)
+- [boolean](/docs/reference/types/boolean/)
+- [image](/docs/reference/types/image/)
+- [number](/docs/reference/types/number/)
 
 ### _nonscalar_
 
-- `reference`
-- `object`
+- [reference](/docs/reference/types/reference/)
+- [object](/docs/reference/types/object/)
+- [rich-text](/docs/reference/types/rich-text/)
 
-Once you're familiar with _scalar_ types and how to define them, read more about _nonscalar_ types in the ["Nonscalar Types"](#nonscalar-types) section below.
-
-The `authors` collection above is simple because it only has _scalar_ fields, a document in the authors collection might look like this:
-
-```md
----
-name: Napolean
-avatar: https://path.to/my-avatar.jpg
----
-```
-
-## The `list` property
+## Using lists of items
 
 Specifying `list: true` on _any_ field type will turn that field into an array of items:
 
@@ -125,7 +73,7 @@ Specifying `list: true` on _any_ field type will turn that field into an array o
 
 The resulting field in your TinaCMS form will be a `list` field. And the resulting data structure would be: `["movies", "art"]`.
 
-## The `options` property
+## Limiting values to a set of options
 
 Any _scalar_ field can accept an `options` array, note that in the example below we're using both `options` and `list` properties:
 
@@ -141,34 +89,7 @@ Any _scalar_ field can accept an `options` array, note that in the example below
 
 In this example, the resulting field in your TinaCMS form will be a `checkbox` field. Omitting `list: true` (or setting it to `false`) would result in a `radio` field.
 
-## The `isBody` property
-
-For `markdown` collections, all data is stored as frontmatter by default. But for fields whose type is `string` and `list: false`, you can also specify `isBody: true`. This would store the specified field in the body of the markdown file. Note that you can only set this property on one field in your `fields` array.
-
-## The `ui` property
-
-Under the hood, TinaCMS is powered by the TinaCMS Toolkit, an expressive UI system which allows you to place forms and other content management controls into your Next.js application or website. To that end, most of what we've discussed so far has been about how data is structured and served. But when you use TinaCMS, all of this data can be edited from the context of your website with minimal frontend setup. And it's often desirable to tap into the UI for better control of how it behaves. Let's see how we might use the `ui` property to enhance the editing experience.
-
-For a `string` type you'll get the [`text` field](/docs/fields/text/) by default. If you'd rather use a `textarea` field you can specify it in the `ui` property:
-
-```js
-{
-  label: "Description",
-  name: "description",
-  type: "string",
-  ui: {
-    component: "textarea"
-  }
-}
-```
-
-As long as the given value is registered with the TinaCMS instance, you'll be able to specify it here. Read more about how to configure the [core TinaCMS Toolkit fields](/docs/fields/).
-
-## Nonscalar Types
-
-If _scalar_ types are the building blocks for a schema, _nonscalar_ types allow you to represent almost any data structure you could want for you content.
-
-### The `object` property
+## Grouping properties within an "object"
 
 An object type takes either a `fields` or `templates` property (just like the `collections` definition). The simplest kind of `object` is one with `fields`:
 
@@ -218,47 +139,11 @@ Setting `list: true` would turn the values into an array:
 }
 ```
 
-More complex shapes can be built by supplying a `templates` array, here's an example of a page-builder structure:
+> More complex shapes can be built by using the [`templates`](/docs/reference/types/object/#with-multiple-templates) property. This allows your editors to build out pages using predefined blocks.
 
-```js
-{
-  type: "object",
-  label: "Page Sections",
-  name: "pageSections",
-  list: true,
-  templates: [{
-    label: "Hero",
-    name: "hero",
-    fields: [{
-      label: "Title",
-      name: "title",
-      type: "string"
-    },{
-      label: "Background Image",
-      name: "backgroundImage",
-      type: "image"
-    }]
-  }]
-}
-```
+## Using references within a document
 
-And its data structure (note that `_template` is required):
-
-```js
-{
-  pageSections: [
-    {
-      title: 'Hello, World!',
-      backgroundImage: 'https://path.to/my-img.jpg',
-      _template: 'hero',
-    },
-  ]
-}
-```
-
-### The `reference` type
-
-A `reference` field connects one document to another, and only needs to be defined on _one_ side of the relationship. You can specify any number of collections you'd like to connect:
+The `reference` field connects one document to another and only needs to be defined on _one_ side of the relationship. You can specify any number of collections you'd like to connect:
 
 ```js
 {
@@ -269,7 +154,7 @@ A `reference` field connects one document to another, and only needs to be defin
 }
 ```
 
-This will result in a resolvable node in your GraphQL structure:
+This will result in a resolvable node in your GraphQL structure (Don't worry, we'll discuss how to use the GraphQL API later):
 
 ```graphql
 {
@@ -286,6 +171,10 @@ This will result in a resolvable node in your GraphQL structure:
 }
 ```
 
-The resulting field in your TinaCMS form will be a `select` field, whose `options` are all of the documents in the given collections.
+The resulting field in your TinaCMS form will be a `select` field, whose `options` are all of the documents in the referenced collections.
 
-> Note: _reverse_ relationships are not yet supported. For example, you'd likely want to view all of a given `author`'s `posts`. This is on our roadmap but not yet supported.
+## Summary
+
+- Your content is modeled in the .tina/schema.ts of your repo
+- Your content model contains an array "collections". A "collection" maps a content type to a directory in your repo.
+- A "collection" contains multiple fields, which can be of multiple scalar or non-scalar data types.

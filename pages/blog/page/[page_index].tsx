@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { NextSeo } from 'next-seo'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { orderPosts, formatExcerpt, formatDate } from '../../../utils'
-import { getFiles as getGithubFiles } from 'next-tinacms-github'
 import path from 'path'
 
 import {
@@ -14,10 +13,7 @@ import {
   RichTextWrapper,
 } from 'components/layout'
 import { DynamicLink, BlogPagination } from 'components/ui'
-import { InlineGithubForm } from 'components/layout/InlineGithubForm'
-import { useForm } from 'tinacms'
 import { getMarkdownPreviewProps } from 'utils/getMarkdownPreviewProps'
-import { PreviewData } from 'next-tinacms-github'
 const Index = props => {
   const { currentPage, numPages } = props
 
@@ -42,7 +38,7 @@ const Index = props => {
               <RichTextWrapper>
                 <BlogMeta>
                   <MetaBit>
-                    <span>By</span> {post.data.author}
+                    <span>By</span> <strong>{post.data.author}</strong>
                   </MetaBit>
                   <MetaBit>{formatDate(post.data.date)}</MetaBit>
                 </BlogMeta>
@@ -86,19 +82,12 @@ export const getStaticProps: GetStaticProps = async function({
   preview,
   previewData,
   ...ctx
-}: Partial<{ previewData: PreviewData<any>; preview: boolean }>) {
+}) {
   // @ts-ignore page_index should always be a single string
   const page = parseInt((ctx.params && ctx.params.page_index) || '1')
 
   try {
-    const files = preview
-      ? await getGithubFiles(
-          'content/blog',
-          previewData.working_repo_full_name,
-          previewData.head_branch,
-          previewData.github_access_token
-        )
-      : await getLocalFiles('content/blog')
+    const files = await getLocalFiles('content/blog')
 
     const posts = await Promise.all(
       // TODO - potentially making a lot of requests here
@@ -177,16 +166,13 @@ const BlogTitle = styled(({ children, ...styleProps }) => {
   font-family: var(--font-tuner);
   font-weight: regular;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: inherit;
   transition: all 180ms ease-out;
   line-height: 1.3;
   margin-bottom: 1.5rem;
   color: var(--color-secondary);
-  @media (min-width: 800px) {
-    font-size: 2rem;
-    max-width: 80%;
-  }
+  max-width: 38rem;
 `
 
 const BlogExcerpt = styled.a`
@@ -196,7 +182,7 @@ const BlogExcerpt = styled.a`
   &:focus {
     outline: none;
     ${BlogTitle} {
-      color: var(--color-primary) !important;
+      color: var(--color-orange) !important;
     }
   }
   &:focus {
@@ -208,22 +194,18 @@ const BlogExcerpt = styled.a`
   hr {
     transition: all 180ms ease-out;
   }
-  &:not(:focus) {
-    &:not(:hover) {
-      hr {
-        opacity: 0.3;
-        filter: saturate(0%);
-      }
-    }
-  }
 `
 
 const MetaBit = styled.p`
   display: flex;
   margin: 0 !important;
 
+  strong {
+    opacity: 0.7;
+  }
+
   span {
-    opacity: 0.5;
+    opacity: 0.7;
     margin-right: 0.25rem;
   }
 `
@@ -236,7 +218,6 @@ const BlogMeta = styled.div`
   flex-direction: column;
   margin-bottom: 1.5rem;
   margin-top: -0.5rem;
-  opacity: 0.5;
 
   @media (min-width: 550px) {
     flex-direction: row;

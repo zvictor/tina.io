@@ -1,87 +1,12 @@
 ---
-title: Next.js APIs
+title: Contextual Editing
 id: '/docs/tinacms-context'
+next: '/docs/graphql/overview'
 ---
 
-There are essentially two touch points you'll need set up in order for Tina to work with your Next.js application or website.
+After modelling our content, and using Tina's API for data-fetching, we can add TinaCMS to our site's frontend and add contextual editing.
 
-1. Load data from the TinaCMS GraphQL API from `getStaticProps`
-2. Conditionally wrap your app in the TinaCMS context
-
-## `getStaticPropsForTina`
-
-TinaCMS is easiest to work with when you provide a predictable shape to the props you return from `getStaticProps`. `getStaticPropsForTina` enforces this shape for you:
-
-```tsx
-// pages/home.js
-import { getStaticPropsForTina } from 'tinacms'
-
-const getStaticProps = async () => {
-  const tinaProps = await getStaticPropsForTina({
-    query: `
-      query GetPostDocument($relativePath: String!) {
-        getPostDocument(relativePath: $relativePath) {
-          title
-          body
-        }
-      }
-    `,
-    variables: {
-      relativePath: 'hello-world.md',
-    },
-  })
-
-  return {
-    ...tinaProps,
-    myOtherProp: 'some-other-data',
-  }
-}
-```
-
-```ts
-type getStaticPropsForTina = (args: {
-  query: string
-  variables?: object
-}) => Promise<{
-  query: string
-  variables?: object
-  data: object
-}>
-```
-
-> Note: for now, TinaCMS only supports static data fetching, so you must use `getStaticProps` (and `getStaticPaths` for dynamic pages). We'll be opening up more capabilities in the near future!
-
-## `staticRequest`
-
-You'll likely want to query the GraphQL API for [dynamic routes](https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation). `staticRequest` is a simple helper function which wraps the built-in `fetch` API:
-
-```js
-export const getStaticPaths = async () => {
-  const postsListData = await staticRequest({
-    query: gql`
-      query GetPostsList {
-        getPostsList {
-          edges {
-            node {
-              sys {
-                filename
-              }
-            }
-          }
-        }
-      }
-    `,
-  })
-
-  return {
-    paths: postsListData.getPostsList.edges.map(post => ({
-      params: { filename: post.node.sys.filename },
-    })),
-  }
-}
-```
-
-## `<TinaCMS>`
+## Adding Tina to the site's frontend
 
 To make data editable live on your site, you'll need to set up the TinaCMS context. The default import from `tinacms` is a context provider which sets up everything for you. You'll notice we're using a render prop pattern to pass `livePageProps` into your component.
 
@@ -92,36 +17,16 @@ import TinaCMS from 'tinacms'
 const App = ({ Component, pageProps }) => {
   return (
     <TinaCMS
-      // Required: The query from your `getStaticProps` request
-      query={pageProps.query}
-      // Required: The variables from your `getStaticProps` request
-      variables={pageProps.variables} // Variables used in your query
-      // Required: The data from your `getStaticProps` request
-      data={pageProps.data}
-      // Optional: Set to true when working with the local API
-      isLocalClient={true}
-      // Optional: When using Tina Cloud, specify the git branch
-      branch="main"
-      // Optional: Your identifier when connecting to Tina Cloud
-      clientId="<some-id-from-tina-cloud>"
-      // Optional: A callback for altering the CMS object if needed
-      cmsCallback={cms => {
-        cms.sidebar.position = 'overlay'
-      }}
-      // Optional: A callback for altering the form generation if needed
-      formifyCallback={args => {
-        if (args.formConfig.id === 'getNavDocument') {
-          return args.skip()
-        }
-        return args.createForm(args.formConfig)
-      }}
-      // Optional: A callback for altering the document creator plugin
-      documentCreatorCallback={args => {
-        onNewDocument: args =>
-          window.location.assign('https://my-site.com/my-new-url')
-      }}
+      /**
+       * The URL for the content API.
+       *
+       * When working locally, this should be http://localhost:4001/graphql.
+       *
+       * For Tina Cloud, use https://content.tinajs.io/content/my-client-id/github/my-branch
+       */
+      apiURL="http://localhost:4001/graphql"
     >
-      {livePageProps => <Component {...livePageProps} />}
+      <Component {...pageProps} />
     </TinaCMS>
   )
 }
@@ -129,7 +34,7 @@ const App = ({ Component, pageProps }) => {
 export default App
 ```
 
-## `<EditState />`
+## Code-splitting tinacms with `TinaEditProvider`
 
 We can leverage Next.js `dynamic` imports to avoid bundling TinaCMS with your production build:
 
@@ -144,8 +49,8 @@ const App = ({ Component, pageProps }) => {
     <>
       <TinaEditProvider
         editMode={
-          <TinaCMS {...pageProps}>
-            {livePageProps => <Component {...livePageProps} />}
+          <TinaCMS apiURL="http://localhost:4001/graphql">
+            <Component {...pageProps} />
           </TinaCMS>
         }
       >
@@ -158,40 +63,75 @@ const App = ({ Component, pageProps }) => {
 export default App
 ```
 
-You can enter and exit edit mode by tapping into the `useEditState` hook, a common pattern is to place this hook on an "admin" page, which simply puts you into edit mode and sends you back to the page you were on:
+Instead of having the full `tinacms` code in your production site, your main production bundle will just contain the much smaller `tinacms/dist/edit-state` bundle (>2kb).
 
-```tsx
-// pages/admin.js
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+## Entering / exiting edit-mode
 
-import { useEditState } from 'tinacms/dist/edit-state'
+You can log into edit mode by visiting `/admin` and log out of edit mode by visiting `/admin/logout`.
 
-const GoToEditPage = () => {
-  const { editState, setEdit } = useEditState()
-  const router = useRouter()
-  useEffect(() => {
-    setEdit(!editState)
-    // Go back to the page you were on previously
-    router.back()
-  }, [])
-  // Display a brief message to the user
-  return <div>Going into edit mode...</div>
-}
+> If you setup Tina with [`tinacms init`](/guides/tina-cloud/add-tinacms-to-existing-site/create-app/#adding-tina), this should already be setup for you in the `/pages/admin/[[...tina]].js` page.
 
-export default GoToEditPage
+If you do not have a `/pages/admin/[[...tina]].js` file, you can create it very easily with two lines:
+
+```
+import { TinaAdmin } from 'tinacms';
+export default TinaAdmin;
 ```
 
-Note that the `tinacms/dist/edit-state (>2kb)` code _will_ be in your production bundle with this pattern.
+## Adding contextual-editing to a page
 
-## FAQ
+Contextual editing can be setup on a page with the `useTina` hook
 
-### Do I need to use `getStaticPropsForTina` and `staticRequest`?
+```jsx
+// ...
+import { useTina } from 'tinacms/dist/edit-state'
 
-Absolutely not. These are helper functions which emphasize that static requests should only be made against your _local_ server. The `@tinacms/cli` runs a GraphQL server at `http://localhost:4001`, so feel free to use any HTTP client you'd like.
+const query = `{
+  getPageDocument(relativePath: "home.mdx"){
+    data{
+      body
+    }
+  }
+}`
 
-Note, however, that it's important to return an object from `getStaticProps` which has `data`, `query`, and `variables` properties so TinaCMS can make everything editable on your page.
+export default function Home(props) {
+  // Pass our data through the "useTina" hook to make it editable
+  const { data } = useTina({
+    query,
+    variables: {},
+    data: props.data,
+  })
 
-### How do I customize the CMS instance?
+// Note how our page body uses "data", and not the original "props.data".
+// This ensures that the content will be updated in edit-mode as the user types
+  return <h1>{data.getPageDocument.data.body}</h1>
+}
 
-TinaCMS is highly customizable, use the `cmsCallback` property to access the `TinaCMS` instance and customize to your heart's desire.
+export const getStaticProps = async () => {
+  const data = await staticRequest({
+      query,
+      variables = {},
+    })
+
+  // return the original data, which is used in our production page
+  return { props: { data } }
+}
+```
+
+![usetina-hello-world](https://res.cloudinary.com/forestry-demo/image/upload/q_32/v1643294947/tina-io/hello-world.png)
+
+### The `useTina` hook:
+
+`useTina` is used to make a piece of Tina content contextually editable. It is code-split, so that in production, this hook will simply pass through its data value. In edit-mode, it registers an editable form in the sidebar, and contextually updates its value as the user types.
+
+`useTina` takes in a parameter with a few keys:
+
+- `query` and `variables`: These are the same values that you would use for the [backend data-fetching](/docs/features/data-fetching/).
+- `data`: This is the production value that gets passed through to the response unchanged in production.
+
+## Summary
+
+- Tina can be added to a site's UI by wrapping its layout in the `<TinaCMS>` component.
+- The `<TinaEditProvider>` component should be used to dynamically code-split Tina out of your production site.
+- The Tina admin usually lives on the `/admin` route. This page allows editors to log in and enter edit-mode.
+- A piece of content can be made editable by running it through the `useTina` hook. In production, it returns the original data unchanged. In edit-mode, it returns the live data, which is updated as the user types in the sidebar.

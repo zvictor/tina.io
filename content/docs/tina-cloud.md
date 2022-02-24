@@ -1,25 +1,25 @@
 ---
-title: Tina Cloud
+title: Moving from Local-Mode to Prod-Mode
+id: '/docs/tina-cloud'
+next: '/docs/tina-cloud/dashboard'
 ---
 
-Tina Cloud is a multi-level backend solution for TinaCMS. Included in this solution is our expressive Content API and a Dashboard to easily manage sites and users.
+Tina's GraphQL Content API is flexible, in that it can be run locally using the Tina CLI ("Local Mode"), or your site can talk to our hosted content API in a production environment ("Prod Mode"), which persists changes to your GitHub repository.
 
-## Tina Cloud Dashboard
+## Local-Mode
 
-The Tina Cloud dashboard is used to connect sites with your editors. Through the dashboard, you can setup an app. An app connects to your site's GitHub repository, and authorizes Tina Cloud to push and pull content directly from the repository. You can also authenticate certain users to edit your site through the dashboard's user management page. Together, this allows users to login directly to your site and start editing the content while also simultaneously updating the content within the GitHub repository.
+When developers are developing locally, it's often convenient to load/save content from their local filesystem rather than connecting to the content on Tina Cloud.
 
-An important distinction to make is that unlike a traditional CMS dashboard, the Tina Cloud dashboard is not used to edit your content. The difference of the Tina Cloud dashboard is that the content editing capabilities are setup by you, the developer, using our TinaCMS toolkit.
+When in local-mode, you **will not** need to login to enter edit-mode.
 
+{{ WarningCallout text="Note: Local-mode is meant for developing locally, and will not work when your site is hosted on production. When in local-mode, Tina tries to hit `http://localhost:4001`, which isn't available at runtime on your production site (and neither is the underlying filesystem content)." }}
 
-## Content API
+## Prod-Mode
 
-Tina Cloud's Content API unlocks a few powerful features for the Tina experience. Firstly, Tina's Content API authenticates directly with GitHub therefore removing the need for your users to possess GitHub accounts. They are given access through the dashboard, and therefore can login directly through your site to begin editing!
+Once you are ready to host your site in production and put editing behind authentication, it's time to connect Tina Cloud.
 
-The Content API also houses our powerful GraphQL Gateway API. The GraphQL API is important for a variety of reasons:
+Tina's Content API authenticates directly with GitHub removing the need for users to create GitHub accounts. Access is granted through the dashboard, allowing users to login directly through your site and begin editing! Any changes that are saved by your editors will be commited to the configured branch in your GitHub repository.
 
-- **Editing Environment Flexibility:**
-  The GraphQL API works regardless of the datasource, allowing for flexibility during development. It can connect to your local filesystem for optional local development, or can be run through the server during production.
-- **Control over Content**:
-  The GraphQL API returns useful data in a way that makes sense for Tina development. It returns the data for the page as well as the form configuration needed for Tina forms. So, you as the developer only need to define your content model once and not have to worry about mirroring the model between the data source and Tina. The [Tina CLI](/docs/cli-overview/) also has helpful commands to autogenerate the GraphQL queries to be used in these API requests as well as the TypeScript types which match the data and forms.
-- **Link Resolution**:
-  The Content API leverages the power of GraphQL and thus can return data that is linked to another file, all within one request. You only need to query for what you need and nothing more.
+To start moving from local-mode to prod-mode, the next steps are to:
+- Push your repository to GitHub (if it isn't already)
+- Set up a project in the Tina Cloud dashboard. (See next page)
