@@ -232,5 +232,37 @@ export default defineSchema({
         },
       ],
     },
+    {
+      label: "Docs",
+      name: "docs",
+      path: "content/docs",
+      format: "md",
+      fields: [{
+        type: "string",
+        name: "title",
+        label: "Title",
+      },
+      {
+        type: "string",
+        name: "prev",
+        label: "Prev",
+      },
+      {
+        type: "string",
+        name: "next",
+        label: "Next",
+      },
+      {
+        type: "string",
+        name: "last_edited",
+        label: "Last Edited",
+      },
+      {
+        type: "rich-text",
+        name: "body",
+        label: "body",
+        isBody: true,
+      }]
+    }
   ],
 });

@@ -179,3 +179,11 @@ fragment PostParts on Post {
   }
   body
 }
+
+fragment DocsParts on Docs {
+  title
+  prev
+  next
+  last_edited
+  body
+}

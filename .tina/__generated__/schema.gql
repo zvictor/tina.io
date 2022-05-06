@@ -51,6 +51,8 @@ type Query {
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String): PageConnection!
   post(relativePath: String): Post!
   postConnection(before: String, after: String, first: Float, last: Float, sort: String): PostConnection!
+  docs(relativePath: String): Docs!
+  docsConnection(before: String, after: String, first: Float, last: Float, sort: String): DocsConnection!
 }
 
 type DocumentConnectionEdges {
@@ -76,7 +78,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String): DocumentConnection!
 }
 
-union DocumentNode = Page | Post
+union DocumentNode = Page | Post | Docs
 
 type PageSeo {
   title: String
@@ -311,6 +313,28 @@ type PostConnection implements Connection {
   edges: [PostConnectionEdges]
 }
 
+type Docs implements Node & Document {
+  title: String
+  prev: String
+  next: String
+  last_edited: String
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type DocsConnectionEdges {
+  cursor: String!
+  node: Docs
+}
+
+type DocsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [DocsConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
@@ -320,11 +344,14 @@ type Mutation {
   createPage(relativePath: String!, params: PageMutation!): Page!
   updatePost(relativePath: String!, params: PostMutation!): Post!
   createPost(relativePath: String!, params: PostMutation!): Post!
+  updateDocs(relativePath: String!, params: DocsMutation!): Docs!
+  createDocs(relativePath: String!, params: DocsMutation!): Docs!
 }
 
 input DocumentMutation {
   page: PageMutation
   post: PostMutation
+  docs: DocsMutation
 }
 
 input PageSeoMutation {
@@ -538,6 +565,14 @@ input PostMutation {
   author: String
   prev: String
   next: String
+  body: JSON
+}
+
+input DocsMutation {
+  title: String
+  prev: String
+  next: String
+  last_edited: String
   body: JSON
 }
 

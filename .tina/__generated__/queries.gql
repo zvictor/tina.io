@@ -67,3 +67,38 @@ query postConnection {
     }
   }
 }
+
+query docs($relativePath: String!) {
+  docs(relativePath: $relativePath) {
+    _sys {
+      filename
+      basename
+      breadcrumbs
+      path
+      relativePath
+      extension
+    }
+    id
+    ...DocsParts
+  }
+}
+
+query docsConnection {
+  docsConnection {
+    totalCount
+    edges {
+      node {
+        id
+        _sys {
+          filename
+          basename
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        ...DocsParts
+      }
+    }
+  }
+}
