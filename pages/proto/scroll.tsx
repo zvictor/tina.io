@@ -68,11 +68,11 @@ const data = {
     {
       name: 'Git Commit',
       background: 'dark',
-      width: '100',
-      height: '45',
+      width: '90',
+      height: '50',
       positions: {
         schema: 'out-bottom',
-        git: 'front-top',
+        git: 'foreground-top',
         default: 'out-top',
       },
     },
@@ -283,12 +283,12 @@ const Story = ({ id }) => {
         }
 
         .foreground-right {
-          transform: rotateY(-10deg) translate3d(5%, 0, 75px);
+          transform: rotateY(-10deg) translate3d(5%, 0, 100px);
           z-index: 10;
         }
 
-        .front-top {
-          transform: rotateY(-10deg) translate3d(0, 0, 50px);
+        .foreground-top {
+          transform: rotateY(-10deg) translate3d(5%, -5%, 100px);
         }
 
         .out-top {
@@ -319,10 +319,13 @@ const Page = props => {
           width: 100vw;
           height: 100vh;
           background: linear-gradient(
-            to bottom right,
-            #1b61b1,
-            #0f0f67,
-            #0e032a
+            to bottom,
+            #2ab7cf,
+            #2280c3 12%,
+            #163f92 30%,
+            #0f0f67 50%,
+            #140845 70%,
+            #0f0f67 100%
           );
           overflow-y: auto;
         }
