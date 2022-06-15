@@ -1,37 +1,88 @@
 import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
 
-const data = [
-  {
-    id: '1',
-    title: 'Really Important Super Awesome Headline Text',
-    description:
-      'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
-  },
-  {
-    id: '2',
-    title: 'Really Important Super Awesome Headline Text',
-    description:
-      'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
-  },
-  {
-    id: '3',
-    title: 'Really Important Super Awesome Headline Text',
-    description:
-      'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
-  },
-  {
-    id: '4',
-    title: 'Really Important Super Awesome Headline Text',
-    description:
-      'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
-  },
-]
+const data = {
+  features: [
+    {
+      id: 'editing',
+      title: 'Really Important Super Awesome Headline Text',
+      description:
+        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+    },
+    {
+      id: 'file',
+      title: 'Really Important Super Awesome Headline Text',
+      description:
+        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+    },
+    {
+      id: 'schema',
+      title: 'Really Important Super Awesome Headline Text',
+      description:
+        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+    },
+    {
+      id: 'git',
+      title: 'Really Important Super Awesome Headline Text',
+      description:
+        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+    },
+  ],
+  panes: [
+    {
+      name: 'Contextual Editing',
+      background: 'light',
+      width: '100',
+      height: '100',
+      positions: {
+        editing: 'front',
+        file: 'back',
+        schema: 'front',
+        git: 'back',
+        default: 'out-top',
+      },
+    },
+    {
+      name: 'File System',
+      background: 'dark',
+      width: '100',
+      height: '100',
+      positions: {
+        editing: 'back',
+        file: 'front',
+        default: 'out-top',
+      },
+    },
+    {
+      name: 'Schema',
+      background: 'dark',
+      width: '50',
+      height: '100',
+      basePosition: 'absolute-right',
+      positions: {
+        schema: 'foreground-right',
+        git: 'out-top',
+        default: 'out-bottom',
+      },
+    },
+    {
+      name: 'Git Commit',
+      background: 'dark',
+      width: '100',
+      height: '45',
+      positions: {
+        schema: 'out-bottom',
+        git: 'front-top',
+        default: 'out-top',
+      },
+    },
+  ],
+}
 
 const Feature = ({ setActiveId, item }) => {
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0.33,
+    threshold: 0.5,
   })
 
   React.useEffect(() => {
@@ -56,6 +107,7 @@ const Feature = ({ setActiveId, item }) => {
           padding: 32px 0;
           opacity: 0.3;
           transition: opacity 0.5s ease-in-out;
+          margin-bottom: 64px;
         }
 
         .visible {
@@ -72,6 +124,7 @@ const Feature = ({ setActiveId, item }) => {
           font-size: 54px;
           line-height: 1.25;
           font-weight: 600;
+          color: white;
           margin-bottom: 32px;
         }
 
@@ -79,35 +132,48 @@ const Feature = ({ setActiveId, item }) => {
           font-size: 22px;
           line-height: 1.8;
           font-weight: 400;
+          color: white;
         }
       `}</style>
     </>
   )
 }
 
-const Story = () => {
+const Story = ({ id }) => {
   const [activeId, setActiveId] = React.useState(null)
 
   return (
     <>
       <div className="container">
         <div className="left">
-          {data.map(item => (
+          {data.features.map(item => (
             <Feature setActiveId={setActiveId} item={item} />
           ))}
         </div>
         <div className="right">
           <div className="preview-wrapper">
             <div className="preview">
-              {data.map(item => (
+              {/* {
+              name: 'Schema',
+              background: 'dark',
+              width: '33',
+              height: '100',
+              positions: {
+                schema: 'foreground-right',
+                git: 'out-top',
+                default: 'out-bottom',
+              },
+            }, */}
+              {data.panes.map(pane => (
                 <div
-                  className={`pane ${
-                    activeId === item.id
-                      ? ''
-                      : activeId > item.id
-                      ? 'pane-after'
-                      : 'pane-before'
+                  className={`pane ${pane.background} ${
+                    pane.basePosition ? pane.basePosition : ''
+                  } ${
+                    pane.positions[activeId]
+                      ? pane.positions[activeId]
+                      : pane.positions.default
                   }`}
+                  style={{ width: pane.width + '%', height: pane.height + '%' }}
                 ></div>
               ))}
             </div>
@@ -171,29 +237,68 @@ const Story = () => {
           display: block;
           width: 100%;
           height: 100%;
+          perspective: 1000px;
+        }
+
+        .dark {
+          border: 1px solid #10267f;
+          background: linear-gradient(
+            to bottom right,
+            #0e032a,
+            #140845,
+            #0f0f67
+          );
+        }
+
+        .light {
+          border: 1px solid #d1faf6;
+          background: linear-gradient(
+            to bottom right,
+            #e6faf8,
+            #c2f7eb,
+            #a5eddc
+          );
         }
 
         .pane {
           position: absolute;
           display: block;
-          width: 100%;
-          height: 100%;
           border-radius: 10px;
-          background: #fff;
-          border: 1px solid #d1faf6;
-          box-shadow: 16px 16px 32px rgba(155, 155, 155, 0.1);
+          box-shadow: 16px 16px 32px rgba(14, 3, 42, 0.1);
           transition: all 0.5s ease-out;
-          opacity: 1;
+          transform: rotateY(-10deg) translate3d(0, 0, 0);
         }
 
-        .pane-after {
-          transform: translate3d(0, -100vh, 0);
+        .absolute-right {
+          right: 0;
+        }
+
+        .back {
+          transform: rotateY(-10deg) translate3d(7%, 14%, -50px);
+          z-index: -1;
+        }
+
+        .front {
+          transform: rotateY(-10deg) translate3d(0, 0, 0);
+        }
+
+        .foreground-right {
+          transform: rotateY(-10deg) translate3d(5%, 0, 75px);
+          z-index: 10;
+        }
+
+        .front-top {
+          transform: rotateY(-10deg) translate3d(0, 0, 50px);
+        }
+
+        .out-top {
+          transform: rotateY(-10deg) translate3d(0, -100vh, 0);
           transition: all 0.5s ease-in;
           opacity: 0;
         }
 
-        .pane-before {
-          transform: translate3d(0, 100vh, 0);
+        .out-bottom {
+          transform: rotateY(-10deg) translate3d(0, 100vh, 0);
           opacity: 0;
         }
       `}</style>
@@ -207,13 +312,18 @@ const Page = props => {
       <div className="wrapper">
         <Story />
         <div className="other-section"></div>
-        <Story />
+        <Story id={2} />
       </div>
       <style jsx>{`
         .wrapper {
           width: 100vw;
           height: 100vh;
-          background: #f2fdfc;
+          background: linear-gradient(
+            to bottom right,
+            #1b61b1,
+            #0f0f67,
+            #0e032a
+          );
           overflow-y: auto;
         }
 
@@ -221,7 +331,12 @@ const Page = props => {
           display: block;
           width: 100%;
           height: 50vh;
-          background: black;
+          background: linear-gradient(
+            to bottom right,
+            #e6faf8,
+            #c2f7eb,
+            #a5eddc
+          );
         }
       `}</style>
     </>
