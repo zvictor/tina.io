@@ -91,6 +91,18 @@ const Feature = ({ activeId, setActiveId, item }) => {
     }
   }, [inView])
 
+  React.useEffect(() => {
+    if (activeId === item.id && !inView) {
+      setActiveId(null)
+    }
+  }, [activeId, inView])
+
+  React.useEffect(() => {
+    if (activeId === null && inView) {
+      setActiveId(item.id)
+    }
+  }, [activeId])
+
   return (
     <>
       <div
@@ -134,13 +146,24 @@ const Feature = ({ activeId, setActiveId, item }) => {
         }
 
         h2 {
+          display: block;
           font-size: unquote('clamp(2rem, 1.75rem + 2vw, 3.375em)');
           line-height: 1.25;
           font-weight: 600;
-          color: white;
+          color: transparent;
           margin-bottom: 32px;
+          background: linear-gradient(
+            to bottom right,
+            #fff,
+            #e6faf8,
+            #c2f7eb,
+            #a5eddc,
+            #96e7d8
+          );
           text-shadow: 0 0 3px rgba(104, 217, 212, 0.3),
             0 0 16px rgba(104, 217, 212, 0.2);
+          -webkit-background-clip: text;
+          background-clip: text;
         }
 
         p {
@@ -228,6 +251,7 @@ const Story = ({ id }) => {
         .right {
           width: 90%;
           position: sticky;
+
           top: 72px;
           display: flex;
           margin: 0 auto;
@@ -284,9 +308,9 @@ const Story = ({ id }) => {
             #163f92 90%,
             #1b61b1
           );
-          box-shadow: inset 0 0 128px rgba(27, 97, 177, 0.2),
+          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
-            16px 16px 64px rgba(14, 3, 42, 0.5);
+            16px 16px 64px rgba(16, 38, 127, 0.5);
         }
 
         .light {
