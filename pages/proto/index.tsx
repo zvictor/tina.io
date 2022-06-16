@@ -37,7 +37,7 @@ const data = {
       positions: {
         editing: 'front',
         file: 'back',
-        schema: 'front',
+        schema: 'front-bottom',
         git: 'back',
         default: 'out-bottom',
       },
@@ -348,8 +348,12 @@ const Story = ({ id }) => {
           transform: rotateY(var(--right-rotation)) translate3d(-4%, -7%, 25px);
         }
 
+        .front-bottom {
+          transform: rotateY(var(--right-rotation)) translate3d(-4%, 7%, 25px);
+        }
+
         .foreground {
-          transform: rotateY(var(--right-rotation)) translate3d(4%, -14%, 100px);
+          transform: rotateY(var(--right-rotation)) translate3d(4%, -7%, 100px);
         }
 
         .out-top {
@@ -393,6 +397,8 @@ const Page = props => {
         }
 
         .other-section {
+          position: relative;
+          z-index: 1000;
           display: block;
           width: 100%;
           height: 50vh;
