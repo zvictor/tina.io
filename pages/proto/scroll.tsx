@@ -79,10 +79,10 @@ const data = {
   ],
 }
 
-const Feature = ({ setActiveId, item }) => {
+const Feature = ({ activeId, setActiveId, item }) => {
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0.5,
+    threshold: 0.33,
   })
 
   React.useEffect(() => {
@@ -93,7 +93,10 @@ const Feature = ({ setActiveId, item }) => {
 
   return (
     <>
-      <div ref={ref} className={`feature ${inView ? 'visible' : ''}`}>
+      <div
+        ref={ref}
+        className={`feature ${inView && activeId === item.id ? 'visible' : ''}`}
+      >
         <h2>{item.title}</h2>
         <p>{item.description}</p>
       </div>
@@ -103,14 +106,22 @@ const Feature = ({ setActiveId, item }) => {
           flex-direction: column;
           justify-content: flex-start;
           align-items: stretch;
-          min-height: 100vh;
           padding: 32px 0;
-          opacity: 0.3;
+          opacity: 0.1;
           transition: opacity 0.5s ease-in-out;
           margin-bottom: 64px;
+          filter: blur(2px);
+        }
+
+        @media (min-width: 1200px) {
+          .feature {
+            min-height: 100vh;
+            opacity: 0.3;
+          }
         }
 
         .visible {
+          filter: none;
           opacity: 1;
         }
 
@@ -126,13 +137,17 @@ const Feature = ({ setActiveId, item }) => {
           font-weight: 600;
           color: white;
           margin-bottom: 32px;
+          text-shadow: 0 0 3px rgba(104, 217, 212, 0.3),
+            0 0 16px rgba(104, 217, 212, 0.2);
         }
 
         p {
           font-size: 22px;
           line-height: 1.8;
           font-weight: 400;
-          color: white;
+          color: #68d9d4;
+          text-shadow: 0 0 3px rgba(104, 217, 212, 0.3),
+            0 0 6px rgba(104, 217, 212, 0.2);
         }
       `}</style>
     </>
@@ -147,23 +162,16 @@ const Story = ({ id }) => {
       <div className="container">
         <div className="left">
           {data.features.map(item => (
-            <Feature setActiveId={setActiveId} item={item} />
+            <Feature
+              activeId={activeId}
+              setActiveId={setActiveId}
+              item={item}
+            />
           ))}
         </div>
         <div className="right">
           <div className="preview-wrapper">
             <div className="preview">
-              {/* {
-              name: 'Schema',
-              background: 'dark',
-              width: '33',
-              height: '100',
-              positions: {
-                schema: 'foreground-right',
-                git: 'out-top',
-                default: 'out-bottom',
-              },
-            }, */}
               {data.panes.map(pane => (
                 <div
                   className={`pane ${pane.background} ${
@@ -189,17 +197,21 @@ const Story = ({ id }) => {
           display: flex;
           flex-direction: column-reverse;
           gap: 32px;
-          padding: 0 32px;
+          padding: 48px 32px;
+          transform-style: preserve-3d;
         }
 
         @media (min-width: 1200px) {
           .container {
+            padding: 0 32px;
             flex-direction: row;
           }
         }
 
         .left {
           width: 100%;
+          transform: rotateY(3deg) translate3d(0, 0, 0);
+          transform-style: preserve-3d;
         }
 
         @media (min-width: 1200px) {
@@ -211,10 +223,12 @@ const Story = ({ id }) => {
         .right {
           width: 80%;
           position: sticky;
-          top: 32px;
+          top: 48px;
           display: flex;
           flex-direction: column;
           justify-content: center;
+          transform-style: preserve-3d;
+          margin-bottom: 48px;
         }
 
         @media (min-width: 1200px) {
@@ -222,6 +236,7 @@ const Story = ({ id }) => {
             width: 60%;
             height: 100vh;
             top: 0;
+            margin-bottom: 0;
           }
         }
 
@@ -230,6 +245,7 @@ const Story = ({ id }) => {
           width: 100%;
           height: 0;
           padding-bottom: 70%;
+          transform-style: preserve-3d;
         }
 
         .preview {
@@ -237,6 +253,7 @@ const Story = ({ id }) => {
           display: block;
           width: 100%;
           height: 100%;
+          transform-style: preserve-3d;
           perspective: 1000px;
         }
 
@@ -248,23 +265,27 @@ const Story = ({ id }) => {
             #140845,
             #0f0f67
           );
+          box-shadow: inset 0 0 128px rgba(27, 97, 177, 0.2),
+            4px 4px 16px rgba(27, 97, 177, 0.2),
+            16px 16px 64px rgba(14, 3, 42, 0.5);
         }
 
         .light {
-          border: 1px solid #d1faf6;
+          border: 1px solid #c2f7eb;
           background: linear-gradient(
             to bottom right,
             #e6faf8,
             #c2f7eb,
             #a5eddc
           );
+          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
+            16px 16px 64px rgba(27, 97, 177, 0.5);
         }
 
         .pane {
           position: absolute;
           display: block;
           border-radius: 10px;
-          box-shadow: 16px 16px 32px rgba(14, 3, 42, 0.1);
           transition: all 0.5s ease-out;
           transform: rotateY(-10deg) translate3d(0, 0, 0);
         }
@@ -309,7 +330,7 @@ const Story = ({ id }) => {
 const Page = props => {
   return (
     <>
-      <div className="wrapper">
+      <div className={`wrapper depth-3`}>
         <Story />
         <div className="other-section"></div>
         <Story id={2} />
@@ -318,6 +339,8 @@ const Page = props => {
         .wrapper {
           width: 100vw;
           height: 100vh;
+          perspective: 10000px;
+          overflow-y: auto;
           background: linear-gradient(
             to bottom,
             #2ab7cf,
@@ -327,7 +350,6 @@ const Page = props => {
             #140845 70%,
             #0f0f67 100%
           );
-          overflow-y: auto;
         }
 
         .other-section {
