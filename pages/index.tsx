@@ -1,5 +1,42 @@
 import * as React from 'react'
+import { Panel } from 'react-instantsearch-dom'
 import { useInView } from 'react-intersection-observer'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+
+const Div = () => {
+  return (
+    <>
+      <svg
+        width="100"
+        height="1"
+        viewBox="0 0 100 1"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="6"
+          y1="0.5"
+          x2="97"
+          y2="0.5"
+          stroke="#2AB7CF"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-dasharray="10 21"
+        />
+      </svg>
+      <style jsx>{`
+        svg {
+          position: relative;
+          width: 7em;
+          margin: 28px 0;
+          opacity: 0.2;
+          overflow: visible;
+        }
+      `}</style>
+    </>
+  )
+}
 
 const Blob = () => {
   return (
@@ -137,12 +174,12 @@ const ContextualPreview = () => {
         .button {
           background: rgb(5, 116, 228);
           color: white;
-          padding: 8px 24px;
+          padding: 0.3em 0.75em;
           border-radius: 5em;
           display: block;
           text-align: center;
           font-weight: bold;
-          font-size: 1.125em;
+          font-size: 1.1875em;
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -282,6 +319,13 @@ const data = {
       background: 'dark',
       width: '100',
       height: '100',
+      language: 'md',
+      textScale: 1.375,
+      code: `---
+title: Super Awesome Headline
+---
+
+This is a description`,
       positions: {
         editing: 'back',
         file: 'front',
@@ -295,6 +339,18 @@ const data = {
       width: '60',
       height: '90',
       basePosition: 'absolute-right',
+      language: 'json',
+      textScale: 1,
+      code: `{
+  type: "string",
+  label: "Title",
+  name: "title"
+},
+{
+  type: "string",
+  label: " Description",
+  name: "description",
+},`,
       positions: {
         schema: 'foreground',
         git: 'out-right',
@@ -306,6 +362,13 @@ const data = {
       background: 'dark',
       width: '95',
       height: '50',
+      language: 'md',
+      textScale: 0.9,
+      code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
+Author: Scott Gallant <scottgallant@gmail.com>
+Date:   Thu May 26 13:31:02 2022 -0300
+
+    Update From Tina`,
       positions: {
         schema: 'out-bottom',
         git: 'front',
@@ -350,6 +413,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
               {item.title}
             </span>
           </div>
+          <Div />
           <p>{item.description}</p>
         </div>
       </div>
@@ -394,7 +458,6 @@ const Feature = ({ activeId, setActiveId, item }) => {
         h2 {
           display: block;
           color: transparent;
-          margin-bottom: 32px;
           background: linear-gradient(
             to bottom right,
             #fff,
@@ -477,6 +540,21 @@ const Story = ({ id }) => {
                   style={{ width: pane.width + '%', height: pane.height + '%' }}
                 >
                   {pane.component && <pane.component />}
+                  {pane.code && (
+                    <div
+                      style={{
+                        fontSize:
+                          1.5 * (pane.textScale ? pane.textScale : 1) + 'em',
+                      }}
+                    >
+                      <SyntaxHighlighter
+                        languag={pane.language ? pane.language : 'javascript'}
+                        useInlineStyles={false}
+                      >
+                        {pane.code}
+                      </SyntaxHighlighter>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -574,8 +652,9 @@ const Story = ({ id }) => {
           background: linear-gradient(
             to bottom right,
             #140845,
-            #10267f 60%,
-            #163f92 90%,
+            #0f0f67 40%,
+            #10267f 65%,
+            #163f92 85%,
             #1b61b1
           );
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
@@ -644,6 +723,30 @@ const Story = ({ id }) => {
             translate3d(-4%, 100%, -25px);
           opacity: 0;
         }
+
+        /* Code Styles */
+
+        :global(.hljs) {
+          padding: 24px 32px;
+          color: #b4f4e0;
+          font-weight: medium;
+        }
+
+        :global(.hljs-number) {
+          color: #68d9d4;
+        }
+
+        :global(.hljs-meta) {
+          color: #1b61b1;
+        }
+
+        :global(.hljs-attr) {
+          color: #d07ea5;
+        }
+
+        :global(.hljs-string) {
+          color: #68d9d4;
+        }
       `}</style>
     </>
   )
@@ -666,12 +769,12 @@ const Page = props => {
           overflow-x: hidden;
           background: linear-gradient(
             to bottom right,
-            #2ab7cf,
-            #2280c3 12%,
-            #163f92 30%,
-            #0f0f67 50%,
-            #140845 70%,
-            #0f0f67 100%
+            #2ab7cf 3%,
+            #2280c3 10%,
+            #163f92 25%,
+            #0f0f67 40%,
+            #0e032a 70%,
+            #140845 100%
           );
         }
 
