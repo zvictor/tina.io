@@ -598,6 +598,7 @@ const Story = ({ id }) => {
         .right {
           width: 90%;
           position: sticky;
+          -moz-position: sticky;
 
           top: 72px;
           display: flex;
@@ -749,6 +750,9 @@ const Story = ({ id }) => {
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
+            0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
+            0 0 42px rgba(104, 217, 212, 0.2), 0 0 82px rgba(104, 217, 212, 0.2);
         }
 
         :global(.hljs-number) {
