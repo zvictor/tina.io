@@ -362,13 +362,12 @@ This is a description`,
       background: 'dark',
       width: '95',
       height: '50',
-      language: 'md',
+      language: 'shell',
       textScale: 0.9,
       code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
-Author: Scott Gallant <scottgallant@gmail.com>
-Date:   Thu May 26 13:31:02 2022 -0300
-
-    Update From Tina`,
+Author:  Scott Gallant <scottgallant@gmail.com>
+Date:    Thu May 26 13:31:02 2022 -0300
+Message: Update From Tina`,
       positions: {
         schema: 'out-bottom',
         git: 'front',
@@ -648,18 +647,36 @@ const Story = ({ id }) => {
         }
 
         .dark {
-          border: 1px solid #163f92;
-          background: linear-gradient(
-            to bottom right,
-            #140845,
-            #0f0f67 40%,
-            #10267f 65%,
-            #163f92 85%,
-            #1b61b1
-          );
+          border: 1px solid #10267f;
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
             16px 16px 64px rgba(16, 38, 127, 0.5);
+          background: linear-gradient(
+            to bottom right,
+            #0e032a,
+            #140845 30%,
+            #0f0f67 70%,
+            #10267f
+          );
+        }
+
+        .dark:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.1;
+          background: repeating-linear-gradient(
+            #a5eddc,
+            #68d9d4 2px,
+            #0f0f67 4px,
+            #140845 5px,
+            #0f0f67 6px
+          );
+          mix-blend-mode: overlay;
         }
 
         .light {
@@ -727,9 +744,11 @@ const Story = ({ id }) => {
         /* Code Styles */
 
         :global(.hljs) {
-          padding: 24px 32px;
+          padding: 32px;
           color: #b4f4e0;
           font-weight: medium;
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas,
+            'Liberation Mono', 'Courier New', monospace;
         }
 
         :global(.hljs-number) {
@@ -740,7 +759,8 @@ const Story = ({ id }) => {
           color: #1b61b1;
         }
 
-        :global(.hljs-attr) {
+        :global(.hljs-attr),
+        :global(.hljs-attribute) {
           color: #d07ea5;
         }
 
