@@ -205,22 +205,6 @@ export const GlobalStyle = React.memo(createGlobalStyle`
       line-height: inherit;
       font-size: 100%;
       font-weight: inherit;
-      scrollbar-width: thin;
-      scrollbar-color: #E1DDEC var(--color-light);
-      
-      &::-webkit-scrollbar {
-        width: 9px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-        border-left: 1px solid var(--color-light-dark);
-        border-right: 1px solid var(--color-light-dark);
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: #E1DDEC;
-        border-radius: 0;
-        border: none;
-      }
     }
   }
 
