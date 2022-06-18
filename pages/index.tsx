@@ -3,105 +3,6 @@ import { Panel } from 'react-instantsearch-dom'
 import { useInView } from 'react-intersection-observer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 
-const Div = () => {
-  return (
-    <>
-      <svg
-        width="100"
-        height="1"
-        viewBox="0 0 100 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line
-          x1="6"
-          y1="0.5"
-          x2="97"
-          y2="0.5"
-          stroke="#2AB7CF"
-          stroke-width="8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-dasharray="10 21"
-        />
-      </svg>
-      <style jsx>{`
-        svg {
-          position: relative;
-          width: 7em;
-          margin: 28px 0;
-          opacity: 0.2;
-          overflow: visible;
-        }
-      `}</style>
-    </>
-  )
-}
-
-const Blob = () => {
-  return (
-    <svg
-      width="608"
-      height="525"
-      viewBox="0 0 608 525"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0 525V130.063C105.413 43.294 205.133 172.06 321.236 73.9557C414.659 -4.98417 504.085 -21.9449 608 28.9413V525H0Z"
-        fill="url(#paint0_linear_173_315)"
-      />
-      <defs>
-        <linearGradient
-          id="paint0_linear_173_315"
-          x1="619.97"
-          y1="520.204"
-          x2="-87.4212"
-          y2="183.865"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#1B61B1" />
-          <stop offset="0.505208" stop-color="#2AB7CF" />
-          <stop offset="1" stop-color="#B4F4E0" />
-        </linearGradient>
-      </defs>
-    </svg>
-  )
-}
-
-const BlobTwo = () => {
-  return (
-    <svg
-      width="608"
-      height="221"
-      viewBox="0 0 608 221"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0 220.71V5.26465C164.864 -29.8316 95.9211 123.444 248.296 85.7615C400.671 48.0792 425.65 161.126 608 74.7173V220.71H0Z"
-        fill="url(#paint0_linear_173_316)"
-      />
-      <defs>
-        <linearGradient
-          id="paint0_linear_173_316"
-          x1="619.97"
-          y1="218.694"
-          x2="239.424"
-          y2="-211.696"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#1B61B1" />
-          <stop offset="0.505208" stop-color="#2AB7CF" />
-          <stop offset="1" stop-color="#B4F4E0" />
-        </linearGradient>
-      </defs>
-    </svg>
-  )
-}
-
 const ContextualPreview = () => {
   const [formData, setFormData] = React.useState({
     title: {
@@ -319,13 +220,16 @@ const data = {
       background: 'dark',
       width: '100',
       height: '100',
-      language: 'md',
-      textScale: 1.375,
-      code: `---
+      file: {
+        name: 'about.md',
+        language: 'md',
+        textScale: 1.375,
+        code: `---
 title: Super Awesome Headline
 ---
 
 This is a description`,
+      },
       positions: {
         editing: 'back',
         file: 'front',
@@ -339,9 +243,11 @@ This is a description`,
       width: '60',
       height: '90',
       basePosition: 'absolute-right',
-      language: 'json',
-      textScale: 1,
-      code: `{
+      file: {
+        name: 'schema.tsx',
+        language: 'json',
+        textScale: 1,
+        code: `{
   type: "string",
   label: "Title",
   name: "title"
@@ -351,6 +257,7 @@ This is a description`,
   label: " Description",
   name: "description",
 },`,
+      },
       positions: {
         schema: 'foreground',
         git: 'out-right',
@@ -362,12 +269,15 @@ This is a description`,
       background: 'dark',
       width: '95',
       height: '50',
-      language: 'shell',
-      textScale: 0.9,
-      code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
+      file: {
+        name: 'Command Line',
+        language: 'shell',
+        textScale: 0.9,
+        code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
 Author:  Scott Gallant <scottgallant@gmail.com>
 Date:    Thu May 26 13:31:02 2022 -0300
 Message: Update From Tina`,
+      },
       positions: {
         schema: 'out-bottom',
         git: 'front',
@@ -375,6 +285,105 @@ Message: Update From Tina`,
       },
     },
   ],
+}
+
+const Div = () => {
+  return (
+    <>
+      <svg
+        width="100"
+        height="1"
+        viewBox="0 0 100 1"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="6"
+          y1="0.5"
+          x2="97"
+          y2="0.5"
+          stroke="#2AB7CF"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-dasharray="10 21"
+        />
+      </svg>
+      <style jsx>{`
+        svg {
+          position: relative;
+          width: 7em;
+          margin: 28px 0;
+          opacity: 0.2;
+          overflow: visible;
+        }
+      `}</style>
+    </>
+  )
+}
+
+const Blob = () => {
+  return (
+    <svg
+      width="608"
+      height="525"
+      viewBox="0 0 608 525"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 525V130.063C105.413 43.294 205.133 172.06 321.236 73.9557C414.659 -4.98417 504.085 -21.9449 608 28.9413V525H0Z"
+        fill="url(#paint0_linear_173_315)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_173_315"
+          x1="619.97"
+          y1="520.204"
+          x2="-87.4212"
+          y2="183.865"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#1B61B1" />
+          <stop offset="0.505208" stop-color="#2AB7CF" />
+          <stop offset="1" stop-color="#B4F4E0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
+
+const BlobTwo = () => {
+  return (
+    <svg
+      width="608"
+      height="221"
+      viewBox="0 0 608 221"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 220.71V5.26465C164.864 -29.8316 95.9211 123.444 248.296 85.7615C400.671 48.0792 425.65 161.126 608 74.7173V220.71H0Z"
+        fill="url(#paint0_linear_173_316)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_173_316"
+          x1="619.97"
+          y1="218.694"
+          x2="239.424"
+          y2="-211.696"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#1B61B1" />
+          <stop offset="0.505208" stop-color="#2AB7CF" />
+          <stop offset="1" stop-color="#B4F4E0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
 }
 
 const Feature = ({ activeId, setActiveId, item }) => {
@@ -489,7 +498,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
             0 0 82px rgba(104, 217, 212, 0.33),
             0 0 102px rgba(42, 183, 207, 0.55),
             0 0 156px rgba(42, 183, 207, 0.66);
-          transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
 
         .visible .title-glow {
@@ -539,20 +548,31 @@ const Story = ({ id }) => {
                   style={{ width: pane.width + '%', height: pane.height + '%' }}
                 >
                   {pane.component && <pane.component />}
-                  {pane.code && (
-                    <div
-                      style={{
-                        fontSize:
-                          1.5 * (pane.textScale ? pane.textScale : 1) + 'em',
-                      }}
-                    >
-                      <SyntaxHighlighter
-                        languag={pane.language ? pane.language : 'javascript'}
-                        useInlineStyles={false}
+                  {pane.file && (
+                    <>
+                      {pane.file.name && (
+                        <div className="filename">{pane.file.name}</div>
+                      )}
+                      <div
+                        style={{
+                          fontSize:
+                            1.5 *
+                              (pane.file.textScale ? pane.file.textScale : 1) +
+                            'em',
+                        }}
                       >
-                        {pane.code}
-                      </SyntaxHighlighter>
-                    </div>
+                        <SyntaxHighlighter
+                          languag={
+                            pane.file.language
+                              ? pane.file.language
+                              : 'javascript'
+                          }
+                          useInlineStyles={false}
+                        >
+                          {pane.file.code}
+                        </SyntaxHighlighter>
+                      </div>
+                    </>
                   )}
                 </div>
               ))}
@@ -659,6 +679,7 @@ const Story = ({ id }) => {
             #0f0f67 70%,
             #10267f
           );
+          border-radius: 0 10px 10px 10px;
         }
 
         .dark:after {
@@ -678,6 +699,7 @@ const Story = ({ id }) => {
             #0f0f67 6px
           );
           mix-blend-mode: overlay;
+          border-radius: 0 10px 10px 10px;
         }
 
         .light {
@@ -689,17 +711,43 @@ const Story = ({ id }) => {
           );
           box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
             16px 16px 64px rgba(27, 97, 177, 0.5);
+          border-radius: 10px;
+          overflow: hidden;
         }
 
         .pane {
           position: absolute;
           display: block;
-          border-radius: 10px;
           transition-duration: 750ms;
           transition-property: all;
           transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
           transform: rotateY(-10deg) translate3d(0, 0, 0);
-          overflow: hidden;
+        }
+
+        .filename {
+          position: absolute;
+          display: block;
+          top: 0;
+          left: 0;
+          transform: translate3d(-1px, -100%, 0);
+          padding: 8px 32px;
+          border-radius: 10px 10px 0 0;
+          font-size: 1.125em;
+          color: #68d9d4;
+          font-weight: bold;
+          lettter-spacing: 0.1em;
+          border: 1px solid #10267f;
+          border-bottom: none;
+          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
+            4px 4px 16px rgba(27, 97, 177, 0.2),
+            16px 16px 64px rgba(16, 38, 127, 0.5);
+          background: linear-gradient(to bottom right, #0f0f67, #0e032a);
+          font-weight: medium;
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas,
+            'Liberation Mono', 'Courier New', monospace;
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
+            0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
+            0 0 42px rgba(104, 217, 212, 0.2), 0 0 82px rgba(104, 217, 212, 0.2);
         }
 
         .absolute-right {
@@ -786,6 +834,7 @@ const Page = props => {
       </div>
       <style jsx>{`
         .wrapper {
+          position: relative;
           width: 100vw;
           height: 100vh;
           perspective: 10000px;
@@ -795,9 +844,9 @@ const Page = props => {
             to bottom right,
             #2ab7cf 3%,
             #2280c3 10%,
-            #163f92 25%,
-            #0f0f67 40%,
-            #0e032a 70%,
+            #163f92 23%,
+            #0f0f67 38%,
+            #0e032a 75%,
             #140845 100%
           );
         }
