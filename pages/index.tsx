@@ -51,6 +51,16 @@ const ContextualPreview = () => {
           flex-direction: row;
           justify-content: space-between;
           align-items: stretch;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-100),
+            var(--blue-200),
+            var(--blue-300)
+          );
+          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
+            16px 16px 64px rgba(27, 97, 177, 0.5);
+          border-radius: 10px;
+          overflow: hidden;
         }
 
         .sidebar {
@@ -280,7 +290,6 @@ This is a description`,
       width: '95',
       height: '50',
       file: {
-        name: 'Command Line',
         language: 'shell',
         textScale: 0.9,
         code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
@@ -543,7 +552,7 @@ const Story = ({ data }) => {
             <div className="preview">
               {data.panes.map(pane => (
                 <div
-                  className={`pane ${pane.background} ${
+                  className={`pane ${
                     pane.basePosition ? pane.basePosition : ''
                   } ${
                     pane.positions[activeId]
@@ -554,11 +563,12 @@ const Story = ({ data }) => {
                 >
                   {pane.component && <pane.component />}
                   {pane.file && (
-                    <>
+                    <div className="file-wrapper">
                       {pane.file.name && (
                         <div className="filename">{pane.file.name}</div>
                       )}
                       <div
+                        className={`file ${pane.file.name ? 'with-name' : ''}`}
                         style={{
                           fontSize:
                             1.5 *
@@ -577,7 +587,7 @@ const Story = ({ data }) => {
                           {pane.file.code}
                         </SyntaxHighlighter>
                       </div>
-                    </>
+                    </div>
                   )}
                 </div>
               ))}
@@ -658,7 +668,6 @@ const Story = ({ data }) => {
           width: 100%;
           height: 0;
           padding-bottom: 70%;
-          perspective: 1000px;
         }
 
         .preview {
@@ -666,10 +675,29 @@ const Story = ({ data }) => {
           display: block;
           width: 100%;
           height: 100%;
-          transform: rotateY(var(--right-rotation));
+          perspective: 1000px;
         }
 
-        .dark {
+        .pane {
+          position: absolute;
+          display: block;
+          transition: all 750ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .file-wrapper {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          height: 100%;
+        }
+
+        .file {
+          display: block;
+          width: 100%;
+          flex: 1;
+          position: relative;
           border: 1px solid var(--blue-750);
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
@@ -681,10 +709,14 @@ const Story = ({ data }) => {
             var(--blue-800) 70%,
             var(--blue-750)
           );
+          border-radius: 10px;
+        }
+
+        .file.with-name {
           border-radius: 0 10px 10px 10px;
         }
 
-        .dark:after {
+        .file:after {
           content: '';
           display: block;
           position: absolute;
@@ -701,35 +733,16 @@ const Story = ({ data }) => {
             var(--blue-800) 6px
           );
           mix-blend-mode: overlay;
+          border-radius: 10px;
+        }
+
+        .file.with-name:after {
           border-radius: 0 10px 10px 10px;
         }
 
-        .light {
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-100),
-            var(--blue-200),
-            var(--blue-300)
-          );
-          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
-            16px 16px 64px rgba(27, 97, 177, 0.5);
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
-        .pane {
-          position: absolute;
-          display: block;
-          transition: all 750ms cubic-bezier(0.215, 0.61, 0.355, 1);
-          transform: rotateY(-10deg) translate3d(0, 0, 0);
-        }
-
         .filename {
-          position: absolute;
-          display: block;
-          top: 0;
-          left: 0;
-          transform: translate3d(-1px, -100%, 0);
+          position: relative;
+          display: inline-block;
           padding: 8px 32px;
           border-radius: 10px 10px 0 0;
           font-size: 1.125em;
@@ -759,35 +772,42 @@ const Story = ({ data }) => {
         }
 
         .back {
-          transform: translate3d(4%, 7%, -25px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(4%, 7%, -25px);
           z-index: -1;
         }
 
         .front {
-          transform: translate3d(-4%, -7%, 25px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(-4%, -7%, 25px);
         }
 
         .front-bottom {
-          transform: translate3d(-4%, 7%, 25px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(-4%, 7%, 25px);
         }
 
         .foreground {
-          transform: translate3d(4%, -7%, 100px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(4%, -7%, 100px);
         }
 
         .out-top {
-          transform: translate3d(-4%, -100%, 75px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(-4%, -100%, 75px);
           transition: all 0.5s ease-in;
           opacity: 0;
         }
 
         .out-right {
-          transform: translate3d(100%, -7%, 100px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(100%, -7%, 100px);
           opacity: 0;
         }
 
         .out-bottom {
-          transform: translate3d(-4%, 100%, -25px);
+          transform: rotate3d(0, 1, 0, var(--right-rotation))
+            translate3d(-4%, 100%, -25px);
           opacity: 0;
         }
 
