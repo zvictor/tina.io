@@ -51,14 +51,8 @@ const ContextualPreview = () => {
           flex-direction: row;
           justify-content: space-between;
           align-items: stretch;
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-100),
-            var(--blue-200),
-            var(--blue-300)
-          );
           box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
-            16px 16px 64px rgba(27, 97, 177, 0.5);
+            16px 16px 64px rgba(34, 128, 195, 0.5);
           border-radius: 10px;
           overflow: hidden;
         }
@@ -136,7 +130,7 @@ const ContextualPreview = () => {
           gap: 32px;
           background: linear-gradient(
             to bottom right,
-            var(--blue-150),
+            var(--blue-300),
             var(--blue-200),
             var(--blue-250),
             var(--blue-300),
@@ -144,7 +138,8 @@ const ContextualPreview = () => {
             var(--blue-400),
             var(--blue-500)
           );
-          border: 1px solid var(--blue-350);
+          border: 1px solid var(--blue-400);
+          border-left-color: var(--blue-300);
           border-radius: 0 10px 10px 0;
           flex: 1 1 auto;
           text-align: center;
@@ -175,7 +170,7 @@ const ContextualPreview = () => {
           color: var(--blue-250);
           font-weight: medium;
           padding: 0.625em 0.875em;
-          border: 1px solid var(--blue-500);
+          border: 1px solid var(--blue-450);
           box-shadow: 8px 16px 32px -8px var(--blue-500);
           font-size: unquote('clamp(1rem, 0.75rem + 1vw, 1.5rem)');
         }
@@ -310,22 +305,22 @@ const Div = () => {
   return (
     <>
       <svg
-        width="100"
+        width="120"
         height="1"
-        viewBox="0 0 100 1"
+        viewBox="0 0 112 1"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <line
-          x1="6"
+          x1="0"
           y1="0.5"
-          x2="97"
+          x2="112"
           y2="0.5"
           stroke="var(--blue-500)"
           stroke-width="8"
           stroke-linecap="round"
           stroke-linejoin="round"
-          stroke-dasharray="10 21"
+          stroke-dasharray="21 18"
         />
       </svg>
       <style jsx>{`
@@ -433,9 +428,6 @@ const Feature = ({ activeId, setActiveId, item }) => {
         <div className="content" ref={ref}>
           <div className="title-wrapper">
             <h2>{item.title}</h2>
-            <span aria-hidden="true" className="title-glow">
-              {item.title}
-            </span>
           </div>
           <Div />
           <p>{item.description}</p>
@@ -450,7 +442,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
           padding: 32px 0;
           opacity: 0.1;
           transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-          filter: blur(2px);
+          filter: blur(1px);
           min-height: 75vh;
         }
 
@@ -472,14 +464,10 @@ const Feature = ({ activeId, setActiveId, item }) => {
           }
         }
 
-        h2,
-        .title-glow {
+        h2 {
           font-size: unquote('clamp(2rem, 1.75rem + 2vw, 3.375em)');
           line-height: 1.25;
           font-weight: 600;
-        }
-
-        h2 {
           display: block;
           color: transparent;
           background: linear-gradient(
@@ -491,32 +479,16 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-350) 60%,
             var(--blue-400) 70%
           );
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
+            0 0 10px rgba(165, 237, 220, 0.15),
+            0 0 18px rgba(165, 237, 220, 0.15),
+            0 0 42px rgba(104, 217, 212, 0.15);
           -webkit-background-clip: text;
           background-clip: text;
         }
 
         .title-wrapper {
           position: relative;
-        }
-
-        .title-glow {
-          z-index: -1;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0;
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.66),
-            0 0 10px rgba(165, 237, 220, 0.33),
-            0 0 18px rgba(165, 237, 220, 0.33),
-            0 0 42px rgba(104, 217, 212, 0.33),
-            0 0 82px rgba(104, 217, 212, 0.33);
-          transition: opacity 1.2s 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-
-        .visible .title-glow {
-          opacity: 0.5;
         }
 
         p {
@@ -659,7 +631,7 @@ const Story = ({ data }) => {
             top: 0;
             margin-bottom: 0;
 
-            --right-rotation: -10deg;
+            --right-rotation: -8deg;
           }
         }
 
@@ -700,7 +672,7 @@ const Story = ({ data }) => {
           position: relative;
           border: 1px solid var(--blue-750);
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
-            4px 4px 16px rgba(27, 97, 177, 0.2),
+            4px 4px 16px rgba(22, 63, 146, 0.2),
             16px 16px 64px rgba(16, 38, 127, 0.5);
           background: linear-gradient(
             to bottom right,
@@ -757,14 +729,15 @@ const Story = ({ data }) => {
           background: linear-gradient(
             to bottom right,
             var(--blue-800),
-            var(--blue-900)
+            var(--blue-950)
           );
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
           text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-            0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
-            0 0 42px rgba(104, 217, 212, 0.2);
+            0 0 10px rgba(165, 237, 220, 0.2),
+            0 0 18px rgba(165, 237, 220, 0.15),
+            0 0 42px rgba(104, 217, 212, 0.15);
         }
 
         .absolute-right {
@@ -820,8 +793,8 @@ const Story = ({ data }) => {
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
           text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-            0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
-            0 0 42px rgba(104, 217, 212, 0.2);
+            0 0 10px rgba(165, 237, 220, 0.15),
+            0 0 18px rgba(165, 237, 220, 0.1), 0 0 42px rgba(104, 217, 212, 0.1);
         }
 
         :global(.hljs-number) {
