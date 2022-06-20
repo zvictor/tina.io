@@ -1,7 +1,145 @@
 import * as React from 'react'
-import { Panel } from 'react-instantsearch-dom'
+import Link from 'next/link'
 import { useInView } from 'react-intersection-observer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
+import TinaIcon from '../public/svg/tina-icon.svg'
+import navData from '../content/navigation.json'
+import { Container } from 'components/blocks'
+
+const Header = () => {
+  return (
+    <div className="navbar">
+      <div className="background"></div>
+      <Link href="/">
+        <a className="tina-icon">
+          <TinaIcon />
+        </a>
+      </Link>
+      <nav className="nav">
+        <ul className="nav-ul">
+          {navData.map(item => {
+            const { id, href, label } = item
+
+            return (
+              <li key={id} className="nav-li">
+                <Link href={href}>{label}</Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+      <div className="navGithub">
+        <iframe
+          className="starButton"
+          src="https://ghbtns.com/github-btn.html?user=tinacms&repo=tinacms&type=star&count=true&size=large"
+          frameBorder="0"
+          scrolling="0"
+          width="150px"
+          height="30px"
+        ></iframe>
+      </div>
+      <style jsx>{`
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index: 100000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 48px;
+          padding: 16px 48px;
+          border-bottom: 1px solid rgba(31, 151, 203, 0.15);
+          box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
+            16px 16px 64px rgba(22, 63, 146, 0.1);
+          backdrop-filter: blur(8px);
+        }
+
+        .background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          opacity: 0.85;
+          background: linear-gradient(
+            to right,
+            rgba(42, 183, 207, 0.8) -4%,
+            rgba(34, 128, 195, 0.9) 6%,
+            var(--blue-700) 25%,
+            var(--blue-800) 66%,
+            var(--blue-850)
+          );
+        }
+
+        @media (min-width: 1200px) {
+        }
+
+        .tina-icon {
+          :global(svg) {
+            width: 2.5em;
+            height: auto;
+            fill: white;
+            filter: drop-shadow(0 4px 4px rgba(22, 63, 146, 0.07));
+          }
+        }
+
+        .nav {
+          flex: 1 0 auto;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .nav-ul {
+          display: flex;
+        }
+
+        .nav-li {
+          margin: 0 1.75rem;
+          color: var(--blue-150);
+
+          :global(a) {
+            font-weight: 500;
+            color: inherit;
+            opacity: 0.7;
+            transition: opacity 150ms ease-out;
+            text-decoration: none;
+            font-size: 1.125rem;
+            // text-shadow: 0 4px 4px rgba(22, 63, 146, 0.07);
+            &:hover {
+              opacity: 1;
+            }
+          }
+
+          &:nth-child(2) {
+            color: var(--blue-250);
+          }
+
+          &:nth-child(3) {
+            color: var(--blue-350);
+          }
+
+          &:nth-child(4) {
+            color: var(--blue-400);
+          }
+
+          &:nth-child(5) {
+            color: var(--blue-450);
+          }
+
+          &:nth-child(6) {
+            color: var(--blue-500);
+          }
+        }
+
+        .navGithub {
+          flex: 0 0 auto;
+        }
+      `}</style>
+    </div>
+  )
+}
 
 const ContextualPreview = () => {
   const [formData, setFormData] = React.useState({
@@ -175,7 +313,7 @@ const ContextualPreview = () => {
           font-size: unquote('clamp(1rem, 0.75rem + 1vw, 1.5rem)');
         }
 
-        :global(svg) {
+        .website :global(svg) {
           opacity: 0.2;
           position: absolute;
           bottom: 0;
@@ -328,7 +466,7 @@ const Div = () => {
           position: relative;
           width: 7em;
           margin: 32px 0;
-          opacity: 0.2;
+          opacity: 0.25;
           overflow: visible;
         }
       `}</style>
@@ -628,7 +766,7 @@ const Story = ({ data }) => {
             width: 60%;
             max-width: none;
             height: 100vh;
-            top: 0;
+            top: 32px;
             margin-bottom: 0;
 
             --right-rotation: -8deg;
@@ -820,7 +958,8 @@ const Story = ({ data }) => {
 const Page = props => {
   return (
     <>
-      <div className={`wrapper depth-3`}>
+      <div className={`wrapper`}>
+        <Header />
         <Story data={storyData} />
         <div className="other-section"></div>
         <Story data={storyData} />
@@ -854,7 +993,6 @@ const Page = props => {
           position: relative;
           width: 100vw;
           height: 100vh;
-          perspective: 10000px;
           overflow-y: auto;
           overflow-x: hidden;
           background: linear-gradient(
@@ -884,7 +1022,7 @@ const Page = props => {
             var(--blue-350) 70%,
             var(--blue-400) 100%
           );
-          // background-attachment: fixed;
+          background-attachment: fixed;
         }
       `}</style>
     </>
