@@ -173,7 +173,7 @@ const ContextualPreview = () => {
   )
 }
 
-const data = {
+const storyData = {
   features: [
     {
       id: 'editing',
@@ -345,9 +345,9 @@ const Blob = () => {
           y2="183.865"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1B61B1" />
-          <stop offset="0.505208" stop-color="#2AB7CF" />
-          <stop offset="1" stop-color="#B4F4E0" />
+          <stop stopColor="#1B61B1" />
+          <stop offset="0.505208" stopColor="#2AB7CF" />
+          <stop offset="1" stopColor="#B4F4E0" />
         </linearGradient>
       </defs>
     </svg>
@@ -377,41 +377,28 @@ const BlobTwo = () => {
           y2="-211.696"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1B61B1" />
-          <stop offset="0.505208" stop-color="#2AB7CF" />
-          <stop offset="1" stop-color="#B4F4E0" />
+          <stop stopColor="#1B61B1" />
+          <stop offset="0.505208" stopColor="#2AB7CF" />
+          <stop offset="1" stopColor="#B4F4E0" />
         </linearGradient>
       </defs>
     </svg>
   )
 }
 
-const Feature = ({ activeId, setActiveId, item }) => {
+const Feature = ({ activeId, updateStatus, item }) => {
   const { ref, inView, entry } = useInView({
     threshold: 0.33,
   })
 
   React.useEffect(() => {
-    if (inView) {
-      setActiveId(item.id)
-    }
+    updateStatus(item.id, inView)
   }, [inView])
-
-  React.useEffect(() => {
-    if (activeId === item.id && !inView) {
-      setActiveId(null)
-    }
-  }, [activeId, inView])
-
-  React.useEffect(() => {
-    if (activeId === null && inView) {
-      setActiveId(item.id)
-    }
-  }, [activeId])
 
   return (
     <>
       <div
+        key={item.id}
         className={`feature ${inView && activeId === item.id ? 'visible' : ''}`}
       >
         <div className="content" ref={ref}>
@@ -518,8 +505,38 @@ const Feature = ({ activeId, setActiveId, item }) => {
   )
 }
 
-const Story = ({ id }) => {
-  const [activeId, setActiveId] = React.useState(null)
+const Story = ({ data }) => {
+  const [activeId, setActiveId] = React.useState(data.features[0].id)
+  const [activeFeatures, setActiveFeatures] = React.useState(() => {
+    const activeFeaturesObject = {}
+    data.features.map((item, index) => {
+      activeFeaturesObject[item.id] = {
+        inView: index === 0 ? true : false,
+        index: index,
+        id: item.id,
+      }
+    })
+    return activeFeaturesObject
+  })
+
+  const updateStatus = (id, inView) => {
+    setActiveFeatures({
+      ...activeFeatures,
+      [id]: { ...activeFeatures[id], inView: inView },
+    })
+  }
+
+  React.useEffect(() => {
+    setActiveId(
+      Object.values(activeFeatures)
+        .sort((a, b) => {
+          // @ts-ignore
+          return a.index - b.index
+        })
+        // @ts-ignore
+        .find(feature => feature.inView)?.id
+    )
+  }, [activeFeatures])
 
   return (
     <>
@@ -528,7 +545,7 @@ const Story = ({ id }) => {
           {data.features.map(item => (
             <Feature
               activeId={activeId}
-              setActiveId={setActiveId}
+              updateStatus={updateStatus}
               item={item}
             />
           ))}
@@ -828,9 +845,9 @@ const Page = props => {
   return (
     <>
       <div className={`wrapper depth-3`}>
-        <Story />
+        <Story data={storyData} />
         <div className="other-section"></div>
-        <Story id={2} />
+        <Story data={storyData} />
       </div>
       <style jsx>{`
         .wrapper {
@@ -842,11 +859,11 @@ const Page = props => {
           overflow-x: hidden;
           background: linear-gradient(
             to bottom right,
-            #2ab7cf 3%,
-            #2280c3 10%,
-            #163f92 23%,
-            #0f0f67 38%,
-            #0e032a 75%,
+            #2ab7cf 1%,
+            #2280c3 8%,
+            #163f92 20%,
+            #0f0f67 35%,
+            #0e032a 70%,
             #140845 100%
           );
         }
