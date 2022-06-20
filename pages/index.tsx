@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import TinaIcon from '../public/svg/tina-icon.svg'
 import navData from '../content/navigation.json'
-import { Container } from 'components/blocks'
 
 const Header = () => {
   return (
@@ -48,7 +47,7 @@ const Header = () => {
           justify-content: space-between;
           align-items: center;
           gap: 48px;
-          padding: 16px 48px;
+          padding: 18px 48px;
           border-bottom: 1px solid rgba(31, 151, 203, 0.15);
           box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
             16px 16px 64px rgba(22, 63, 146, 0.1);
@@ -78,6 +77,7 @@ const Header = () => {
 
         .tina-icon {
           :global(svg) {
+            display: block;
             width: 2.5em;
             height: auto;
             fill: white;
@@ -97,39 +97,21 @@ const Header = () => {
 
         .nav-li {
           margin: 0 1.75rem;
-          color: var(--blue-150);
 
           :global(a) {
             font-weight: 500;
-            color: inherit;
+            color: var(--blue-400);
             opacity: 0.7;
             transition: opacity 150ms ease-out;
             text-decoration: none;
             font-size: 1.125rem;
-            // text-shadow: 0 4px 4px rgba(22, 63, 146, 0.07);
+            text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
+              0 0 10px rgba(165, 237, 220, 0.2),
+              0 0 18px rgba(165, 237, 220, 0.15),
+              0 0 42px rgba(104, 217, 212, 0.15);
             &:hover {
               opacity: 1;
             }
-          }
-
-          &:nth-child(2) {
-            color: var(--blue-250);
-          }
-
-          &:nth-child(3) {
-            color: var(--blue-350);
-          }
-
-          &:nth-child(4) {
-            color: var(--blue-400);
-          }
-
-          &:nth-child(5) {
-            color: var(--blue-450);
-          }
-
-          &:nth-child(6) {
-            color: var(--blue-500);
           }
         }
 
@@ -268,13 +250,13 @@ const ContextualPreview = () => {
           gap: 32px;
           background: linear-gradient(
             to bottom right,
-            var(--blue-300),
-            var(--blue-200),
-            var(--blue-250),
+            var(--blue-350),
             var(--blue-300),
             var(--blue-350),
             var(--blue-400),
-            var(--blue-500)
+            var(--blue-450),
+            var(--blue-500),
+            var(--blue-450)
           );
           border: 1px solid var(--blue-400);
           border-left-color: var(--blue-300);
@@ -288,9 +270,21 @@ const ContextualPreview = () => {
           position: relative;
           z-index: 10;
           line-height: 1.1;
-          font-weight: semi-bold;
-          color: var(--blue-650);
-          text-shadow: 0 0 10px var(--blue-250);
+          font-weight: bold;
+          color: var(--blue-700);
+          font-weight: 600;
+          display: block;
+          color: transparent;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-550),
+            var(--blue-600) 10%,
+            var(--blue-650) 40%,
+            var(--blue-700) 60%,
+            var(--blue-750) 70%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
           font-size: unquote('clamp(2.25rem, 2rem + 2vw, 3.375rem)');
         }
 
@@ -614,8 +608,8 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-100) 10%,
             var(--blue-200) 25%,
             var(--blue-300) 50%,
-            var(--blue-350) 60%,
-            var(--blue-400) 70%
+            var(--blue-450) 60%,
+            var(--blue-500) 70%
           );
           text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
             0 0 10px rgba(165, 237, 220, 0.15),
