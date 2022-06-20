@@ -767,8 +767,7 @@ const Story = ({ data }) => {
 
         .out-top {
           transform: rotate3d(0, 1, 0, var(--right-rotation))
-            translate3d(-4%, -100%, 75px);
-          transition: all 0.5s ease-in;
+            translate3d(-4%, -50%, 75px);
           opacity: 0;
         }
 
@@ -780,7 +779,7 @@ const Story = ({ data }) => {
 
         .out-bottom {
           transform: rotate3d(0, 1, 0, var(--right-rotation))
-            translate3d(-4%, 100%, -25px);
+            translate3d(-4%, 50%, -25px);
           opacity: 0;
         }
 
