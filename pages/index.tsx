@@ -59,15 +59,20 @@ const ContextualPreview = () => {
           justify-content: justify-between;
           align-items: stretch;
           flex: 0 0 40%;
-          border: 1px solid #c2f7eb;
-          background: linear-gradient(to bottom, #e6faf8, #d1faf6, #b4f4e0);
-          border-right-color: #d1faf6;
+          border: 1px solid var(--blue-200);
+          background: linear-gradient(
+            to bottom,
+            var(--blue-100),
+            var(--blue-150),
+            var(--blue-250)
+          );
+          border-right-color: var(--blue-150);
           margin-right: -4px;
           border-radius: 0 4px 4px 0;
         }
 
         .actions {
-          border-top: 1px solid #a5eddc;
+          border-top: 1px solid var(--blue-300);
           background: white;
           padding: 16px 24px;
         }
@@ -96,7 +101,7 @@ const ContextualPreview = () => {
         .label {
           font-weight: bold;
           letter-spacing: 0.02em;
-          color: #163f92;
+          color: var(--blue-700);
           font-size: 1.125em;
           margin-bottom: 0.25em;
         }
@@ -105,7 +110,7 @@ const ContextualPreview = () => {
           font-size: 1em;
           padding: 0.5em 0.75em;
           border-radius: 0.375em;
-          border: 1px solid #b4f4e0;
+          border: 1px solid var(--blue-250);
           box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
           background: white;
           margin-bottom: 1em;
@@ -121,15 +126,15 @@ const ContextualPreview = () => {
           gap: 32px;
           background: linear-gradient(
             to bottom right,
-            #d1faf6,
-            #c2f7eb,
-            #b4f4e0,
-            #a5eddc,
-            #96e7d8,
-            #68d9d4,
-            #2ab7cf
+            var(--blue-150),
+            var(--blue-200),
+            var(--blue-250),
+            var(--blue-300),
+            var(--blue-350),
+            var(--blue-400),
+            var(--blue-500)
           );
-          border: 1px solid #96e7d8;
+          border: 1px solid var(--blue-350);
           border-radius: 0 10px 10px 0;
           flex: 1 1 auto;
           text-align: center;
@@ -141,8 +146,8 @@ const ContextualPreview = () => {
           z-index: 10;
           line-height: 1.1;
           font-weight: semi-bold;
-          color: #1b61b1;
-          text-shadow: 0 0 10px #b4f4e0;
+          color: var(--blue-650);
+          text-shadow: 0 0 10px var(--blue-250);
           font-size: unquote('clamp(2.25rem, 2rem + 2vw, 3.375rem)');
         }
 
@@ -150,13 +155,18 @@ const ContextualPreview = () => {
           position: relative;
           z-index: 10;
           line-height: 1.1;
-          background: linear-gradient(to top left, #1f97cb, #2ab7cf, #68d9d4);
+          background: linear-gradient(
+            to top left,
+            var(--blue-550),
+            var(--blue-500),
+            var(--blue-400)
+          );
           border-radius: 5px;
-          color: #b4f4e0;
+          color: var(--blue-250);
           font-weight: medium;
           padding: 0.625em 0.875em;
-          border: 1px solid #2ab7cf;
-          box-shadow: 8px 16px 32px -8px #2ab7cf;
+          border: 1px solid var(--blue-500);
+          box-shadow: 8px 16px 32px -8px var(--blue-500);
           font-size: unquote('clamp(1rem, 0.75rem + 1vw, 1.5rem)');
         }
 
@@ -302,7 +312,7 @@ const Div = () => {
           y1="0.5"
           x2="97"
           y2="0.5"
-          stroke="#2AB7CF"
+          stroke="var(--blue-500)"
           stroke-width="8"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -345,9 +355,9 @@ const Blob = () => {
           y2="183.865"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#1B61B1" />
-          <stop offset="0.505208" stopColor="#2AB7CF" />
-          <stop offset="1" stopColor="#B4F4E0" />
+          <stop stopColor="var(--blue-650)" />
+          <stop offset="0.505208" stopColor="var(--blue-500)" />
+          <stop offset="1" stopColor="var(--blue-250)" />
         </linearGradient>
       </defs>
     </svg>
@@ -377,9 +387,9 @@ const BlobTwo = () => {
           y2="-211.696"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#1B61B1" />
-          <stop offset="0.505208" stopColor="#2AB7CF" />
-          <stop offset="1" stopColor="#B4F4E0" />
+          <stop stopColor="var(--blue-650)" />
+          <stop offset="0.505208" stopColor="var(--blue-500)" />
+          <stop offset="1" stopColor="var(--blue-250)" />
         </linearGradient>
       </defs>
     </svg>
@@ -462,11 +472,11 @@ const Feature = ({ activeId, updateStatus, item }) => {
           background: linear-gradient(
             to bottom right,
             #fff,
-            #e6faf8 10%,
-            #c2f7eb 25%,
-            #a5eddc 50%,
-            #96e7d8 60%,
-            #68d9d4 70%
+            var(--blue-100) 10%,
+            var(--blue-200) 25%,
+            var(--blue-300) 50%,
+            var(--blue-350) 60%,
+            var(--blue-400) 70%
           );
           -webkit-background-clip: text;
           background-clip: text;
@@ -488,9 +498,7 @@ const Feature = ({ activeId, updateStatus, item }) => {
             0 0 10px rgba(165, 237, 220, 0.33),
             0 0 18px rgba(165, 237, 220, 0.33),
             0 0 42px rgba(104, 217, 212, 0.33),
-            0 0 82px rgba(104, 217, 212, 0.33),
-            0 0 102px rgba(42, 183, 207, 0.55),
-            0 0 156px rgba(42, 183, 207, 0.66);
+            0 0 82px rgba(104, 217, 212, 0.33);
           transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
 
@@ -502,7 +510,7 @@ const Feature = ({ activeId, updateStatus, item }) => {
           font-size: 22px;
           line-height: 1.8;
           font-weight: 400;
-          color: #68d9d4;
+          color: var(--blue-400);
           text-shadow: 0 0 2px rgba(104, 217, 212, 0.3),
             0 0 4px rgba(104, 217, 212, 0.3);
         }
@@ -542,7 +550,6 @@ const Story = ({ data }) => {
         // @ts-ignore
         .find(feature => feature.inView)?.id
     )
-    console.log(activeFeatures)
   }, [activeFeatures])
 
   return (
@@ -614,7 +621,6 @@ const Story = ({ data }) => {
           flex-direction: column-reverse;
           gap: 48px;
           padding: 72px 32px;
-          transform-style: preserve-3d;
         }
 
         @media (min-width: 1200px) {
@@ -629,8 +635,6 @@ const Story = ({ data }) => {
           width: 100%;
           max-width: 650px;
           margin: 0 auto;
-          transform: rotateY(3deg) translate3d(0, 0, -50px);
-          transform-style: preserve-3d;
         }
 
         @media (min-width: 1200px) {
@@ -650,7 +654,6 @@ const Story = ({ data }) => {
           max-width: 600px;
           flex-direction: column;
           justify-content: center;
-          transform-style: preserve-3d;
           margin-bottom: 48px;
 
           --right-rotation: -5deg;
@@ -679,7 +682,6 @@ const Story = ({ data }) => {
           width: 100%;
           height: 0;
           padding-bottom: 70%;
-          transform-style: preserve-3d;
         }
 
         .preview {
@@ -687,21 +689,20 @@ const Story = ({ data }) => {
           display: block;
           width: 100%;
           height: 100%;
-          transform-style: preserve-3d;
           perspective: 1000px;
         }
 
         .dark {
-          border: 1px solid #10267f;
+          border: 1px solid var(--blue-750);
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
             16px 16px 64px rgba(16, 38, 127, 0.5);
           background: linear-gradient(
             to bottom right,
-            #0e032a,
-            #140845 30%,
-            #0f0f67 70%,
-            #10267f
+            var(--blue-900),
+            var(--blue-850) 30%,
+            var(--blue-800) 70%,
+            var(--blue-750)
           );
           border-radius: 0 10px 10px 10px;
         }
@@ -716,11 +717,11 @@ const Story = ({ data }) => {
           height: 100%;
           opacity: 0.1;
           background: repeating-linear-gradient(
-            #a5eddc,
-            #68d9d4 2px,
-            #0f0f67 4px,
-            #140845 5px,
-            #0f0f67 6px
+            var(--blue-300),
+            var(--blue-400) 2px,
+            var(--blue-800) 4px,
+            var(--blue-850) 5px,
+            var(--blue-800) 6px
           );
           mix-blend-mode: overlay;
           border-radius: 0 10px 10px 10px;
@@ -729,9 +730,9 @@ const Story = ({ data }) => {
         .light {
           background: linear-gradient(
             to bottom right,
-            #e6faf8,
-            #c2f7eb,
-            #a5eddc
+            var(--blue-100),
+            var(--blue-200),
+            var(--blue-300)
           );
           box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
             16px 16px 64px rgba(27, 97, 177, 0.5);
@@ -757,21 +758,25 @@ const Story = ({ data }) => {
           padding: 8px 32px;
           border-radius: 10px 10px 0 0;
           font-size: 1.125em;
-          color: #68d9d4;
+          color: var(--blue-400);
           font-weight: bold;
           lettter-spacing: 0.1em;
-          border: 1px solid #10267f;
+          border: 1px solid var(--blue-750);
           border-bottom: none;
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
             16px 16px 64px rgba(16, 38, 127, 0.5);
-          background: linear-gradient(to bottom right, #0f0f67, #0e032a);
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-800),
+            var(--blue-900)
+          );
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
           text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
             0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
-            0 0 42px rgba(104, 217, 212, 0.2), 0 0 82px rgba(104, 217, 212, 0.2);
+            0 0 42px rgba(104, 217, 212, 0.2);
         }
 
         .absolute-right {
@@ -818,21 +823,21 @@ const Story = ({ data }) => {
 
         :global(.hljs) {
           padding: 32px;
-          color: #b4f4e0;
+          color: var(--blue-250);
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
           text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
             0 0 10px rgba(165, 237, 220, 0.2), 0 0 18px rgba(165, 237, 220, 0.2),
-            0 0 42px rgba(104, 217, 212, 0.2), 0 0 82px rgba(104, 217, 212, 0.2);
+            0 0 42px rgba(104, 217, 212, 0.2);
         }
 
         :global(.hljs-number) {
-          color: #68d9d4;
+          color: var(--blue-400);
         }
 
         :global(.hljs-meta) {
-          color: #1b61b1;
+          color: var(--blue-650);
         }
 
         :global(.hljs-attr),
@@ -841,7 +846,7 @@ const Story = ({ data }) => {
         }
 
         :global(.hljs-string) {
-          color: #68d9d4;
+          color: var(--blue-400);
         }
       `}</style>
     </>
@@ -857,6 +862,30 @@ const Page = props => {
         <Story data={storyData} />
       </div>
       <style jsx>{`
+        :global(:root) {
+          --blue-0: #ffffff;
+          --blue-50: #f2fdfc;
+          --blue-100: #e6faf8;
+          --blue-150: #d1faf6;
+          --blue-200: #c2f7eb;
+          --blue-250: #b4f4e0;
+          --blue-300: #a5eddc;
+          --blue-350: #96e7d8;
+          --blue-400: #68d9d4;
+          --blue-450: #46c6d1;
+          --blue-500: #2ab7cf;
+          --blue-550: #1f97cb;
+          --blue-600: #2280c3;
+          --blue-650: #1b61b1;
+          --blue-700: #163f92;
+          --blue-750: #10267f;
+          --blue-800: #121264;
+          --blue-850: #120849;
+          --blue-900: #110431;
+          --blue-950: #09011e;
+          --blue-1000: #000000;
+        }
+
         .wrapper {
           position: relative;
           width: 100vw;
@@ -866,12 +895,12 @@ const Page = props => {
           overflow-x: hidden;
           background: linear-gradient(
             to bottom right,
-            #2ab7cf 1%,
-            #2280c3 8%,
-            #163f92 20%,
-            #0f0f67 35%,
-            #0e032a 70%,
-            #140845 100%
+            var(--blue-500) 1%,
+            var(--blue-600) 8%,
+            var(--blue-700) 20%,
+            var(--blue-800) 35%,
+            var(--blue-900) 70%,
+            var(--blue-850) 100%
           );
         }
 
@@ -883,9 +912,9 @@ const Page = props => {
           height: 50vh;
           background: linear-gradient(
             to bottom right,
-            #e6faf8,
-            #c2f7eb,
-            #a5eddc
+            var(--blue-100),
+            var(--blue-200),
+            var(--blue-300)
           );
         }
       `}</style>
