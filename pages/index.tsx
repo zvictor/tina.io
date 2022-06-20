@@ -327,7 +327,7 @@ const Div = () => {
         svg {
           position: relative;
           width: 7em;
-          margin: 28px 0;
+          margin: 32px 0;
           opacity: 0.2;
           overflow: visible;
         }
