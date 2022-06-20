@@ -388,7 +388,7 @@ const BlobTwo = () => {
 
 const Feature = ({ activeId, updateStatus, item }) => {
   const { ref, inView, entry } = useInView({
-    threshold: 0.33,
+    rootMargin: '-100px 0px',
   })
 
   React.useEffect(() => {
@@ -420,9 +420,11 @@ const Feature = ({ activeId, updateStatus, item }) => {
           align-items: stretch;
           padding: 32px 0;
           opacity: 0.1;
-          transition: opacity 0.6s 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+            opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
           filter: blur(2px);
           min-height: 75vh;
+          transform: translate3d(0, 0, -50px);
         }
 
         @media (min-width: 1200px) {
@@ -430,6 +432,10 @@ const Feature = ({ activeId, updateStatus, item }) => {
             min-height: 100vh;
             opacity: 0.3;
           }
+        }
+
+        .feature.visible {
+          transform: translate3d(0, 0, 0);
         }
 
         .visible {
@@ -526,7 +532,7 @@ const Story = ({ data }) => {
     })
   }
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setActiveId(
       Object.values(activeFeatures)
         .sort((a, b) => {
@@ -536,6 +542,7 @@ const Story = ({ data }) => {
         // @ts-ignore
         .find(feature => feature.inView)?.id
     )
+    console.log(activeFeatures)
   }, [activeFeatures])
 
   return (
