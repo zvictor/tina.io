@@ -396,13 +396,15 @@ const BlobTwo = () => {
   )
 }
 
-const Feature = ({ activeId, updateStatus, item }) => {
+const Feature = ({ activeId, setActiveId, item }) => {
   const { ref, inView, entry } = useInView({
     rootMargin: '-100px 0px',
   })
 
   React.useEffect(() => {
-    updateStatus(item.id, inView)
+    if (inView) {
+      setActiveId(item.id)
+    }
   }, [inView])
 
   return (
@@ -521,36 +523,6 @@ const Feature = ({ activeId, updateStatus, item }) => {
 
 const Story = ({ data }) => {
   const [activeId, setActiveId] = React.useState(data.features[0].id)
-  const [activeFeatures, setActiveFeatures] = React.useState(() => {
-    const activeFeaturesObject = {}
-    data.features.map((item, index) => {
-      activeFeaturesObject[item.id] = {
-        inView: index === 0 ? true : false,
-        index: index,
-        id: item.id,
-      }
-    })
-    return activeFeaturesObject
-  })
-
-  const updateStatus = (id, inView) => {
-    setActiveFeatures({
-      ...activeFeatures,
-      [id]: { ...activeFeatures[id], inView: inView },
-    })
-  }
-
-  React.useLayoutEffect(() => {
-    setActiveId(
-      Object.values(activeFeatures)
-        .sort((a, b) => {
-          // @ts-ignore
-          return a.index - b.index
-        })
-        // @ts-ignore
-        .find(feature => feature.inView)?.id
-    )
-  }, [activeFeatures])
 
   return (
     <>
@@ -559,7 +531,7 @@ const Story = ({ data }) => {
           {data.features.map(item => (
             <Feature
               activeId={activeId}
-              updateStatus={updateStatus}
+              setActiveId={setActiveId}
               item={item}
             />
           ))}
@@ -657,6 +629,8 @@ const Story = ({ data }) => {
           margin-bottom: 48px;
 
           --right-rotation: -5deg;
+
+          // display: none;
         }
 
         @media (min-width: 650px) {
@@ -896,12 +870,13 @@ const Page = props => {
           background: linear-gradient(
             to bottom right,
             var(--blue-500) 1%,
-            var(--blue-600) 8%,
-            var(--blue-700) 20%,
-            var(--blue-800) 35%,
-            var(--blue-900) 70%,
-            var(--blue-850) 100%
+            var(--blue-600) 6%,
+            var(--blue-700) 17%,
+            var(--blue-800) 33%,
+            var(--blue-950) 70%,
+            var(--blue-900) 100%
           );
+          background-attachment: fixed;
         }
 
         .other-section {
@@ -912,10 +887,14 @@ const Page = props => {
           height: 50vh;
           background: linear-gradient(
             to bottom right,
-            var(--blue-100),
-            var(--blue-200),
-            var(--blue-300)
+            var(--blue-50) 1%,
+            var(--blue-100) 6%,
+            var(--blue-150) 17%,
+            var(--blue-200) 33%,
+            var(--blue-350) 70%,
+            var(--blue-400) 100%
           );
+          // background-attachment: fixed;
         }
       `}</style>
     </>
