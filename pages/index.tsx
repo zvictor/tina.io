@@ -404,8 +404,16 @@ const Feature = ({ activeId, setActiveId, item }) => {
   React.useEffect(() => {
     if (inView) {
       setActiveId(item.id)
+    } else if (activeId === item.id) {
+      setActiveId(null)
     }
   }, [inView])
+
+  React.useEffect(() => {
+    if (!activeId && inView) {
+      setActiveId(item.id)
+    }
+  }, [activeId])
 
   return (
     <>
@@ -432,11 +440,9 @@ const Feature = ({ activeId, setActiveId, item }) => {
           align-items: stretch;
           padding: 32px 0;
           opacity: 0.1;
-          transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
-            opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
           filter: blur(2px);
           min-height: 75vh;
-          transform: translate3d(0, 0, -50px);
         }
 
         @media (min-width: 1200px) {
@@ -444,10 +450,6 @@ const Feature = ({ activeId, setActiveId, item }) => {
             min-height: 100vh;
             opacity: 0.3;
           }
-        }
-
-        .feature.visible {
-          transform: translate3d(0, 0, 0);
         }
 
         .visible {
@@ -501,7 +503,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
             0 0 18px rgba(165, 237, 220, 0.33),
             0 0 42px rgba(104, 217, 212, 0.33),
             0 0 82px rgba(104, 217, 212, 0.33);
-          transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: opacity 1.2s 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
 
         .visible .title-glow {
@@ -656,6 +658,7 @@ const Story = ({ data }) => {
           width: 100%;
           height: 0;
           padding-bottom: 70%;
+          perspective: 1000px;
         }
 
         .preview {
@@ -663,7 +666,7 @@ const Story = ({ data }) => {
           display: block;
           width: 100%;
           height: 100%;
-          perspective: 1000px;
+          transform: rotateY(var(--right-rotation));
         }
 
         .dark {
@@ -717,9 +720,7 @@ const Story = ({ data }) => {
         .pane {
           position: absolute;
           display: block;
-          transition-duration: 750ms;
-          transition-property: all;
-          transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: all 750ms cubic-bezier(0.215, 0.61, 0.355, 1);
           transform: rotateY(-10deg) translate3d(0, 0, 0);
         }
 
@@ -758,38 +759,35 @@ const Story = ({ data }) => {
         }
 
         .back {
-          transform: rotateY(var(--right-rotation)) translate3d(4%, 7%, -25px);
+          transform: translate3d(4%, 7%, -25px);
           z-index: -1;
         }
 
         .front {
-          transform: rotateY(var(--right-rotation)) translate3d(-4%, -7%, 25px);
+          transform: translate3d(-4%, -7%, 25px);
         }
 
         .front-bottom {
-          transform: rotateY(var(--right-rotation)) translate3d(-4%, 7%, 25px);
+          transform: translate3d(-4%, 7%, 25px);
         }
 
         .foreground {
-          transform: rotateY(var(--right-rotation)) translate3d(4%, -7%, 100px);
+          transform: translate3d(4%, -7%, 100px);
         }
 
         .out-top {
-          transform: rotateY(var(--right-rotation))
-            translate3d(-4%, -100%, 75px);
+          transform: translate3d(-4%, -100%, 75px);
           transition: all 0.5s ease-in;
           opacity: 0;
         }
 
         .out-right {
-          transform: rotateY(var(--right-rotation))
-            translate3d(100%, -7%, 100px);
+          transform: translate3d(100%, -7%, 100px);
           opacity: 0;
         }
 
         .out-bottom {
-          transform: rotateY(var(--right-rotation))
-            translate3d(-4%, 100%, -25px);
+          transform: translate3d(-4%, 100%, -25px);
           opacity: 0;
         }
 
