@@ -124,30 +124,118 @@ const Header = () => {
 }
 
 const ContextualPreview = ({ state = 'default' }) => {
+  const [activeField, setActiveField] = React.useState(null)
+  const defaultValues = {
+    title: ['Super Awesome Headline', 'Another Fantastic Page Title'],
+    description: ['This is a description', 'Live updating content rocks'],
+  }
+  const [value, setValue] = React.useState({
+    title: defaultValues.title[0],
+    description: defaultValues.description[0],
+  })
   const [formData, setFormData] = React.useState({
     title: {
       label: 'Title',
-      value: 'Super Awesome Headline',
+      value: value.title,
       type: 'text',
     },
     description: {
       label: 'Description',
-      value: 'This is a description',
+      value: value.description,
       type: 'text',
     },
   })
+
+  React.useEffect(() => {
+    let editingTimeout
+    if (state === 'editing') {
+      editingTimeout = setTimeout(() => {
+        setActiveField('title')
+      }, 200)
+    }
+
+    return () => {
+      clearTimeout(editingTimeout)
+    }
+  }, [state])
+
+  React.useEffect(() => {
+    if (!activeField) return
+
+    // setValue({ ...value, [activeField]: '' })
+    let newValue = defaultValues[activeField].filter(
+      thisValue => thisValue !== value[activeField]
+    )[0]
+    let i = 0
+    let typeTimeout
+    let typeIndexTimeout
+    let writingTimeout
+    let switchTimeout
+
+    const writeText = () => {
+      if (i < newValue.length) {
+        setValue(value => {
+          return {
+            ...value,
+            [activeField]: value[activeField] + newValue.charAt(i),
+          }
+        })
+        typeTimeout = setTimeout(writeText, 65)
+        typeIndexTimeout = setTimeout(() => {
+          i++
+        }, 60)
+      } else {
+        switchTimeout = setTimeout(() => {
+          if (activeField === 'title') {
+            setActiveField('description')
+          } else {
+            setActiveField('title')
+          }
+        }, 1000)
+      }
+    }
+
+    const deleteText = () => {
+      setValue(value => {
+        if (value[activeField].slice(0, -1) === '') {
+          typeTimeout = setTimeout(writeText, 165)
+        } else {
+          typeTimeout = setTimeout(deleteText, 35)
+        }
+        return {
+          ...value,
+          [activeField]: value[activeField].slice(0, -1),
+        }
+      })
+    }
+
+    deleteText()
+
+    return () => {
+      clearTimeout(typeTimeout)
+      clearTimeout(typeIndexTimeout)
+      clearTimeout(writingTimeout)
+      clearTimeout(switchTimeout)
+    }
+  }, [activeField])
 
   return (
     <>
       <div className="preview">
         <div className="sidebar">
           <div className="form">
-            {Object.values(formData).map(item => {
+            {Object.keys(formData).map(name => {
+              const { label } = formData[name]
               return (
-                <>
-                  <span className="label">{item.label}</span>
-                  <span className="input">{item.value}</span>
-                </>
+                <div
+                  className={`field ${name === activeField ? 'active' : ''}`}
+                >
+                  <span className="label">{label}</span>
+                  <span className="input">
+                    {value[name]}
+                    <span className="cursor"></span>
+                  </span>
+                </div>
               )
             })}
           </div>
@@ -156,8 +244,12 @@ const ContextualPreview = ({ state = 'default' }) => {
           </div>
         </div>
         <div className="website">
-          <span className="title">{formData.title.value}</span>
-          <span className="text">{formData.description.value}</span>
+          <span className="title">
+            {value.title !== '' ? value.title : ' '}
+          </span>
+          <span className="text">
+            {value.description !== '' ? value.description : ' '}
+          </span>
           <Blobs />
         </div>
       </div>
@@ -197,11 +289,11 @@ const ContextualPreview = ({ state = 'default' }) => {
         .actions {
           border-top: 1px solid var(--blue-300);
           background: white;
-          padding: 16px 24px;
+          padding: 16px 20px;
         }
 
         .button {
-          background: rgb(5, 116, 228);
+          background: var(--tina-blue);
           color: white;
           padding: 0.3em 0.75em;
           border-radius: 5em;
@@ -221,12 +313,57 @@ const ContextualPreview = ({ state = 'default' }) => {
           align-items: stretch;
         }
 
+        .field {
+          margin-bottom: 1em;
+          display: block;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: stretch;
+        }
+
+        @keyframes blink {
+          0% {
+            opacity: 0;
+          }
+          40% {
+            opacity: 0;
+          }
+          60% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        .cursor {
+          display: none;
+          position: relative;
+          height: 1em;
+          width: 2px;
+          border-radius: 2px;
+          transform: translate3d(1.5px, 1.5px, 0);
+          background: var(--blue-500);
+          animation: blink 500ms alternate infinite;
+        }
+
+        .active .cursor {
+          display: inline-block;
+        }
+
         .label {
           font-weight: bold;
           letter-spacing: 0.02em;
           color: var(--blue-700);
           font-size: 1.125em;
           margin-bottom: 0.25em;
+          transition: all 0.2s ease-out;
+        }
+
+        .active .label {
+          color: var(--tina-blue);
         }
 
         .input {
@@ -236,7 +373,12 @@ const ContextualPreview = ({ state = 'default' }) => {
           border: 1px solid var(--blue-250);
           box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
           background: white;
-          margin-bottom: 1em;
+          transition: all 0.2s ease-out;
+        }
+
+        .active .input {
+          box-shadow: 0 0 0 2px var(--tina-blue),
+            rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
         }
 
         .website {
@@ -344,21 +486,21 @@ const storyData = {
     },
     {
       id: 'file',
-      title: 'Own your content',
+      title: 'Own Your Content',
       description:
-        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+        'Store content in your repo. Tina saves to MDX, Markdown, and JSON and provides a powerful data layer on top of your static files.',
     },
     {
       id: 'schema',
       title: 'Simple CMS Configuration',
       description:
-        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+        "Define your content's schema and Tina will provide you with a user friendly editing experience.",
     },
     {
       id: 'git',
-      title: 'Editors Can Use Git With No Problem',
+      title: 'Powered by Git',
       description:
-        'Phasellus quis nibh scelerisque, cursus magna a, semper mauris. Pellentesque dui eros, lobortis quis dui eu, finibus pellentesque dui.',
+        'Let your editoral team focus on writing content, while Tina commits to your repository.',
     },
   ],
   panes: [
@@ -1105,6 +1247,8 @@ const Page = props => {
           --blue-900: #110431;
           --blue-950: #09011e;
           --blue-1000: #000000;
+
+          --tina-blue: rgb(5, 116, 228);
         }
 
         .wrapper {
