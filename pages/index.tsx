@@ -255,7 +255,6 @@ const ContextualPreview = ({ state = 'default' }) => {
             var(--blue-500)
           );
           border: 1px solid var(--blue-400);
-          border-left-color: var(--blue-300);
           border-radius: 0 10px 10px 0;
           flex: 1 1 auto;
           text-align: center;
@@ -270,9 +269,10 @@ const ContextualPreview = ({ state = 'default' }) => {
           left: 0;
           width: 100%;
           height: 100%;
-          filter: url(#noiseFilter);
+          border-radius: 0 10px 10px 0;
+          filter: url(#noiseFilter) brightness(0.7) contrast(150%);
           background: black;
-          z-index: 20;
+          z-index: 100;
           mix-blend-mode: hard-light;
           pointer-events: none;
           opacity: 0.3;
@@ -315,6 +315,7 @@ const ContextualPreview = ({ state = 'default' }) => {
           color: var(--blue-350);
           font-weight: medium;
           padding: 0.625em 0.875em;
+          border: 1px solid var(--blue-500);
           box-shadow: inset 0 0 28px -8px var(--blue-350),
             inset -2px -2px 12px -4px var(--blue-450),
             8px 16px 32px -8px var(--blue-550);
@@ -1074,8 +1075,8 @@ const Page = props => {
           <filter id="noiseFilter">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="6.29"
-              numOctaves="6"
+              baseFrequency="7"
+              numOctaves="5"
               stitchTiles="stitch"
             />
           </filter>
