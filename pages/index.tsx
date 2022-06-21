@@ -61,7 +61,7 @@ const Header = () => {
           width: 100%;
           height: 100%;
           z-index: -1;
-          opacity: 0.85;
+          opacity: 0.7;
           background: linear-gradient(
             to right,
             rgba(42, 183, 207, 0.8) -4%,
@@ -123,7 +123,7 @@ const Header = () => {
   )
 }
 
-const ContextualPreview = () => {
+const ContextualPreview = ({ state = 'default' }) => {
   const [formData, setFormData] = React.useState({
     title: {
       label: 'Title',
@@ -158,8 +158,7 @@ const ContextualPreview = () => {
         <div className="website">
           <span className="title">{formData.title.value}</span>
           <span className="text">{formData.description.value}</span>
-          <Blob />
-          <BlobTwo />
+          <Blobs />
         </div>
       </div>
       <style jsx>{`
@@ -247,16 +246,13 @@ const ContextualPreview = () => {
           justify-content: center;
           align-items: center;
           padding: 32px;
-          gap: 32px;
           background: linear-gradient(
             to bottom right,
-            var(--blue-350),
             var(--blue-300),
             var(--blue-350),
             var(--blue-400),
             var(--blue-450),
-            var(--blue-500),
-            var(--blue-450)
+            var(--blue-500)
           );
           border: 1px solid var(--blue-400);
           border-left-color: var(--blue-300);
@@ -264,6 +260,22 @@ const ContextualPreview = () => {
           flex: 1 1 auto;
           text-align: center;
           overflow: hidden;
+        }
+
+        .website:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          filter: url(#noiseFilter);
+          background: black;
+          z-index: 20;
+          mix-blend-mode: hard-light;
+          pointer-events: none;
+          opacity: 0.3;
         }
 
         .title {
@@ -277,8 +289,8 @@ const ContextualPreview = () => {
           color: transparent;
           background: linear-gradient(
             to bottom right,
-            var(--blue-550),
-            var(--blue-600) 10%,
+            var(--blue-500),
+            var(--blue-550) 15%,
             var(--blue-650) 40%,
             var(--blue-700) 60%,
             var(--blue-750) 70%
@@ -286,6 +298,7 @@ const ContextualPreview = () => {
           -webkit-background-clip: text;
           background-clip: text;
           font-size: unquote('clamp(2.25rem, 2rem + 2vw, 3.375rem)');
+          margin-bottom: 0.75em;
         }
 
         .text {
@@ -294,26 +307,26 @@ const ContextualPreview = () => {
           line-height: 1.1;
           background: linear-gradient(
             to top left,
-            var(--blue-550),
-            var(--blue-500),
-            var(--blue-400)
+            var(--blue-750),
+            var(--blue-650),
+            var(--blue-550)
           );
-          border-radius: 5px;
-          color: var(--blue-250);
+          border-radius: 10px;
+          color: var(--blue-350);
           font-weight: medium;
           padding: 0.625em 0.875em;
-          border: 1px solid var(--blue-450);
-          box-shadow: 8px 16px 32px -8px var(--blue-500);
+          box-shadow: inset 0 0 28px -8px var(--blue-350),
+            inset -2px -2px 12px -4px var(--blue-450),
+            8px 16px 32px -8px var(--blue-550);
           font-size: unquote('clamp(1rem, 0.75rem + 1vw, 1.5rem)');
         }
 
         .website :global(svg) {
-          opacity: 0.2;
           position: absolute;
           bottom: 0;
           left: 0;
           width: 100%;
-          height: auto;
+          height: 100%;
         }
       `}</style>
     </>
@@ -361,6 +374,13 @@ const storyData = {
         git: 'back',
         default: 'out-bottom',
       },
+      states: {
+        editing: 'editing',
+        file: 'default',
+        schema: 'default',
+        git: 'default',
+        default: 'default',
+      },
     },
     {
       name: 'File System',
@@ -401,7 +421,7 @@ This is a description`,
 },
 {
   type: "string",
-  label: " Description",
+  label: "Description",
   name: "description",
 },`,
       },
@@ -459,7 +479,7 @@ const Div = () => {
         svg {
           position: relative;
           width: 7em;
-          margin: 32px 0;
+          margin: 32px 4px;
           opacity: 0.25;
           overflow: visible;
         }
@@ -468,65 +488,144 @@ const Div = () => {
   )
 }
 
-const Blob = () => {
+const Blobs = () => {
   return (
     <svg
-      width="608"
-      height="525"
-      viewBox="0 0 608 525"
+      width="770"
+      height="770"
+      viewBox="0 0 770 770"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
     >
-      <path
-        d="M0 525V130.063C105.413 43.294 205.133 172.06 321.236 73.9557C414.659 -4.98417 504.085 -21.9449 608 28.9413V525H0Z"
-        fill="url(#paint0_linear_173_315)"
-      />
+      <g clip-path="url(#clip0_197_367)">
+        <rect width="770" height="770" fill="url(#paint0_linear_197_367)" />
+        <g filter="url(#filter0_f_197_367)">
+          <path
+            d="M550.5 491C622.5 515.5 696.089 502.664 771 448.112V787H0V311C145.5 404.5 277 395 319.5 331C362 267 396 243.506 452 252C508 260.494 519.517 315.368 477.5 356.5C442.5 390.763 468.5 463.097 550.5 491Z"
+            fill="url(#paint1_linear_197_367)"
+          />
+          <path
+            d="M0 770V538.965C119 441.5 191.779 422.156 273 458C379.5 505 286.5 588.5 302.3 665.114C315.418 728.722 489.369 744.409 560 685C613.5 640 520.112 580.369 595 557C665.5 535 723.932 582.032 771 604.802V770H0Z"
+            fill="url(#paint2_linear_197_367)"
+          />
+          <path
+            d="M562.294 355.416C551.239 296.653 579.564 206.388 659.696 231.226C739.828 256.064 763.316 359.051 707.362 396.005C651.407 432.959 573.35 414.179 562.294 355.416Z"
+            fill="url(#paint3_linear_197_367)"
+          />
+          <path
+            d="M38.243 646.537C36.0063 573.665 118.928 502.083 198.454 541.019C277.979 579.955 254.173 672.358 177.007 699.439C99.8415 726.521 40.4796 719.409 38.243 646.537Z"
+            fill="url(#paint4_linear_197_367)"
+          />
+          <path
+            d="M575.257 108.092C609.674 79.7166 662.716 45.7536 771 80.9188V-1H0V96.1037C62.9919 120.48 117.134 165.635 117.134 234.766C117.134 310.377 182.729 345.057 254.57 302.699C327.836 259.501 299.862 205.595 254.57 165.635C220.31 135.407 248.831 54.3379 335.783 40.1592C410.676 27.9469 455.52 52.9465 458.643 75.3243C461.767 97.7021 421.681 109.69 421.681 131.668C421.681 153.647 435.217 178.422 493.523 178.422C551.83 178.422 547.144 131.269 575.257 108.092Z"
+            fill="url(#paint5_linear_197_367)"
+          />
+        </g>
+      </g>
       <defs>
+        <filter
+          id="filter0_f_197_367"
+          x="-34"
+          y="-35"
+          width="839"
+          height="856"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feGaussianBlur
+            stdDeviation="18"
+            result="effect1_foregroundBlur_197_367"
+          />
+        </filter>
         <linearGradient
-          id="paint0_linear_173_315"
-          x1="619.97"
-          y1="520.204"
-          x2="-87.4212"
-          y2="183.865"
+          id="paint0_linear_197_367"
+          x1="1016.5"
+          y1="371.5"
+          x2="86.1982"
+          y2="744.682"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--blue-650)" />
-          <stop offset="0.505208" stopColor="var(--blue-500)" />
-          <stop offset="1" stopColor="var(--blue-250)" />
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
         </linearGradient>
-      </defs>
-    </svg>
-  )
-}
-
-const BlobTwo = () => {
-  return (
-    <svg
-      width="608"
-      height="221"
-      viewBox="0 0 608 221"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0 220.71V5.26465C164.864 -29.8316 95.9211 123.444 248.296 85.7615C400.671 48.0792 425.65 161.126 608 74.7173V220.71H0Z"
-        fill="url(#paint0_linear_173_316)"
-      />
-      <defs>
         <linearGradient
-          id="paint0_linear_173_316"
-          x1="619.97"
-          y1="218.694"
-          x2="239.424"
-          y2="-211.696"
+          id="paint1_linear_197_367"
+          x1="-400"
+          y1="1032"
+          x2="1501.3"
+          y2="152.768"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--blue-650)" />
-          <stop offset="0.505208" stopColor="var(--blue-500)" />
-          <stop offset="1" stopColor="var(--blue-250)" />
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
         </linearGradient>
+        <linearGradient
+          id="paint2_linear_197_367"
+          x1="700.179"
+          y1="766.997"
+          x2="215.47"
+          y2="217.477"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
+        </linearGradient>
+        <linearGradient
+          id="paint3_linear_197_367"
+          x1="197"
+          y1="-41.5"
+          x2="1065.7"
+          y2="236.857"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
+        </linearGradient>
+        <linearGradient
+          id="paint4_linear_197_367"
+          x1="200"
+          y1="767"
+          x2="-62.4261"
+          y2="559.572"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
+        </linearGradient>
+        <linearGradient
+          id="paint5_linear_197_367"
+          x1="-100"
+          y1="-75.5"
+          x2="492.102"
+          y2="647.712"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="var(--blue-450)" />
+          <stop offset="0.302083" stop-color="var(--blue-400)" />
+          <stop offset="0.640625" stop-color="var(--blue-350)" />
+          <stop offset="1" stop-color="var(--blue-300)" />
+        </linearGradient>
+        <clipPath id="clip0_197_367">
+          <rect width="770" height="770" fill="white" />
+        </clipPath>
       </defs>
     </svg>
   )
@@ -665,7 +764,15 @@ const Story = ({ data }) => {
                   }`}
                   style={{ width: pane.width + '%', height: pane.height + '%' }}
                 >
-                  {pane.component && <pane.component />}
+                  {pane.component && (
+                    <pane.component
+                      state={
+                        pane.states[activeId]
+                          ? pane.states[activeId]
+                          : pane.states.default
+                      }
+                    />
+                  )}
                   {pane.file && (
                     <div className="file-wrapper">
                       {pane.file.name && (
@@ -900,18 +1007,24 @@ const Story = ({ data }) => {
         .out-top {
           transform: rotate3d(0, 1, 0, var(--right-rotation))
             translate3d(-4%, -50%, 75px);
+          transition-duration: 400ms;
+          transition-timing-function: cubic-bezier(0.225, 0.125, 0.44, 0.295);
           opacity: 0;
         }
 
         .out-right {
           transform: rotate3d(0, 1, 0, var(--right-rotation))
             translate3d(100%, -7%, 100px);
+          transition-duration: 400ms;
+          transition-timing-function: cubic-bezier(0.225, 0.125, 0.44, 0.295);
           opacity: 0;
         }
 
         .out-bottom {
           transform: rotate3d(0, 1, 0, var(--right-rotation))
             translate3d(-4%, 50%, -25px);
+          transition-duration: 400ms;
+          transition-timing-function: cubic-bezier(0.225, 0.125, 0.44, 0.295);
           opacity: 0;
         }
 
@@ -957,6 +1070,16 @@ const Page = props => {
         <Story data={storyData} />
         <div className="other-section"></div>
         <Story data={storyData} />
+        <svg className="noise-filter">
+          <filter id="noiseFilter">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="6.29"
+              numOctaves="6"
+              stitchTiles="stitch"
+            />
+          </filter>
+        </svg>
       </div>
       <style jsx>{`
         :global(:root) {
@@ -1017,6 +1140,11 @@ const Page = props => {
             var(--blue-400) 100%
           );
           background-attachment: fixed;
+        }
+
+        .noise-filter {
+          position: absolute;
+          visibility: hidden;
         }
       `}</style>
     </>
