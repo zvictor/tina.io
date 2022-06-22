@@ -46,7 +46,7 @@ const Header = () => {
       </div>
       <style jsx>{`
         .navbar {
-          position: fixed;
+          position: relative;
           top: 0;
           width: 100%;
           z-index: 100000;
@@ -59,6 +59,12 @@ const Header = () => {
           box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
             16px 16px 64px rgba(22, 63, 146, 0.1);
           backdrop-filter: blur(8px);
+        }
+
+        @media (min-width: 1200px) {
+          .navbar {
+            position: fixed;
+          }
         }
 
         .background {
@@ -170,12 +176,15 @@ const Header = () => {
 const ContextualPreview = ({ state = 'default' }) => {
   const [activeField, setActiveField] = React.useState(null)
   const defaultValues = {
-    title: ['Awesome Editing Experience', 'Awesome Developer Experience'],
-    description: ['This is a small subheading', 'This is another subheading'],
+    title: ['Awesome Developer Experience', 'Awesome Editing Experience'],
+    body: [
+      'Tina empowers your team by giving you more control over your components.',
+      'Tina empowers your team by providing a powerful editing experience.',
+    ],
   }
   const [value, setValue] = React.useState({
     title: defaultValues.title[0],
-    description: defaultValues.description[0],
+    body: defaultValues.body[0],
   })
   const [formData, setFormData] = React.useState({
     title: {
@@ -183,10 +192,10 @@ const ContextualPreview = ({ state = 'default' }) => {
       value: value.title,
       type: 'text',
     },
-    description: {
-      label: 'Description',
-      value: value.description,
-      type: 'text',
+    body: {
+      label: 'Body',
+      value: value.body,
+      type: 'mdx',
     },
   })
 
@@ -230,10 +239,14 @@ const ContextualPreview = ({ state = 'default' }) => {
         }, 60)
       } else {
         switchTimeout = setTimeout(() => {
-          if (activeField === 'title') {
-            setActiveField('description')
+          if (state === 'editing') {
+            if (activeField === 'title') {
+              setActiveField('body')
+            } else {
+              setActiveField('title')
+            }
           } else {
-            setActiveField('title')
+            setActiveField(null)
           }
         }, 1000)
       }
@@ -265,7 +278,7 @@ const ContextualPreview = ({ state = 'default' }) => {
       clearTimeout(writingTimeout)
       clearTimeout(switchTimeout)
     }
-  }, [activeField])
+  }, [activeField, state])
 
   return (
     <>
@@ -273,13 +286,21 @@ const ContextualPreview = ({ state = 'default' }) => {
         <div className="sidebar">
           <div className="form">
             {Object.keys(formData).map(name => {
-              const { label } = formData[name]
+              const { label, type } = formData[name]
               return (
                 <div
-                  className={`field ${name === activeField ? 'active' : ''}`}
+                  className={`field ${type} ${
+                    name === activeField ? 'active' : ''
+                  }`}
                 >
-                  <span className="label">{label}</span>
+                  <span className="label">
+                    {label}
+                    {/* {type === 'mdx' && <span className="add-button"></span>} */}
+                  </span>
                   <span className="input">
+                    {type === 'mdx' && (
+                      <span className="mdx-component">Cool Component</span>
+                    )}
                     {value[name]}
                     <span className="cursor"></span>
                   </span>
@@ -295,9 +316,8 @@ const ContextualPreview = ({ state = 'default' }) => {
           <span className="title">
             {value.title !== '' ? value.title : ' '}
           </span>
-          <span className="text">
-            {value.description !== '' ? value.description : ' '}
-          </span>
+          <span className="component">MDX Rocks</span>
+          <span className="body">{value.body !== '' ? value.body : ' '}</span>
           <Blobs />
         </div>
       </div>
@@ -314,6 +334,7 @@ const ContextualPreview = ({ state = 'default' }) => {
             16px 16px 64px rgba(34, 128, 195, 0.5);
           border-radius: 10px;
           overflow: hidden;
+          font-size: unquote('clamp(0.625rem,0.477rem + 0.741vw, 1.125rem)');
         }
 
         .sidebar {
@@ -337,7 +358,7 @@ const ContextualPreview = ({ state = 'default' }) => {
         .actions {
           border-top: 1px solid var(--blue-300);
           background: white;
-          padding: 16px 20px;
+          padding: 1em 1.25em;
         }
 
         .button {
@@ -354,7 +375,7 @@ const ContextualPreview = ({ state = 'default' }) => {
 
         .form {
           flex: 1 0 auto;
-          padding: 24px;
+          padding: 1.5em;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -403,6 +424,10 @@ const ContextualPreview = ({ state = 'default' }) => {
         }
 
         .label {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
           font-weight: bold;
           letter-spacing: 0.02em;
           color: var(--blue-700);
@@ -415,14 +440,41 @@ const ContextualPreview = ({ state = 'default' }) => {
           color: var(--tina-blue);
         }
 
+        .add-button {
+          display: block;
+          width: 1.25em;
+          height: 1.25em;
+          background: var(--tina-blue);
+          border-radius: 5em;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+          opacity: 0.7;
+        }
+
         .input {
-          font-size: 1em;
-          padding: 0.5em 0.75em;
+          font-size: unquote('clamp(0.625rem,0.514rem + 0.556vw, 1rem)');
+          line-height: 1.2;
+          padding: 0.625em 0.75em;
           border-radius: 0.375em;
           border: 1px solid var(--blue-250);
           box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
           background: white;
           transition: all 0.2s ease-out;
+        }
+
+        .mdx-component {
+          display: block;
+          margin-bottom: 0.5em;
+          font-size: unquote('clamp(0.625rem,0.514rem + 0.556vw, 1rem)');
+          line-height: 1.2;
+          padding: 0.625em 0.75em;
+          border-radius: 0.375em;
+          border: 1px solid var(--blue-250);
+          box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px;
+          background: white;
+        }
+
+        .mdx .input {
+          min-height: 6em;
         }
 
         .active .input {
@@ -488,11 +540,30 @@ const ContextualPreview = ({ state = 'default' }) => {
           );
           -webkit-background-clip: text;
           background-clip: text;
-          font-size: unquote('clamp(2.25rem, 2rem + 2vw, 3.375rem)');
-          margin-bottom: 0.75em;
+          font-size: 3em;
         }
 
-        .text {
+        .body {
+          position: relative;
+          z-index: 10;
+          line-height: 1.4;
+          color: var(--blue-700);
+          font-weight: 500;
+          display: block;
+          color: transparent;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-450),
+            var(--blue-500) 15%,
+            var(--blue-600) 50%,
+            var(--blue-650) 70%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          font-size: 1.375em;
+        }
+
+        .component {
           position: relative;
           z-index: 10;
           line-height: 1.1;
@@ -510,7 +581,8 @@ const ContextualPreview = ({ state = 'default' }) => {
           box-shadow: inset 0 0 28px -8px var(--blue-350),
             inset -2px -2px 12px -4px var(--blue-450),
             8px 16px 32px -8px var(--blue-550);
-          font-size: unquote('clamp(1rem, 0.75rem + 1vw, 1.5rem)');
+          font-size: 1.25em;
+          margin: 1.5em 0;
         }
 
         .website :global(svg) {
@@ -580,14 +652,19 @@ const storyData = {
       width: '100',
       height: '100',
       file: {
-        name: 'about.md',
-        language: 'md',
+        name: 'about.mdx',
+        language: 'mdx',
         textScale: 1.375,
         code: `---
-title: Super Awesome Headline
+title: Awesome Developer Experience
 ---
 
-This is a description`,
+Tina empowers your team by giving you
+more control over your components.
+
+<CoolComponent
+  text="MDX Rocks"
+/>`,
       },
       positions: {
         editing: 'back',
@@ -607,6 +684,17 @@ This is a description`,
         language: 'json',
         textScale: 1,
         code: `{
+  type: "string",
+  label: "Title",
+  name: "title"
+},
+{
+  type: 'string',
+  label: 'Description',
+  name: 'body',
+  isBody: true,
+},`,
+        newCode: `{
   type: "string",
   label: "Title",
   name: "title"
@@ -690,26 +778,26 @@ const Blobs = () => {
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
     >
-      <g clip-path="url(#clip0_211_414)">
-        <rect width="770" height="770" fill="url(#paint0_linear_211_414)" />
-        <g filter="url(#filter0_f_211_414)">
+      <g clip-path="url(#clip0_211_417)">
+        <rect width="770" height="770" fill="url(#paint0_linear_211_417)" />
+        <g filter="url(#filter0_f_211_417)">
           <path
-            d="M655.877 -28.4226C620.378 298.577 480.378 345.077 236.628 525.958C-7.12282 706.839 -101.326 391.133 89.0298 202.636C279.386 14.1401 674.204 -197.239 655.877 -28.4226Z"
-            fill="url(#paint1_linear_211_414)"
+            d="M652.877 -86.4226C617.378 240.577 477.378 287.077 233.628 467.958C-10.1228 648.839 -104.326 333.133 86.0298 144.636C276.386 -43.8599 671.204 -255.239 652.877 -86.4226Z"
+            fill="url(#paint1_linear_211_417)"
           />
         </g>
-        <g filter="url(#filter1_f_211_414)">
+        <g filter="url(#filter1_f_211_417)">
           <path
-            d="M849.781 341.75C994.793 534.007 897.5 889.586 599.402 940.295C301.304 991.003 192.465 695.032 358.253 470.806C524.041 246.58 704.769 149.492 849.781 341.75Z"
-            fill="url(#paint2_linear_211_414)"
+            d="M840.159 342.807C991.352 597.408 932.87 980.524 661.597 966.909C390.324 953.293 263.4 588.819 396.891 372.306C530.382 155.794 688.966 88.2067 840.159 342.807Z"
+            fill="url(#paint2_linear_211_417)"
           />
         </g>
       </g>
       <defs>
         <filter
-          id="filter0_f_211_414"
-          x="-172.245"
-          y="-250.088"
+          id="filter0_f_211_417"
+          x="-175.245"
+          y="-308.088"
           width="988.739"
           height="990.08"
           filterUnits="userSpaceOnUse"
@@ -724,15 +812,15 @@ const Blobs = () => {
           />
           <feGaussianBlur
             stdDeviation="80"
-            result="effect1_foregroundBlur_211_414"
+            result="effect1_foregroundBlur_211_417"
           />
         </filter>
         <filter
-          id="filter1_f_211_414"
-          x="120.66"
-          y="78.9615"
-          width="955.366"
-          height="1027.07"
+          id="filter1_f_211_417"
+          x="183.426"
+          y="19.0366"
+          width="898.354"
+          height="1108.23"
           filterUnits="userSpaceOnUse"
           color-interpolation-filters="sRGB"
         >
@@ -745,45 +833,45 @@ const Blobs = () => {
           />
           <feGaussianBlur
             stdDeviation="80"
-            result="effect1_foregroundBlur_211_414"
+            result="effect1_foregroundBlur_211_417"
           />
         </filter>
         <linearGradient
-          id="paint0_linear_211_414"
+          id="paint0_linear_211_417"
           x1="770"
           y1="770"
           x2="-159.335"
           y2="372.794"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#2AB7CF" />
-          <stop offset="0.302083" stop-color="#68D9D4" />
+          <stop stop-color="#1F97CB" />
+          <stop offset="0.302083" stop-color="#46C6D1" />
           <stop offset="0.640625" stop-color="#96E6D8" />
           <stop offset="1" stop-color="#A5EDDC" />
         </linearGradient>
         <linearGradient
-          id="paint1_linear_211_414"
-          x1="220.878"
-          y1="405.077"
-          x2="436.107"
-          y2="-19.4733"
+          id="paint1_linear_211_417"
+          x1="217.878"
+          y1="347.077"
+          x2="433.107"
+          y2="-77.4733"
           gradientUnits="userSpaceOnUse"
         >
           <stop stop-color="#A5EDDC" />
           <stop offset="1" stop-color="#46C6D1" />
         </linearGradient>
         <linearGradient
-          id="paint2_linear_211_414"
-          x1="494.744"
-          y1="850.652"
-          x2="729.04"
-          y2="379.241"
+          id="paint2_linear_211_417"
+          x1="556.832"
+          y1="839.302"
+          x2="865.998"
+          y2="468.606"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#68D9D4" />
+          <stop stop-color="#68D9D4" stop-opacity="0.6" />
           <stop offset="1" stop-color="#B4F4E0" />
         </linearGradient>
-        <clipPath id="clip0_211_414">
+        <clipPath id="clip0_211_417">
           <rect width="770" height="770" fill="white" />
         </clipPath>
       </defs>
@@ -942,7 +1030,7 @@ const Story = ({ data }) => {
                         className={`file ${pane.file.name ? 'with-name' : ''}`}
                         style={{
                           fontSize:
-                            1.5 *
+                            1.25 *
                               (pane.file.textScale ? pane.file.textScale : 1) +
                             'em',
                         }}
@@ -954,6 +1042,8 @@ const Story = ({ data }) => {
                               : 'javascript'
                           }
                           useInlineStyles={false}
+                          // wrapLines={true}
+                          // wrapLongLines={true}
                         >
                           {pane.file.code}
                         </SyntaxHighlighter>
@@ -970,7 +1060,7 @@ const Story = ({ data }) => {
         .container {
           position: relative;
           width: 100%;
-          max-width: 1400px;
+          max-width: 1500px;
           margin: 0 auto;
           display: flex;
           flex-direction: column-reverse;
@@ -980,7 +1070,7 @@ const Story = ({ data }) => {
 
         @media (min-width: 1200px) {
           .container {
-            gap: 72px;
+            gap: 48px;
             padding: 0 48px;
             flex-direction: row;
           }
@@ -999,17 +1089,17 @@ const Story = ({ data }) => {
         }
 
         .right {
-          width: 90%;
+          width: 100%;
           position: sticky;
           -moz-position: sticky;
 
-          top: 72px;
+          top: 24px;
           display: flex;
           margin: 0 auto;
-          max-width: 600px;
           flex-direction: column;
           justify-content: center;
-          margin-bottom: 48px;
+          margin-bottom: 24px;
+          transform: scale(0.85);
 
           --right-rotation: -5deg;
 
@@ -1017,6 +1107,13 @@ const Story = ({ data }) => {
         }
 
         @media (min-width: 650px) {
+          .right {
+            width: 85%;
+            max-width: 600px;
+          }
+        }
+
+        @media (min-width: 950px) {
           .right {
             width: 75%;
           }
@@ -1081,6 +1178,7 @@ const Story = ({ data }) => {
             var(--blue-750)
           );
           border-radius: 10px;
+          overflow: hidden;
         }
 
         .file.with-name {
@@ -1191,6 +1289,7 @@ const Story = ({ data }) => {
         /* Code Styles */
 
         :global(.hljs) {
+          font-size: unquote('clamp(0.75em,0.676em + 0.37vw, 1em)			');
           padding: 32px;
           color: var(--blue-250);
           font-weight: medium;
