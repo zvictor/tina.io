@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import TinaIcon from '../public/svg/tina-icon.svg'
 import navData from '../content/navigation.json'
+import GitHubButton from 'react-github-btn'
 
 const Header = () => {
   return (
@@ -28,14 +29,20 @@ const Header = () => {
         </ul>
       </nav>
       <div className="navGithub">
-        <iframe
-          className="starButton"
-          src="https://ghbtns.com/github-btn.html?user=tinacms&repo=tinacms&type=star&count=true&size=large"
-          frameBorder="0"
-          scrolling="0"
-          width="150px"
-          height="30px"
-        ></iframe>
+        <GitHubButton
+          href="https://github.com/tinacms/tinacms"
+          data-color-scheme="no-preference: dark; light: light; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Star TinaCMS on GitHub"
+        >
+          Star
+        </GitHubButton>
+      </div>
+      <div className="nav-actions">
+        <a href="/" className="button">
+          Sign In
+        </a>
       </div>
       <style jsx>{`
         .navbar {
@@ -117,6 +124,43 @@ const Header = () => {
 
         .navGithub {
           flex: 0 0 auto;
+          height: 28px;
+          filter: drop-shadow(0 4px 24px rgba(34, 128, 195, 0.5));
+        }
+
+        .nav-actions {
+        }
+
+        .button {
+          text-decoration: none;
+          font-size: 1.125rem;
+          font-weight: bold;
+          color: var(--blue-300);
+          padding: 8px 24px;
+          border-radius: 24px;
+          border: 1.5px solid var(--blue-500);
+          background: transparent;
+          box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.2) inset,
+            0 0 3px 1px rgba(165, 237, 220, 0.2) inset,
+            1px 2px 12px rgba(165, 237, 220, 0.2),
+            8px 8px 32px rgba(34, 128, 195, 0.2);
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
+            0 0 10px rgba(165, 237, 220, 0.1), 0 0 18px rgba(165, 237, 220, 0.1);
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+          :hover {
+            color: white;
+            background: rgba(34, 128, 195, 0.2);
+            box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.3) inset,
+              0 0 3px 1px rgba(165, 237, 220, 0.3) inset,
+              1px 2px 12px rgba(165, 237, 220, 0.4),
+              8px 8px 32px rgba(34, 128, 195, 0.4);
+          }
+
+          :active {
+            color: var(--blue-400);
+            background: rgba(34, 128, 195, 0.3);
+          }
         }
       `}</style>
     </div>
@@ -646,38 +690,28 @@ const Blobs = () => {
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
     >
-      <g clip-path="url(#clip0_197_367)">
-        <rect width="770" height="770" fill="url(#paint0_linear_197_367)" />
-        <g filter="url(#filter0_f_197_367)">
+      <g clip-path="url(#clip0_211_414)">
+        <rect width="770" height="770" fill="url(#paint0_linear_211_414)" />
+        <g filter="url(#filter0_f_211_414)">
           <path
-            d="M550.5 491C622.5 515.5 696.089 502.664 771 448.112V787H0V311C145.5 404.5 277 395 319.5 331C362 267 396 243.506 452 252C508 260.494 519.517 315.368 477.5 356.5C442.5 390.763 468.5 463.097 550.5 491Z"
-            fill="url(#paint1_linear_197_367)"
+            d="M655.877 -28.4226C620.378 298.577 480.378 345.077 236.628 525.958C-7.12282 706.839 -101.326 391.133 89.0298 202.636C279.386 14.1401 674.204 -197.239 655.877 -28.4226Z"
+            fill="url(#paint1_linear_211_414)"
           />
+        </g>
+        <g filter="url(#filter1_f_211_414)">
           <path
-            d="M0 770V538.965C119 441.5 191.779 422.156 273 458C379.5 505 286.5 588.5 302.3 665.114C315.418 728.722 489.369 744.409 560 685C613.5 640 520.112 580.369 595 557C665.5 535 723.932 582.032 771 604.802V770H0Z"
-            fill="url(#paint2_linear_197_367)"
-          />
-          <path
-            d="M562.294 355.416C551.239 296.653 579.564 206.388 659.696 231.226C739.828 256.064 763.316 359.051 707.362 396.005C651.407 432.959 573.35 414.179 562.294 355.416Z"
-            fill="url(#paint3_linear_197_367)"
-          />
-          <path
-            d="M38.243 646.537C36.0063 573.665 118.928 502.083 198.454 541.019C277.979 579.955 254.173 672.358 177.007 699.439C99.8415 726.521 40.4796 719.409 38.243 646.537Z"
-            fill="url(#paint4_linear_197_367)"
-          />
-          <path
-            d="M575.257 108.092C609.674 79.7166 662.716 45.7536 771 80.9188V-1H0V96.1037C62.9919 120.48 117.134 165.635 117.134 234.766C117.134 310.377 182.729 345.057 254.57 302.699C327.836 259.501 299.862 205.595 254.57 165.635C220.31 135.407 248.831 54.3379 335.783 40.1592C410.676 27.9469 455.52 52.9465 458.643 75.3243C461.767 97.7021 421.681 109.69 421.681 131.668C421.681 153.647 435.217 178.422 493.523 178.422C551.83 178.422 547.144 131.269 575.257 108.092Z"
-            fill="url(#paint5_linear_197_367)"
+            d="M849.781 341.75C994.793 534.007 897.5 889.586 599.402 940.295C301.304 991.003 192.465 695.032 358.253 470.806C524.041 246.58 704.769 149.492 849.781 341.75Z"
+            fill="url(#paint2_linear_211_414)"
           />
         </g>
       </g>
       <defs>
         <filter
-          id="filter0_f_197_367"
-          x="-34"
-          y="-35"
-          width="839"
-          height="856"
+          id="filter0_f_211_414"
+          x="-172.245"
+          y="-250.088"
+          width="988.739"
+          height="990.08"
           filterUnits="userSpaceOnUse"
           color-interpolation-filters="sRGB"
         >
@@ -689,89 +723,67 @@ const Blobs = () => {
             result="shape"
           />
           <feGaussianBlur
-            stdDeviation="18"
-            result="effect1_foregroundBlur_197_367"
+            stdDeviation="80"
+            result="effect1_foregroundBlur_211_414"
+          />
+        </filter>
+        <filter
+          id="filter1_f_211_414"
+          x="120.66"
+          y="78.9615"
+          width="955.366"
+          height="1027.07"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feGaussianBlur
+            stdDeviation="80"
+            result="effect1_foregroundBlur_211_414"
           />
         </filter>
         <linearGradient
-          id="paint0_linear_197_367"
-          x1="1016.5"
-          y1="371.5"
-          x2="86.1982"
-          y2="744.682"
+          id="paint0_linear_211_414"
+          x1="770"
+          y1="770"
+          x2="-159.335"
+          y2="372.794"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
+          <stop stop-color="#2AB7CF" />
+          <stop offset="0.302083" stop-color="#68D9D4" />
+          <stop offset="0.640625" stop-color="#96E6D8" />
+          <stop offset="1" stop-color="#A5EDDC" />
         </linearGradient>
         <linearGradient
-          id="paint1_linear_197_367"
-          x1="-400"
-          y1="1032"
-          x2="1501.3"
-          y2="152.768"
+          id="paint1_linear_211_414"
+          x1="220.878"
+          y1="405.077"
+          x2="436.107"
+          y2="-19.4733"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
+          <stop stop-color="#A5EDDC" />
+          <stop offset="1" stop-color="#46C6D1" />
         </linearGradient>
         <linearGradient
-          id="paint2_linear_197_367"
-          x1="700.179"
-          y1="766.997"
-          x2="215.47"
-          y2="217.477"
+          id="paint2_linear_211_414"
+          x1="494.744"
+          y1="850.652"
+          x2="729.04"
+          y2="379.241"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
+          <stop stop-color="#68D9D4" />
+          <stop offset="1" stop-color="#B4F4E0" />
         </linearGradient>
-        <linearGradient
-          id="paint3_linear_197_367"
-          x1="197"
-          y1="-41.5"
-          x2="1065.7"
-          y2="236.857"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
-        </linearGradient>
-        <linearGradient
-          id="paint4_linear_197_367"
-          x1="200"
-          y1="767"
-          x2="-62.4261"
-          y2="559.572"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
-        </linearGradient>
-        <linearGradient
-          id="paint5_linear_197_367"
-          x1="-100"
-          y1="-75.5"
-          x2="492.102"
-          y2="647.712"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="var(--blue-450)" />
-          <stop offset="0.302083" stop-color="var(--blue-400)" />
-          <stop offset="0.640625" stop-color="var(--blue-350)" />
-          <stop offset="1" stop-color="var(--blue-300)" />
-        </linearGradient>
-        <clipPath id="clip0_197_367">
+        <clipPath id="clip0_211_414">
           <rect width="770" height="770" fill="white" />
         </clipPath>
       </defs>
