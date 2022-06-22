@@ -126,8 +126,8 @@ const Header = () => {
 const ContextualPreview = ({ state = 'default' }) => {
   const [activeField, setActiveField] = React.useState(null)
   const defaultValues = {
-    title: ['Super Awesome Headline', 'Another Fantastic Page Title'],
-    description: ['This is a description', 'Live updating content rocks'],
+    title: ['Awesome Editing Experience', 'Awesome Developer Experience'],
+    description: ['This is a small subheading', 'This is another subheading'],
   }
   const [value, setValue] = React.useState({
     title: defaultValues.title[0],
@@ -197,19 +197,23 @@ const ContextualPreview = ({ state = 'default' }) => {
 
     const deleteText = () => {
       setValue(value => {
-        if (value[activeField].slice(0, -1) === '') {
+        const nextValue = value[activeField].slice(0, -1)
+        if (nextValue === '') {
+          typeTimeout = setTimeout(writeText, 165)
+        } else if (newValue.startsWith(nextValue)) {
+          i = nextValue.length
           typeTimeout = setTimeout(writeText, 165)
         } else {
           typeTimeout = setTimeout(deleteText, 35)
         }
         return {
           ...value,
-          [activeField]: value[activeField].slice(0, -1),
+          [activeField]: nextValue,
         }
       })
     }
 
-    deleteText()
+    typeTimeout = setTimeout(deleteText, 750)
 
     return () => {
       clearTimeout(typeTimeout)
@@ -343,6 +347,7 @@ const ContextualPreview = ({ state = 'default' }) => {
           position: relative;
           height: 1em;
           width: 2px;
+          margin-right: -3px;
           border-radius: 2px;
           transform: translate3d(1.5px, 1.5px, 0);
           background: var(--blue-500);
