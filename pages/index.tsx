@@ -463,7 +463,8 @@ const ContextualPreview = ({ state = 'default' }) => {
 
         .mdx-component {
           display: block;
-          margin-bottom: 0.5em;
+          margin-top: 0.125em;
+          margin-bottom: 0.75em;
           font-size: unquote('clamp(0.625rem,0.514rem + 0.556vw, 1rem)');
           line-height: 1.2;
           padding: 0.625em 0.75em;
