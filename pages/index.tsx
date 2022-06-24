@@ -389,7 +389,6 @@ const Gitgrid = () => {
           right: 0;
           z-index: 0;
           perspective: 1000px;
-          filter: drop-shadow(0 0 10px rgba(var(--blue-500-rgb), 0.2));
         }
 
         .gitgrid {
