@@ -463,7 +463,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-450) 60%,
             var(--blue-500) 70%
           );
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
             0 0 10px rgba(165, 237, 220, 0.15),
             0 0 18px rgba(165, 237, 220, 0.15),
             0 0 42px rgba(104, 217, 212, 0.15);
@@ -887,7 +887,12 @@ const Page = props => {
       <div className={`wrapper`}>
         <Navbar />
         <Story data={storyData} />
-        <div className="other-section"></div>
+        <div className="container">
+          <div className="box">
+            <div className="glow"></div>
+            <div className="content"></div>
+          </div>
+        </div>
         <Story data={storyData} />
       </div>
       <style jsx>{`
@@ -935,22 +940,62 @@ const Page = props => {
           background-attachment: fixed;
         }
 
-        .other-section {
+        .box {
+          position: relative;
+          padding: 1.5px;
+        }
+
+        .content {
           position: relative;
           z-index: 1000;
           display: block;
+          min-height: 50vh;
+          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
+            4px 4px 16px rgba(22, 63, 146, 0.2),
+            16px 16px 64px rgba(16, 38, 127, 0.5);
+          background: linear-gradient(
+            to top left,
+            var(--blue-800) 0%,
+            var(--blue-850) 40%,
+            var(--blue-700) 90%,
+            var(--blue-650) 110%
+          );
+          box-shadow: inset 0 0 64px -32px rgba(104, 217, 212, 0.7),
+            0 0 24px rgba(104, 217, 212, 0.15), 0 0 48px rgba(16, 38, 127, 0.3);
+          border-radius: 10px;
+        }
+
+        .glow {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
-          height: 50vh;
+          height: 100%;
           background: linear-gradient(
             to bottom right,
-            var(--blue-50) 1%,
-            var(--blue-100) 6%,
-            var(--blue-150) 17%,
-            var(--blue-200) 33%,
-            var(--blue-350) 70%,
-            var(--blue-400) 100%
+            var(--blue-750),
+            var(--blue-450) 40%,
+            var(--blue-650) 65%,
+            var(--blue-750) 100%
           );
-          background-attachment: fixed;
+          border-radius: 10px;
+          opacity: 0.5;
+        }
+
+        .container {
+          position: relative;
+          width: 100%;
+          max-width: 1500px;
+          margin: 0 auto;
+          padding: 72px 32px;
+        }
+
+        @media (min-width: 1200px) {
+          .container {
+            padding: 48px;
+          }
         }
       `}</style>
     </>
