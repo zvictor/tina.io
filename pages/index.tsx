@@ -536,7 +536,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
           font-size: 22px;
           line-height: 1.8;
           font-weight: 400;
-          color: var(--blue-400);
+          color: var(--blue-450);
           text-shadow: 0 0 2px rgba(104, 217, 212, 0.3),
             0 0 4px rgba(104, 217, 212, 0.3);
         }
@@ -806,12 +806,13 @@ const Story = ({ data }) => {
           background: linear-gradient(
             to bottom right,
             var(--blue-750),
+            var(--blue-600) 30%,
             var(--blue-450) 40%,
-            var(--blue-650) 65%,
-            var(--blue-600) 100%
+            var(--blue-650) 60%,
+            var(--blue-700) 100%
           );
           border-radius: 11px;
-          opacity: 0.5;
+          opacity: 0.7;
         }
 
         .file.with-name .code-wrapper {
@@ -1039,7 +1040,7 @@ const Page = props => {
             var(--blue-700) 100%
           );
           border-radius: 11px;
-          opacity: 0.5;
+          opacity: 0.7;
           transition: opacity 0.5s ease-out;
         }
 
@@ -1053,13 +1054,13 @@ const Page = props => {
           height: 100%;
           background: linear-gradient(
             to bottom right,
-            transparent,
-            var(--blue-400) 40%,
-            transparent 65%
+            transparent 10%,
+            var(--blue-450) 40%,
+            transparent 60%
           );
           border-radius: 11px;
           filter: blur(32px);
-          opacity: 0.2;
+          opacity: 0.3;
         }
 
         .container {
