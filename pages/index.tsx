@@ -421,7 +421,7 @@ const Div = () => {
           y1="0.5"
           x2="112"
           y2="0.5"
-          stroke="var(--blue-500)"
+          stroke="var(--tina-blue)"
           stroke-width="7"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -433,7 +433,7 @@ const Div = () => {
           position: relative;
           width: 7em;
           margin: 32px 4px;
-          opacity: 0.25;
+          opacity: 0.5;
           overflow: visible;
           filter: drop-shadow(0 0 4px rgba(var(--blue-300-rgb), 0.5));
         }
