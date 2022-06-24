@@ -215,8 +215,8 @@ const Navbar = () => {
           align-items: center;
           gap: 48px;
           padding: 16px 48px;
-          box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
-            16px 16px 64px rgba(22, 63, 146, 0.1);
+          box-shadow: 4px 4px 16px rgba(var(--blue-800-rgb), 0.1),
+            16px 16px 64px rgba(var(--blue-800-rgb), 0.1);
           backdrop-filter: blur(8px);
         }
 
@@ -276,7 +276,7 @@ const Navbar = () => {
             width: 2.5em;
             height: auto;
             fill: white;
-            filter: drop-shadow(0 4px 4px rgba(22, 63, 146, 0.07));
+            filter: drop-shadow(0 4px 4px rgba(var(--blue-800-rgb), 0.07));
           }
         }
 
@@ -301,16 +301,16 @@ const Navbar = () => {
             text-decoration: none;
             font-size: 1.125rem;
             letter-spacing: 0.0125em;
-            text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-              0 0 10px rgba(165, 237, 220, 0.2),
-              0 0 18px rgba(165, 237, 220, 0.15),
-              0 0 42px rgba(104, 217, 212, 0.15);
+            text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.2),
+              0 0 10px rgba(var(--blue-250-rgb), 0.2),
+              0 0 18px rgba(var(--blue-250-rgb), 0.15),
+              0 0 42px rgba(var(--blue-300-rgb), 0.15);
             &:hover {
               opacity: 1;
-              text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-                0 0 10px rgba(165, 237, 220, 0.2),
-                0 0 18px rgba(165, 237, 220, 0.3),
-                0 0 42px rgba(104, 217, 212, 0.3);
+              text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.2),
+                0 0 10px rgba(var(--blue-250-rgb), 0.2),
+                0 0 18px rgba(var(--blue-250-rgb), 0.3),
+                0 0 42px rgba(var(--blue-300-rgb), 0.3);
             }
           }
         }
@@ -334,21 +334,22 @@ const Navbar = () => {
           border-radius: 24px;
           border: 1.5px solid var(--blue-550);
           background: transparent;
-          box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.2) inset,
-            0 0 3px 1px rgba(165, 237, 220, 0.2) inset,
-            1px 2px 12px rgba(165, 237, 220, 0.2),
+          box-shadow: 4px 4px 12px rgba(var(--blue-300-rgb), 0.2) inset,
+            0 0 3px 1px rgba(var(--blue-250-rgb), 0.15) inset,
+            1px 2px 12px rgba(var(--blue-250-rgb), 0.15),
             8px 8px 32px rgba(34, 128, 195, 0.2);
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
-            0 0 10px rgba(165, 237, 220, 0.1), 0 0 18px rgba(165, 237, 220, 0.1);
+          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.3),
+            0 0 10px rgba(var(--blue-250-rgb), 0.1),
+            0 0 18px rgba(var(--blue-250-rgb), 0.1);
           transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 
           :hover {
             color: white;
             background: rgba(34, 128, 195, 0.2);
-            box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.3) inset,
-              0 0 3px 1px rgba(165, 237, 220, 0.3) inset,
-              1px 2px 12px rgba(165, 237, 220, 0.4),
-              8px 8px 32px rgba(34, 128, 195, 0.4);
+            box-shadow: 4px 4px 12px rgba(var(--blue-300-rgb), 0.25) inset,
+              0 0 3px 1px rgba(var(--blue-250-rgb), 0.25) inset,
+              1px 2px 12px rgba(var(--blue-250-rgb), 0.3),
+              8px 8px 32px rgba(34, 128, 195, 0.3);
           }
 
           :active {
@@ -434,7 +435,7 @@ const Div = () => {
           margin: 32px 4px;
           opacity: 0.25;
           overflow: visible;
-          filter: drop-shadow(0 0 4px rgba(104, 217, 212, 0.5));
+          filter: drop-shadow(0 0 4px rgba(var(--blue-300-rgb), 0.5));
         }
       `}</style>
     </>
@@ -520,10 +521,10 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-450) 60%,
             var(--blue-500) 70%
           );
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-            0 0 10px rgba(165, 237, 220, 0.15),
-            0 0 18px rgba(165, 237, 220, 0.15),
-            0 0 42px rgba(104, 217, 212, 0.15);
+          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.2),
+            0 0 10px rgba(var(--blue-250-rgb), 0.15),
+            0 0 18px rgba(var(--blue-250-rgb), 0.15),
+            0 0 42px rgba(var(--blue-300-rgb), 0.15);
           -webkit-background-clip: text;
           background-clip: text;
         }
@@ -537,8 +538,8 @@ const Feature = ({ activeId, setActiveId, item }) => {
           line-height: 1.8;
           font-weight: 400;
           color: var(--blue-450);
-          text-shadow: 0 0 2px rgba(104, 217, 212, 0.3),
-            0 0 4px rgba(104, 217, 212, 0.3);
+          text-shadow: 0 0 2px rgba(var(--blue-300-rgb), 0.3),
+            0 0 4px rgba(var(--blue-300-rgb), 0.3);
         }
       `}</style>
     </>
@@ -706,7 +707,7 @@ const Story = ({ data }) => {
             var(--blue-450) 70%,
             var(--blue-500) 85%
           );
-          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.15),
+          box-shadow: 4px 4px 16px rgba(var(--blue-300-rgb), 0.15),
             8px 8px 32px rgba(34, 128, 195, 0.15),
             16px 16px 64px rgba(34, 128, 195, 0.3);
           border-radius: 10px;
@@ -763,15 +764,16 @@ const Story = ({ data }) => {
           flex: 1;
           position: relative;
           margin: 1.5px;
-          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
-            4px 4px 16px rgba(22, 63, 146, 0.2),
-            16px 16px 64px rgba(16, 38, 127, 0.5);
+          box-shadow: inset 0 0 256px rgba(var(--blue-850-rgb), 0.5),
+            4px 4px 16px rgba(var(--blue-800-rgb), 0.2),
+            16px 16px 64px rgba(var(--blue-850-rgb), 0.5);
           background: linear-gradient(
             to bottom right,
-            var(--blue-900),
-            var(--blue-850) 30%,
-            var(--blue-800) 70%,
-            var(--blue-750)
+            var(--blue-850),
+            var(--blue-900) 40%,
+            var(--blue-850) 70%,
+            var(--blue-800) 85%,
+            var(--blue-750) 100%
           );
           border-radius: 10px;
           overflow: hidden;
@@ -785,16 +787,18 @@ const Story = ({ data }) => {
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: 0.1;
+          opacity: 0.15;
           background: repeating-linear-gradient(
-            var(--blue-300),
-            var(--blue-400) 2px,
-            var(--blue-800) 4px,
-            var(--blue-850) 5px,
-            var(--blue-800) 6px
+            var(--blue-500),
+            var(--blue-300) 40%,
+            var(--blue-600) 50%,
+            var(--blue-800) 90%
           );
+          background-repeat: repeat-both;
+          background-size: auto 6px;
           mix-blend-mode: overlay;
           border-radius: 10px;
+          // backdrop-filter: blur(2px);
         }
 
         .glow-border {
@@ -838,21 +842,21 @@ const Story = ({ data }) => {
           lettter-spacing: 0.1em;
           border: 1.5px solid var(--blue-750);
           border-bottom: none;
-          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
-            4px 4px 16px rgba(27, 97, 177, 0.2),
-            16px 16px 64px rgba(16, 38, 127, 0.5);
+          box-shadow: inset 0 0 256px rgba(var(--blue-850-rgb), 0.5),
+            4px 4px 16px rgba(var(--blue-800-rgb), 0.2),
+            16px 16px 64px rgba(var(--blue-850-rgb), 0.5);
           background: linear-gradient(
             to bottom right,
             var(--blue-800),
-            var(--blue-950)
+            var(--blue-900)
           );
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-            0 0 10px rgba(165, 237, 220, 0.2),
-            0 0 18px rgba(165, 237, 220, 0.15),
-            0 0 42px rgba(104, 217, 212, 0.15);
+          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.2),
+            0 0 10px rgba(var(--blue-250-rgb), 0.2),
+            0 0 18px rgba(var(--blue-250-rgb), 0.15),
+            0 0 42px rgba(var(--blue-300-rgb), 0.15);
         }
 
         .absolute-right {
@@ -913,22 +917,30 @@ const Story = ({ data }) => {
           font-weight: medium;
           font-family: SFMono-Regular, Menlo, Monaco, Consolas,
             'Liberation Mono', 'Courier New', monospace;
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-            0 0 10px rgba(165, 237, 220, 0.15),
-            0 0 18px rgba(165, 237, 220, 0.1), 0 0 42px rgba(104, 217, 212, 0.1);
+          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.15),
+            0 0 12px rgba(var(--blue-250-rgb), 0.2),
+            0 0 32px rgba(var(--blue-250-rgb), 0.3);
         }
 
         :global(.hljs-number) {
           color: var(--blue-400);
+          text-shadow: 0 0 7px rgba(var(--blue-400-rgb), 0.15),
+            0 0 12px rgba(var(--blue-400-rgb), 0.2),
+            0 0 32px rgba(var(--blue-400-rgb), 0.3);
         }
 
         :global(.hljs-meta) {
           color: var(--blue-650);
+          text-shadow: 0 0 7px rgba(var(--blue-650-rgb), 0.15),
+            0 0 12px rgba(var(--blue-650-rgb), 0.2),
+            0 0 32px rgba(var(--blue-650-rgb), 0.3);
         }
 
         :global(.hljs-attr),
         :global(.hljs-attribute) {
           color: #d07ea5;
+          text-shadow: 0 0 7px rgba(208, 126, 165, 0.15),
+            0 0 12px rgba(208, 126, 165, 0.2), 0 0 32px rgba(208, 126, 165, 0.3);
         }
 
         :global(.hljs-string) {
@@ -939,66 +951,16 @@ const Story = ({ data }) => {
   )
 }
 
-const Page = props => {
+const Glass = () => {
   return (
     <>
-      <div className={`wrapper`}>
-        <Gitgrid />
-        <Navbar />
-        <Story data={storyData} />
-        <div className="container">
-          <div className="box">
-            <div className="glow"></div>
-            <div className="content"></div>
-          </div>
+      <div className="container">
+        <div className="box">
+          <div className="glow"></div>
+          <div className="content"></div>
         </div>
-        <Story data={storyData} />
       </div>
       <style jsx>{`
-        :global(:root) {
-          --blue-0: #ffffff;
-          --blue-50: #f2fdfc;
-          --blue-100: #e6faf8;
-          --blue-150: #d1faf6;
-          --blue-200: #c2f7eb;
-          --blue-250: #b4f4e0;
-          --blue-300: #a5eddc;
-          --blue-350: #96e7d8;
-          --blue-400: #68d9d4;
-          --blue-450: #46c6d1;
-          --blue-500: #2ab7cf;
-          --blue-550: #1f97cb;
-          --blue-600: #2280c3;
-          --blue-650: #1b61b1;
-          --blue-700: #163f92;
-          --blue-750: #10267f;
-          --blue-800: #121264;
-          --blue-850: #120849;
-          --blue-900: #110431;
-          --blue-950: #09011e;
-          --blue-1000: #000000;
-
-          --tina-blue: rgb(5, 116, 228);
-        }
-
-        .wrapper {
-          position: relative;
-          width: 100vw;
-          height: 100vh;
-          overflow-y: auto;
-          overflow-x: hidden;
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-500) 1%,
-            var(--blue-600) 5%,
-            var(--blue-700) 15%,
-            var(--blue-800) 30%,
-            var(--blue-950) 60%,
-            var(--blue-900) 100%
-          );
-          background-attachment: fixed;
-        }
-
         .box {
           position: relative;
           padding: 1.5px;
@@ -1009,18 +971,21 @@ const Page = props => {
           z-index: 1000;
           display: block;
           min-height: 50vh;
-          box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
-            4px 4px 16px rgba(22, 63, 146, 0.2),
-            16px 16px 64px rgba(16, 38, 127, 0.5);
+          box-shadow: inset 0 0 256px rgba(var(--blue-850-rgb), 0.5),
+            4px 4px 16px rgba(var(--blue-800-rgb), 0.2),
+            16px 16px 64px rgba(var(--blue-850-rgb), 0.5);
           background: linear-gradient(
             to top left,
             var(--blue-800) 0%,
-            var(--blue-850) 40%,
-            var(--blue-700) 90%,
-            var(--blue-650) 110%
+            var(--blue-850) 30%,
+            var(--blue-850) 60%,
+            var(--blue-800) 75%,
+            var(--blue-700) 100%
           );
-          box-shadow: inset 0 0 64px -32px rgba(104, 217, 212, 0.5),
-            0 0 24px rgba(104, 217, 212, 0.15), 0 0 48px rgba(16, 38, 127, 0.3);
+          box-shadow: inset 0 0 16px rgba(var(--blue-400-rgb), 0.2),
+            inset 0 0 64px rgba(var(--blue-500-rgb), 0.2),
+            0 0 24px rgba(var(--blue-300-rgb), 0.15),
+            0 0 48px rgba(var(--blue-850-rgb), 0.3);
           border-radius: 10px;
         }
 
@@ -1034,7 +999,7 @@ const Page = props => {
           height: 100%;
           background: linear-gradient(
             to bottom right,
-            var(--blue-650),
+            var(--blue-600),
             var(--blue-450) 40%,
             var(--blue-650) 65%,
             var(--blue-700) 100%
@@ -1060,7 +1025,7 @@ const Page = props => {
           );
           border-radius: 11px;
           filter: blur(32px);
-          opacity: 0.3;
+          opacity: 0.2;
         }
 
         .container {
@@ -1075,6 +1040,91 @@ const Page = props => {
           .container {
             padding: 48px;
           }
+        }
+      `}</style>
+    </>
+  )
+}
+
+const Page = props => {
+  return (
+    <>
+      <div className={`wrapper`}>
+        <Gitgrid />
+        <Navbar />
+        <Story data={storyData} />
+        <Glass></Glass>
+        <Story data={storyData} />
+      </div>
+      <style jsx>{`
+        :global(:root) {
+          --blue-50-rgb: 238, 252, 247;
+          --blue-100-rgb: 215, 249, 238;
+          --blue-150-rgb: 199, 244, 230;
+          --blue-200-rgb: 175, 238, 220;
+          --blue-250-rgb: 150, 233, 216;
+          --blue-300-rgb: 108, 224, 208;
+          --blue-350-rgb: 77, 209, 200;
+          --blue-400-rgb: 45, 200, 205;
+          --blue-450-rgb: 42, 183, 207;
+          --blue-500-rgb: 38, 157, 197;
+          --blue-550-rgb: 37, 130, 187;
+          --blue-600-rgb: 32, 102, 177;
+          --blue-650-rgb: 30, 75, 159;
+          --blue-700-rgb: 29, 56, 145;
+          --blue-750-rgb: 24, 35, 119;
+          --blue-800-rgb: 21, 17, 95;
+          --blue-850-rgb: 16, 11, 70;
+          --blue-900-rgb: 17, 6, 50;
+          --blue-950-rgb: 12, 3, 33;
+
+          --blue-0: white;
+          --blue-50: rgba(var(--blue-50-rgb), 1);
+          --blue-100: rgba(var(--blue-100-rgb), 1);
+          --blue-150: rgba(var(--blue-150-rgb), 1);
+          --blue-200: rgba(var(--blue-200-rgb), 1);
+          --blue-250: rgba(var(--blue-250-rgb), 1);
+          --blue-300: rgba(var(--blue-300-rgb), 1);
+          --blue-350: rgba(var(--blue-350-rgb), 1);
+          --blue-400: rgba(var(--blue-400-rgb), 1);
+          --blue-450: rgba(var(--blue-450-rgb), 1);
+          --blue-500: rgba(var(--blue-500-rgb), 1);
+          --blue-550: rgba(var(--blue-550-rgb), 1);
+          --blue-600: rgba(var(--blue-600-rgb), 1);
+          --blue-650: rgba(var(--blue-650-rgb), 1);
+          --blue-700: rgba(var(--blue-700-rgb), 1);
+          --blue-750: rgba(var(--blue-750-rgb), 1);
+          --blue-800: rgba(var(--blue-800-rgb), 1);
+          --blue-850: rgba(var(--blue-850-rgb), 1);
+          --blue-900: rgba(var(--blue-900-rgb), 1);
+          --blue-950: rgba(var(--blue-950-rgb), 1);
+          --blue-1000: black;
+
+          --tina-blue: rgb(5, 116, 228);
+        }
+
+        .wrapper {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow-y: auto;
+          overflow-x: hidden;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-450) 1%,
+            var(--blue-500) 4%,
+            var(--blue-550) 7%,
+            var(--blue-650) 14%,
+            var(--blue-700) 19%,
+            var(--blue-750) 25%,
+            var(--blue-800) 38%,
+            var(--blue-850) 47%,
+            var(--blue-900) 60%,
+            var(--blue-950) 75%,
+            var(--blue-900) 90%,
+            var(--blue-850) 100%
+          );
+          background-attachment: fixed;
         }
       `}</style>
     </>
