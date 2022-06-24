@@ -117,10 +117,10 @@ more control over your components.
       name: 'Git Commit',
       background: 'dark',
       width: '95',
-      height: '50',
+      height: '40',
       file: {
         language: 'shell',
-        textScale: 0.9,
+        textScale: 1.1,
         code: `commit 4ca9edc2ee64c1ab5127a1fd4519a83426731cd7
 Author:  Scott Gallant <scottgallant@gmail.com>
 Date:    Thu May 26 13:31:02 2022 -0300
@@ -428,6 +428,7 @@ const Div = () => {
           margin: 32px 4px;
           opacity: 0.25;
           overflow: visible;
+          filter: drop-shadow(0 0 4px rgba(104, 217, 212, 0.5));
         }
       `}</style>
     </>
@@ -828,7 +829,7 @@ const Story = ({ data }) => {
           color: var(--blue-400);
           font-weight: bold;
           lettter-spacing: 0.1em;
-          border: 1px solid var(--blue-750);
+          border: 1.5px solid var(--blue-750);
           border-bottom: none;
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(27, 97, 177, 0.2),
