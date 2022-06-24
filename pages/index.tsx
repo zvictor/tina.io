@@ -300,6 +300,10 @@ const Navbar = () => {
               0 0 42px rgba(104, 217, 212, 0.15);
             &:hover {
               opacity: 1;
+              text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
+                0 0 10px rgba(165, 237, 220, 0.2),
+                0 0 18px rgba(165, 237, 220, 0.3),
+                0 0 42px rgba(104, 217, 212, 0.3);
             }
           }
         }
@@ -753,7 +757,7 @@ const Story = ({ data }) => {
             var(--blue-650) 65%,
             var(--blue-600) 100%
           );
-          border-radius: 10px;
+          border-radius: 11px;
           opacity: 0.5;
         }
 
@@ -766,7 +770,7 @@ const Story = ({ data }) => {
         }
 
         .file.with-name .glow-border {
-          border-radius: 0 10px 10px 10px;
+          border-radius: 0 11px 11px 11px;
         }
 
         .filename {
@@ -960,7 +964,7 @@ const Page = props => {
             var(--blue-700) 90%,
             var(--blue-650) 110%
           );
-          box-shadow: inset 0 0 64px -32px rgba(104, 217, 212, 0.7),
+          box-shadow: inset 0 0 64px -32px rgba(104, 217, 212, 0.5),
             0 0 24px rgba(104, 217, 212, 0.15), 0 0 48px rgba(16, 38, 127, 0.3);
           border-radius: 10px;
         }
@@ -975,12 +979,12 @@ const Page = props => {
           height: 100%;
           background: linear-gradient(
             to bottom right,
-            var(--blue-750),
+            var(--blue-650),
             var(--blue-450) 40%,
             var(--blue-650) 65%,
-            var(--blue-750) 100%
+            var(--blue-700) 100%
           );
-          border-radius: 10px;
+          border-radius: 11px;
           opacity: 0.5;
         }
 
