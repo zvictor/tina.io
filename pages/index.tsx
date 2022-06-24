@@ -6,598 +6,6 @@ import TinaIcon from '../public/svg/tina-icon.svg'
 import navData from '../content/navigation.json'
 import GitHubButton from 'react-github-btn'
 
-const Header = () => {
-  return (
-    <div className="navbar">
-      <div className="background"></div>
-      <Link href="/">
-        <a className="tina-icon">
-          <TinaIcon />
-        </a>
-      </Link>
-      <nav className="nav">
-        <ul className="nav-ul">
-          {navData.map(item => {
-            const { id, href, label } = item
-
-            return (
-              <li key={id} className="nav-li">
-                <Link href={href}>{label}</Link>
-              </li>
-            )
-          })}
-        </ul>
-      </nav>
-      <div className="navGithub">
-        <GitHubButton
-          href="https://github.com/tinacms/tinacms"
-          data-color-scheme="no-preference: dark; light: light; dark: dark;"
-          data-size="large"
-          data-show-count="true"
-          aria-label="Star TinaCMS on GitHub"
-        >
-          Star
-        </GitHubButton>
-      </div>
-      <div className="nav-actions">
-        <a href="/" className="button">
-          Sign In
-        </a>
-      </div>
-      <style jsx>{`
-        .navbar {
-          position: relative;
-          top: 0;
-          width: 100%;
-          z-index: 100000;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 48px;
-          padding: 18px 48px;
-          border-bottom: 1px solid rgba(31, 151, 203, 0.15);
-          box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
-            16px 16px 64px rgba(22, 63, 146, 0.1);
-          backdrop-filter: blur(8px);
-        }
-
-        @media (min-width: 1200px) {
-          .navbar {
-            position: fixed;
-          }
-        }
-
-        .background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          opacity: 0.7;
-          background: linear-gradient(
-            to right,
-            rgba(42, 183, 207, 0.8) -4%,
-            rgba(34, 128, 195, 0.9) 6%,
-            var(--blue-700) 25%,
-            var(--blue-800) 66%,
-            var(--blue-850)
-          );
-        }
-
-        @media (min-width: 1200px) {
-        }
-
-        .tina-icon {
-          :global(svg) {
-            display: block;
-            width: 2.5em;
-            height: auto;
-            fill: white;
-            filter: drop-shadow(0 4px 4px rgba(22, 63, 146, 0.07));
-          }
-        }
-
-        .nav {
-          flex: 1 0 auto;
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        .nav-ul {
-          display: flex;
-        }
-
-        .nav-li {
-          margin: 0 1.75rem;
-
-          :global(a) {
-            font-weight: 500;
-            color: var(--blue-400);
-            opacity: 0.7;
-            transition: opacity 150ms ease-out;
-            text-decoration: none;
-            font-size: 1.125rem;
-            text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
-              0 0 10px rgba(165, 237, 220, 0.2),
-              0 0 18px rgba(165, 237, 220, 0.15),
-              0 0 42px rgba(104, 217, 212, 0.15);
-            &:hover {
-              opacity: 1;
-            }
-          }
-        }
-
-        .navGithub {
-          flex: 0 0 auto;
-          height: 28px;
-          filter: drop-shadow(0 4px 24px rgba(34, 128, 195, 0.5));
-        }
-
-        .nav-actions {
-        }
-
-        .button {
-          text-decoration: none;
-          font-size: 1.125rem;
-          font-weight: bold;
-          color: var(--blue-300);
-          padding: 8px 24px;
-          border-radius: 24px;
-          border: 1.5px solid var(--blue-500);
-          background: transparent;
-          box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.2) inset,
-            0 0 3px 1px rgba(165, 237, 220, 0.2) inset,
-            1px 2px 12px rgba(165, 237, 220, 0.2),
-            8px 8px 32px rgba(34, 128, 195, 0.2);
-          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
-            0 0 10px rgba(165, 237, 220, 0.1), 0 0 18px rgba(165, 237, 220, 0.1);
-          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-
-          :hover {
-            color: white;
-            background: rgba(34, 128, 195, 0.2);
-            box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.3) inset,
-              0 0 3px 1px rgba(165, 237, 220, 0.3) inset,
-              1px 2px 12px rgba(165, 237, 220, 0.4),
-              8px 8px 32px rgba(34, 128, 195, 0.4);
-          }
-
-          :active {
-            color: var(--blue-400);
-            background: rgba(34, 128, 195, 0.3);
-          }
-        }
-      `}</style>
-    </div>
-  )
-}
-
-const ContextualPreview = ({ state = 'default' }) => {
-  const [activeField, setActiveField] = React.useState(null)
-  const defaultValues = {
-    title: ['Awesome Developer Experience', 'Awesome Editing Experience'],
-    body: [
-      'Tina empowers your team by giving you more control over your components.',
-      'Tina empowers your team by providing a powerful editing experience.',
-    ],
-  }
-  const [value, setValue] = React.useState({
-    title: defaultValues.title[0],
-    body: defaultValues.body[0],
-  })
-  const [formData, setFormData] = React.useState({
-    title: {
-      label: 'Title',
-      value: value.title,
-      type: 'text',
-    },
-    body: {
-      label: 'Body',
-      value: value.body,
-      type: 'mdx',
-    },
-  })
-
-  React.useEffect(() => {
-    let editingTimeout
-    if (state === 'editing') {
-      editingTimeout = setTimeout(() => {
-        setActiveField('title')
-      }, 200)
-    }
-
-    return () => {
-      clearTimeout(editingTimeout)
-    }
-  }, [state])
-
-  React.useEffect(() => {
-    if (!activeField) return
-
-    // setValue({ ...value, [activeField]: '' })
-    let newValue = defaultValues[activeField].filter(
-      thisValue => thisValue !== value[activeField]
-    )[0]
-    let i = 0
-    let typeTimeout
-    let typeIndexTimeout
-    let writingTimeout
-    let switchTimeout
-
-    const writeText = () => {
-      if (i < newValue.length) {
-        setValue(value => {
-          return {
-            ...value,
-            [activeField]: value[activeField] + newValue.charAt(i),
-          }
-        })
-        typeTimeout = setTimeout(writeText, 65)
-        typeIndexTimeout = setTimeout(() => {
-          i++
-        }, 60)
-      } else {
-        switchTimeout = setTimeout(() => {
-          if (state === 'editing') {
-            if (activeField === 'title') {
-              setActiveField('body')
-            } else {
-              setActiveField('title')
-            }
-          } else {
-            setActiveField(null)
-          }
-        }, 1000)
-      }
-    }
-
-    const deleteText = () => {
-      setValue(value => {
-        const nextValue = value[activeField].slice(0, -1)
-        if (nextValue === '') {
-          typeTimeout = setTimeout(writeText, 165)
-        } else if (newValue.startsWith(nextValue)) {
-          i = nextValue.length
-          typeTimeout = setTimeout(writeText, 165)
-        } else {
-          typeTimeout = setTimeout(deleteText, 35)
-        }
-        return {
-          ...value,
-          [activeField]: nextValue,
-        }
-      })
-    }
-
-    typeTimeout = setTimeout(deleteText, 750)
-
-    return () => {
-      clearTimeout(typeTimeout)
-      clearTimeout(typeIndexTimeout)
-      clearTimeout(writingTimeout)
-      clearTimeout(switchTimeout)
-    }
-  }, [activeField, state])
-
-  return (
-    <>
-      <div className="preview">
-        <div className="sidebar">
-          <div className="form">
-            {Object.keys(formData).map(name => {
-              const { label, type } = formData[name]
-              return (
-                <div
-                  className={`field ${type} ${
-                    name === activeField ? 'active' : ''
-                  }`}
-                >
-                  <span className="label">
-                    {label}
-                    {/* {type === 'mdx' && <span className="add-button"></span>} */}
-                  </span>
-                  <span className="input">
-                    {type === 'mdx' && (
-                      <span className="mdx-component">Cool Component</span>
-                    )}
-                    {value[name]}
-                    <span className="cursor"></span>
-                  </span>
-                </div>
-              )
-            })}
-          </div>
-          <div className="actions">
-            <span className="button">Save</span>
-          </div>
-        </div>
-        <div className="website">
-          <span className="title">
-            {value.title !== '' ? value.title : ' '}
-          </span>
-          <span className="component">MDX Rocks</span>
-          <span className="body">{value.body !== '' ? value.body : ' '}</span>
-          <Blobs />
-        </div>
-      </div>
-      <style jsx>{`
-        .preview {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: stretch;
-          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.2),
-            16px 16px 64px rgba(34, 128, 195, 0.5);
-          border-radius: 10px;
-          overflow: hidden;
-          font-size: unquote('clamp(0.625rem,0.477rem + 0.741vw, 1.125rem)');
-        }
-
-        .sidebar {
-          display: flex;
-          flex-direction: column;
-          justify-content: justify-between;
-          align-items: stretch;
-          flex: 0 0 40%;
-          border: 1px solid var(--blue-200);
-          background: linear-gradient(
-            to bottom,
-            var(--blue-100),
-            var(--blue-150),
-            var(--blue-250)
-          );
-          border-right-color: var(--blue-150);
-          margin-right: -4px;
-          border-radius: 0 4px 4px 0;
-        }
-
-        .actions {
-          border-top: 1px solid var(--blue-300);
-          background: white;
-          padding: 1em 1.25em;
-        }
-
-        .button {
-          background: var(--tina-blue);
-          color: white;
-          padding: 0.3em 0.75em;
-          border-radius: 5em;
-          display: block;
-          text-align: center;
-          font-weight: bold;
-          font-size: 1.1875em;
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .form {
-          flex: 1 0 auto;
-          padding: 1.5em;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: stretch;
-        }
-
-        .field {
-          margin-bottom: 1em;
-          display: block;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: stretch;
-        }
-
-        @keyframes blink {
-          0% {
-            opacity: 0;
-          }
-          40% {
-            opacity: 0;
-          }
-          60% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-
-        .cursor {
-          display: none;
-          position: relative;
-          height: 1em;
-          width: 2px;
-          margin-right: -3px;
-          border-radius: 2px;
-          transform: translate3d(1.5px, 1.5px, 0);
-          background: var(--blue-500);
-          animation: blink 500ms alternate infinite;
-        }
-
-        .active .cursor {
-          display: inline-block;
-        }
-
-        .label {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          font-weight: bold;
-          letter-spacing: 0.02em;
-          color: var(--blue-700);
-          font-size: 1.125em;
-          margin-bottom: 0.25em;
-          transition: all 0.2s ease-out;
-        }
-
-        .active .label {
-          color: var(--tina-blue);
-        }
-
-        .add-button {
-          display: block;
-          width: 1.25em;
-          height: 1.25em;
-          background: var(--tina-blue);
-          border-radius: 5em;
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-          opacity: 0.7;
-        }
-
-        .input {
-          font-size: unquote('clamp(0.625rem,0.514rem + 0.556vw, 1rem)');
-          line-height: 1.2;
-          padding: 0.625em 0.75em;
-          border-radius: 0.375em;
-          border: 1px solid var(--blue-250);
-          box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
-          background: white;
-          transition: all 0.2s ease-out;
-        }
-
-        .mdx-component {
-          display: block;
-          margin-top: 0.125em;
-          margin-bottom: 0.75em;
-          font-size: unquote('clamp(0.625rem,0.514rem + 0.556vw, 1rem)');
-          line-height: 1.2;
-          padding: 0.625em 0.75em;
-          border-radius: 0.375em;
-          border: 1px solid var(--blue-250);
-          box-shadow: rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px;
-          background: white;
-        }
-
-        .mdx .input {
-          min-height: 6em;
-        }
-
-        .active .input {
-          box-shadow: 0 0 0 2px var(--tina-blue),
-            rgba(27, 97, 177, 0.1) 0px 0.25em 0.25em 0px inset;
-        }
-
-        .website {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 32px;
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-300),
-            var(--blue-350),
-            var(--blue-400),
-            var(--blue-450),
-            var(--blue-500)
-          );
-          border: 1px solid var(--blue-400);
-          border-radius: 0 10px 10px 0;
-          flex: 1 1 auto;
-          text-align: center;
-          overflow: hidden;
-        }
-
-        .website:after {
-          content: '';
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 0 10px 10px 0;
-          filter: url(#noiseFilter) brightness(0.7) contrast(150%);
-          background: black;
-          z-index: 100;
-          mix-blend-mode: hard-light;
-          pointer-events: none;
-          opacity: 0.3;
-        }
-
-        .title {
-          position: relative;
-          z-index: 10;
-          line-height: 1.1;
-          font-weight: bold;
-          color: var(--blue-700);
-          font-weight: 600;
-          display: block;
-          color: transparent;
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-500),
-            var(--blue-550) 15%,
-            var(--blue-650) 40%,
-            var(--blue-700) 60%,
-            var(--blue-750) 70%
-          );
-          -webkit-background-clip: text;
-          background-clip: text;
-          font-size: 3em;
-        }
-
-        .body {
-          position: relative;
-          z-index: 10;
-          line-height: 1.4;
-          color: var(--blue-700);
-          font-weight: 500;
-          display: block;
-          color: transparent;
-          background: linear-gradient(
-            to bottom right,
-            var(--blue-450),
-            var(--blue-500) 15%,
-            var(--blue-600) 50%,
-            var(--blue-650) 70%
-          );
-          -webkit-background-clip: text;
-          background-clip: text;
-          font-size: 1.375em;
-        }
-
-        .component {
-          position: relative;
-          z-index: 10;
-          line-height: 1.1;
-          background: linear-gradient(
-            to top left,
-            var(--blue-750),
-            var(--blue-650),
-            var(--blue-550)
-          );
-          border-radius: 10px;
-          color: var(--blue-350);
-          font-weight: medium;
-          padding: 0.625em 0.875em;
-          border: 1px solid var(--blue-500);
-          box-shadow: inset 0 0 28px -8px var(--blue-350),
-            inset -2px -2px 12px -4px var(--blue-450),
-            8px 16px 32px -8px var(--blue-550);
-          font-size: 1.25em;
-          margin: 1.5em 0;
-        }
-
-        .website :global(svg) {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-      `}</style>
-    </>
-  )
-}
-
 const storyData = {
   features: [
     {
@@ -630,21 +38,14 @@ const storyData = {
       name: 'Contextual Editing',
       background: 'light',
       width: '100',
-      height: '100',
-      component: ContextualPreview,
+      height: 'auto',
+      video: 'v1656009626/tina-io/new-homepage/editing-demo',
       positions: {
         editing: 'front',
         file: 'back',
         schema: 'front-bottom',
         git: 'back',
         default: 'out-bottom',
-      },
-      states: {
-        editing: 'editing',
-        file: 'default',
-        schema: 'default',
-        git: 'default',
-        default: 'default',
       },
     },
     {
@@ -734,6 +135,220 @@ Message: Update From Tina`,
   ],
 }
 
+const Video = ({ src }) => {
+  return (
+    <>
+      <video
+        className="video"
+        autoPlay={true}
+        loop
+        muted
+        playsInline
+        poster={`https://res.cloudinary.com/forestry-demo/video/upload/so_0/${src}.jpg`}
+      >
+        <source
+          src={`https://res.cloudinary.com/forestry-demo/video/upload/q_100,h_584/${src}.webm`}
+          type="video/webm"
+        />
+        <source
+          src={`https://res.cloudinary.com/forestry-demo/video/upload/q_80,h_584/${src}.mp4`}
+          type="video/mp4"
+        />
+      </video>
+      <style jsx>{`
+        .video {
+          width: 100%;
+          height: auto;
+        }
+      `}</style>
+    </>
+  )
+}
+
+const Navbar = () => {
+  return (
+    <div className="navbar">
+      <div className="background"></div>
+      <div className="glowbar"></div>
+      <Link href="/">
+        <a className="tina-icon">
+          <TinaIcon />
+        </a>
+      </Link>
+      <nav className="nav">
+        <ul className="nav-ul">
+          {navData.map(item => {
+            const { id, href, label } = item
+
+            return (
+              <li key={id} className="nav-li">
+                <Link href={href}>{label}</Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+      <div className="navGithub">
+        <GitHubButton
+          href="https://github.com/tinacms/tinacms"
+          data-color-scheme="no-preference: dark; light: light; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Star TinaCMS on GitHub"
+        >
+          Star
+        </GitHubButton>
+      </div>
+      <div className="nav-actions">
+        <a href="/" className="button">
+          Sign In
+        </a>
+      </div>
+      <style jsx>{`
+        .navbar {
+          position: relative;
+          top: 0;
+          width: 100%;
+          z-index: 100000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 48px;
+          padding: 16px 48px;
+          box-shadow: 4px 4px 16px rgba(27, 97, 177, 0.1),
+            16px 16px 64px rgba(22, 63, 146, 0.1);
+          backdrop-filter: blur(8px);
+        }
+
+        @media (min-width: 1200px) {
+          .navbar {
+            position: fixed;
+          }
+        }
+
+        .glowbar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1.5px;
+          background: linear-gradient(
+            to right,
+            var(--blue-550),
+            var(--blue-400) 25%,
+            var(--blue-650) 50%,
+            var(--blue-700) 70%,
+            var(--blue-750) 100%
+          );
+          opacity: 0.3;
+        }
+
+        .background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          opacity: 0.7;
+          background: linear-gradient(
+            to right,
+            rgba(42, 183, 207, 0.8) -4%,
+            rgba(34, 128, 195, 0.9) 6%,
+            var(--blue-700) 25%,
+            var(--blue-800) 66%,
+            var(--blue-850)
+          );
+        }
+
+        @media (min-width: 1200px) {
+        }
+
+        .tina-icon {
+          :global(svg) {
+            display: block;
+            width: 2.5em;
+            height: auto;
+            fill: white;
+            filter: drop-shadow(0 4px 4px rgba(22, 63, 146, 0.07));
+          }
+        }
+
+        .nav {
+          flex: 1 0 auto;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .nav-ul {
+          display: flex;
+        }
+
+        .nav-li {
+          margin: 0 1.75rem;
+
+          :global(a) {
+            font-weight: 500;
+            color: var(--blue-400);
+            opacity: 0.7;
+            transition: opacity 150ms ease-out;
+            text-decoration: none;
+            font-size: 1.125rem;
+            text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
+              0 0 10px rgba(165, 237, 220, 0.2),
+              0 0 18px rgba(165, 237, 220, 0.15),
+              0 0 42px rgba(104, 217, 212, 0.15);
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+
+        .navGithub {
+          flex: 0 0 auto;
+          height: 28px;
+          filter: drop-shadow(0 4px 24px rgba(34, 128, 195, 0.5));
+        }
+
+        .nav-actions {
+        }
+
+        .button {
+          text-decoration: none;
+          font-size: 1.125rem;
+          font-weight: bold;
+          color: var(--blue-300);
+          padding: 8px 24px;
+          border-radius: 24px;
+          border: 1.5px solid var(--blue-550);
+          background: transparent;
+          box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.2) inset,
+            0 0 3px 1px rgba(165, 237, 220, 0.2) inset,
+            1px 2px 12px rgba(165, 237, 220, 0.2),
+            8px 8px 32px rgba(34, 128, 195, 0.2);
+          text-shadow: 0 0 7px rgba(165, 237, 220, 0.3),
+            0 0 10px rgba(165, 237, 220, 0.1), 0 0 18px rgba(165, 237, 220, 0.1);
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+          :hover {
+            color: white;
+            background: rgba(34, 128, 195, 0.2);
+            box-shadow: 4px 4px 12px rgba(104, 217, 212, 0.3) inset,
+              0 0 3px 1px rgba(165, 237, 220, 0.3) inset,
+              1px 2px 12px rgba(165, 237, 220, 0.4),
+              8px 8px 32px rgba(34, 128, 195, 0.4);
+          }
+
+          :active {
+            color: var(--blue-400);
+            background: rgba(34, 128, 195, 0.3);
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 const Div = () => {
   return (
     <>
@@ -750,7 +365,7 @@ const Div = () => {
           x2="112"
           y2="0.5"
           stroke="var(--blue-500)"
-          stroke-width="8"
+          stroke-width="7"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-dasharray="21 18"
@@ -766,117 +381,6 @@ const Div = () => {
         }
       `}</style>
     </>
-  )
-}
-
-const Blobs = () => {
-  return (
-    <svg
-      width="770"
-      height="770"
-      viewBox="0 0 770 770"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-    >
-      <g clip-path="url(#clip0_211_417)">
-        <rect width="770" height="770" fill="url(#paint0_linear_211_417)" />
-        <g filter="url(#filter0_f_211_417)">
-          <path
-            d="M652.877 -86.4226C617.378 240.577 477.378 287.077 233.628 467.958C-10.1228 648.839 -104.326 333.133 86.0298 144.636C276.386 -43.8599 671.204 -255.239 652.877 -86.4226Z"
-            fill="url(#paint1_linear_211_417)"
-          />
-        </g>
-        <g filter="url(#filter1_f_211_417)">
-          <path
-            d="M840.159 342.807C991.352 597.408 932.87 980.524 661.597 966.909C390.324 953.293 263.4 588.819 396.891 372.306C530.382 155.794 688.966 88.2067 840.159 342.807Z"
-            fill="url(#paint2_linear_211_417)"
-          />
-        </g>
-      </g>
-      <defs>
-        <filter
-          id="filter0_f_211_417"
-          x="-175.245"
-          y="-308.088"
-          width="988.739"
-          height="990.08"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feGaussianBlur
-            stdDeviation="80"
-            result="effect1_foregroundBlur_211_417"
-          />
-        </filter>
-        <filter
-          id="filter1_f_211_417"
-          x="183.426"
-          y="19.0366"
-          width="898.354"
-          height="1108.23"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feGaussianBlur
-            stdDeviation="80"
-            result="effect1_foregroundBlur_211_417"
-          />
-        </filter>
-        <linearGradient
-          id="paint0_linear_211_417"
-          x1="770"
-          y1="770"
-          x2="-159.335"
-          y2="372.794"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#1F97CB" />
-          <stop offset="0.302083" stop-color="#46C6D1" />
-          <stop offset="0.640625" stop-color="#96E6D8" />
-          <stop offset="1" stop-color="#A5EDDC" />
-        </linearGradient>
-        <linearGradient
-          id="paint1_linear_211_417"
-          x1="217.878"
-          y1="347.077"
-          x2="433.107"
-          y2="-77.4733"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#A5EDDC" />
-          <stop offset="1" stop-color="#46C6D1" />
-        </linearGradient>
-        <linearGradient
-          id="paint2_linear_211_417"
-          x1="556.832"
-          y1="839.302"
-          x2="865.998"
-          y2="468.606"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#68D9D4" stop-opacity="0.6" />
-          <stop offset="1" stop-color="#B4F4E0" />
-        </linearGradient>
-        <clipPath id="clip0_211_417">
-          <rect width="770" height="770" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
   )
 }
 
@@ -1011,16 +515,15 @@ const Story = ({ data }) => {
                       ? pane.positions[activeId]
                       : pane.positions.default
                   }`}
-                  style={{ width: pane.width + '%', height: pane.height + '%' }}
+                  style={{
+                    width: pane.width + '%',
+                    height: pane.height === 'auto' ? 'auto' : pane.height + '%',
+                  }}
                 >
-                  {pane.component && (
-                    <pane.component
-                      state={
-                        pane.states[activeId]
-                          ? pane.states[activeId]
-                          : pane.states.default
-                      }
-                    />
+                  {pane.video && (
+                    <div className="video-wrapper">
+                      <Video src={pane.video} />
+                    </div>
                   )}
                   {pane.file && (
                     <div className="file-wrapper">
@@ -1036,18 +539,21 @@ const Story = ({ data }) => {
                             'em',
                         }}
                       >
-                        <SyntaxHighlighter
-                          languag={
-                            pane.file.language
-                              ? pane.file.language
-                              : 'javascript'
-                          }
-                          useInlineStyles={false}
-                          // wrapLines={true}
-                          // wrapLongLines={true}
-                        >
-                          {pane.file.code}
-                        </SyntaxHighlighter>
+                        <div className="glow-border"></div>
+                        <div className="code-wrapper">
+                          <SyntaxHighlighter
+                            languag={
+                              pane.file.language
+                                ? pane.file.language
+                                : 'javascript'
+                            }
+                            useInlineStyles={false}
+                            // wrapLines={true}
+                            // wrapLongLines={true}
+                          >
+                            {pane.file.code}
+                          </SyntaxHighlighter>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -1132,6 +638,28 @@ const Story = ({ data }) => {
           }
         }
 
+        .video-wrapper {
+          width: 100%;
+          height: relative;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-100) 10%,
+            var(--blue-200) 20%,
+            var(--blue-300) 40%,
+            var(--blue-450) 70%,
+            var(--blue-500) 85%
+          );
+          box-shadow: 4px 4px 16px rgba(104, 217, 212, 0.15),
+            8px 8px 32px rgba(34, 128, 195, 0.15),
+            16px 16px 64px rgba(34, 128, 195, 0.3);
+          border-radius: 10px;
+          overflow: hidden;
+
+          :global(video) {
+            display: block;
+          }
+        }
+
         .preview-wrapper {
           position: relative;
           width: 100%;
@@ -1163,11 +691,21 @@ const Story = ({ data }) => {
         }
 
         .file {
-          display: block;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: stretch;
           width: 100%;
           flex: 1;
+        }
+
+        .code-wrapper {
+          display: block;
+          width: calc(100% - 3px);
+          flex: 1;
           position: relative;
-          border: 1px solid var(--blue-750);
+          margin: 1.5px;
           box-shadow: inset 0 0 256px rgba(16, 38, 127, 0.5),
             4px 4px 16px rgba(22, 63, 146, 0.2),
             16px 16px 64px rgba(16, 38, 127, 0.5);
@@ -1182,11 +720,7 @@ const Story = ({ data }) => {
           overflow: hidden;
         }
 
-        .file.with-name {
-          border-radius: 0 10px 10px 10px;
-        }
-
-        .file:after {
+        .code-wrapper:after {
           content: '';
           display: block;
           position: absolute;
@@ -1206,7 +740,32 @@ const Story = ({ data }) => {
           border-radius: 10px;
         }
 
-        .file.with-name:after {
+        .glow-border {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-750),
+            var(--blue-450) 40%,
+            var(--blue-650) 65%,
+            var(--blue-600) 100%
+          );
+          border-radius: 10px;
+          opacity: 0.5;
+        }
+
+        .file.with-name .code-wrapper {
+          border-radius: 0 10px 10px 10px;
+        }
+
+        .file.with-name .code-wrapper:after {
+          border-radius: 0 10px 10px 10px;
+        }
+
+        .file.with-name .glow-border {
           border-radius: 0 10px 10px 10px;
         }
 
@@ -1326,20 +885,10 @@ const Page = props => {
   return (
     <>
       <div className={`wrapper`}>
-        <Header />
+        <Navbar />
         <Story data={storyData} />
         <div className="other-section"></div>
         <Story data={storyData} />
-        <svg className="noise-filter">
-          <filter id="noiseFilter">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="7"
-              numOctaves="5"
-              stitchTiles="stitch"
-            />
-          </filter>
-        </svg>
       </div>
       <style jsx>{`
         :global(:root) {
@@ -1377,10 +926,10 @@ const Page = props => {
           background: linear-gradient(
             to bottom right,
             var(--blue-500) 1%,
-            var(--blue-600) 6%,
-            var(--blue-700) 17%,
-            var(--blue-800) 33%,
-            var(--blue-950) 70%,
+            var(--blue-600) 5%,
+            var(--blue-700) 15%,
+            var(--blue-800) 30%,
+            var(--blue-950) 60%,
             var(--blue-900) 100%
           );
           background-attachment: fixed;
@@ -1402,11 +951,6 @@ const Page = props => {
             var(--blue-400) 100%
           );
           background-attachment: fixed;
-        }
-
-        .noise-filter {
-          position: absolute;
-          visibility: hidden;
         }
       `}</style>
     </>
