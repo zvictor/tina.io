@@ -261,6 +261,12 @@ const Navbar = () => {
           );
         }
 
+        @-moz-document url-prefix() {
+          .background {
+            opacity: 0.9;
+          }
+        }
+
         @media (min-width: 1200px) {
         }
 
