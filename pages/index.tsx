@@ -389,17 +389,18 @@ const Gitgrid = () => {
           right: 0;
           z-index: 0;
           perspective: 1000px;
+          filter: drop-shadow(0 0 10px rgba(var(--blue-500-rgb), 0.2));
         }
 
         .gitgrid {
-          color: var(--blue-800);
+          color: var(--blue-750);
           width: 75vw;
           max-width: 1200px;
           min-width: 600px;
           height: auto;
           transform: rotate3d(1, -1, 0, 45deg);
           margin-bottom: -4%;
-          opacity: 0.33;
+          opacity: 0.2;
         }
       `}</style>
     </>
@@ -940,7 +941,7 @@ const Story = ({ data }) => {
         :global(.hljs-attribute) {
           color: #d07ea5;
           text-shadow: 0 0 7px rgba(208, 126, 165, 0.15),
-            0 0 12px rgba(208, 126, 165, 0.2), 0 0 32px rgba(208, 126, 165, 0.3);
+            0 0 12px rgba(208, 126, 165, 0.2), 0 0 32px rgba(208, 126, 165, 0.5);
         }
 
         :global(.hljs-string) {
@@ -1114,11 +1115,11 @@ const Page = props => {
             var(--blue-450) 1%,
             var(--blue-500) 4%,
             var(--blue-550) 7%,
-            var(--blue-650) 14%,
-            var(--blue-700) 19%,
-            var(--blue-750) 25%,
-            var(--blue-800) 38%,
-            var(--blue-850) 47%,
+            var(--blue-650) 13%,
+            var(--blue-700) 17%,
+            var(--blue-750) 23%,
+            var(--blue-800) 34%,
+            var(--blue-850) 45%,
             var(--blue-900) 60%,
             var(--blue-950) 75%,
             var(--blue-900) 90%,
