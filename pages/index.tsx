@@ -254,8 +254,8 @@ const Navbar = () => {
           background: linear-gradient(
             to right,
             rgba(42, 183, 207, 0.8) -4%,
-            rgba(34, 128, 195, 0.9) 6%,
-            var(--blue-700) 25%,
+            rgba(34, 128, 195, 0.9) 5%,
+            var(--blue-700) 23%,
             var(--blue-800) 66%,
             var(--blue-850)
           );
@@ -294,6 +294,7 @@ const Navbar = () => {
             transition: opacity 150ms ease-out;
             text-decoration: none;
             font-size: 1.125rem;
+            letter-spacing: 0.0125em;
             text-shadow: 0 0 7px rgba(165, 237, 220, 0.2),
               0 0 10px rgba(165, 237, 220, 0.2),
               0 0 18px rgba(165, 237, 220, 0.15),
@@ -320,6 +321,7 @@ const Navbar = () => {
         .button {
           text-decoration: none;
           font-size: 1.125rem;
+          letter-spacing: 0.025em;
           font-weight: bold;
           color: var(--blue-300);
           padding: 8px 24px;
@@ -1031,6 +1033,26 @@ const Page = props => {
           );
           border-radius: 11px;
           opacity: 0.5;
+          transition: opacity 0.5s ease-out;
+        }
+
+        .glow:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            to bottom right,
+            transparent,
+            var(--blue-400) 40%,
+            transparent 65%
+          );
+          border-radius: 11px;
+          filter: blur(32px);
+          opacity: 0.2;
         }
 
         .container {
