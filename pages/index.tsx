@@ -215,8 +215,8 @@ const Navbar = () => {
           align-items: center;
           gap: 48px;
           padding: 16px 48px;
-          box-shadow: 4px 4px 16px rgba(var(--blue-800-rgb), 0.1),
-            16px 16px 64px rgba(var(--blue-800-rgb), 0.1);
+          box-shadow: 4px 4px 16px rgba(var(--blue-700-rgb), 0.1),
+            16px 16px 64px rgba(var(--blue-700-rgb), 0.1);
           backdrop-filter: blur(8px);
         }
 
@@ -276,7 +276,7 @@ const Navbar = () => {
             width: 2.5em;
             height: auto;
             fill: white;
-            filter: drop-shadow(0 4px 4px rgba(var(--blue-800-rgb), 0.07));
+            filter: drop-shadow(0 4px 4px rgba(var(--blue-500-rgb), 0.07));
           }
         }
 
@@ -318,7 +318,7 @@ const Navbar = () => {
         .navGithub {
           flex: 0 0 auto;
           height: 28px;
-          filter: drop-shadow(0 4px 24px rgba(34, 128, 195, 0.5));
+          filter: drop-shadow(0 4px 24px rgba(var(--blue-600-rgb), 0.3));
         }
 
         .nav-actions {
@@ -391,7 +391,7 @@ const Div = () => {
           margin: 32px 4px;
           opacity: 0.5;
           overflow: visible;
-          filter: drop-shadow(0 0 4px rgba(var(--blue-300-rgb), 0.5));
+          filter: drop-shadow(0 0 4px rgba(var(--blue-400-rgb), 0.5));
         }
       `}</style>
     </>
@@ -775,6 +775,25 @@ const Story = ({ data }) => {
           opacity: 0.7;
         }
 
+        .glow-border:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -16px;
+          left: -16px;
+          width: calc(100% + 32px);
+          height: calc(100% + 32px);
+          background: linear-gradient(
+            to bottom right,
+            transparent 10%,
+            var(--blue-600) 40%,
+            transparent 60%
+          );
+          border-radius: 11px;
+          filter: blur(32px);
+          opacity: 0.3;
+        }
+
         .file.with-name .code-wrapper {
           border-radius: 0 10px 10px 10px;
         }
@@ -927,20 +946,19 @@ const Glass = () => {
           z-index: 1000;
           display: block;
           min-height: 50vh;
-          box-shadow: inset 0 0 256px rgba(var(--blue-850-rgb), 0.5),
-            4px 4px 16px rgba(var(--blue-800-rgb), 0.2),
-            16px 16px 64px rgba(var(--blue-850-rgb), 0.5);
           background: linear-gradient(
             to top left,
             var(--blue-800) 0%,
             var(--blue-850) 30%,
-            var(--blue-850) 60%,
-            var(--blue-800) 75%,
+            var(--blue-850) 55%,
+            var(--blue-800) 74%,
             var(--blue-700) 100%
           );
-          box-shadow: inset 0 0 16px rgba(var(--blue-400-rgb), 0.2),
-            inset 0 0 64px rgba(var(--blue-500-rgb), 0.2),
-            0 0 24px rgba(var(--blue-300-rgb), 0.15),
+          box-shadow: inset 8px 8px 16px -8px rgba(var(--blue-550-rgb), 0.2),
+            inset 8px 8px 64px -8px rgba(var(--blue-550-rgb), 0.2),
+            inset -8px -8px 16px -8px rgba(var(--blue-700-rgb), 0.2),
+            inset -8px -8px 64px -8px rgba(var(--blue-700-rgb), 0.2),
+            0 0 24px rgba(var(--blue-500-rgb), 0.2),
             0 0 48px rgba(var(--blue-850-rgb), 0.3);
           border-radius: 10px;
         }
@@ -969,19 +987,19 @@ const Glass = () => {
           content: '';
           display: block;
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          top: -16px;
+          left: -16px;
+          width: calc(100% + 32px);
+          height: calc(100% + 32px);
           background: linear-gradient(
             to bottom right,
             transparent 10%,
-            var(--blue-450) 40%,
+            var(--blue-600) 40%,
             transparent 60%
           );
           border-radius: 11px;
           filter: blur(32px);
-          opacity: 0.2;
+          opacity: 0.5;
         }
 
         .container {
