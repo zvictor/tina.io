@@ -165,6 +165,105 @@ const Video = ({ src }) => {
   )
 }
 
+const Button = ({ children, variant = 'primary', href }) => {
+  return (
+    <>
+      <a href={href} className={`button`}>
+        {children}
+        <span className="glow-text">{children}</span>
+      </a>
+      <style jsx>{`
+        .button {
+          position: relative;
+          z-index: 1;
+          opacity: 0.8;
+          text-decoration: none;
+          font-size: 1.125rem;
+          letter-spacing: 0.0125em;
+          font-weight: bold;
+          padding: 10px 28px;
+          border-radius: 24px;
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          color: var(--blue-250);
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              110deg,
+              var(--blue-700),
+              var(--blue-600) 30%,
+              var(--blue-450) 45%,
+              var(--blue-600) 70%,
+              var(--blue-650) 100%
+            );
+            opacity: 0.7;
+            border-radius: 24px;
+            z-index: -1;
+          }
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .glow-text {
+          display: block;
+          position: absolute;
+          top: 1.5px;
+          left: 1.5px;
+          width: calc(100% - 3px);
+          height: calc(100% - 3px);
+          border-radius: 24px;
+          background: black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: linear-gradient(
+            110deg,
+            var(--blue-700),
+            var(--blue-750) 15%,
+            var(--blue-800) 55%,
+            var(--blue-750) 85%,
+            var(--blue-700) 100%
+          );
+          box-shadow: 1px 1px 12px rgba(var(--blue-600-rgb), 0.2) inset,
+            0 0 3px 1px rgba(var(--blue-600-rgb), 0.2) inset,
+            1px 1px 12px rgba(var(--blue-600-rgb), 0.2),
+            2px 2px 32px rgba(var(--blue-600-rgb), 0.2);
+          text-shadow: 0 0 6px rgba(var(--blue-500-rgb), 0.4),
+            0 0 12px rgba(var(--blue-500-rgb), 0.35),
+            0 0 32px rgba(var(--blue-500-rgb), 0.3);
+        }
+
+        .glow-text:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -16px;
+          left: -16px;
+          width: calc(100% + 32px);
+          height: calc(100% + 32px);
+          background: linear-gradient(
+            110deg,
+            transparent 10%,
+            var(--blue-600) 45%,
+            transparent 70%
+          );
+          border-radius: 64px;
+          filter: blur(32px);
+          opacity: 0.3;
+        }
+      `}</style>
+    </>
+  )
+}
+
 const Navbar = () => {
   return (
     <div className="navbar">
@@ -200,9 +299,7 @@ const Navbar = () => {
         </GitHubButton>
       </div>
       <div className="nav-actions">
-        <a href="/" className="button">
-          Sign In
-        </a>
+        <Button href="/">Sign In</Button>
       </div>
       <style jsx>{`
         .navbar {
@@ -254,7 +351,7 @@ const Navbar = () => {
           background: linear-gradient(
             to right,
             rgba(42, 183, 207, 0.8) -4%,
-            rgba(34, 128, 195, 0.9) 5%,
+            rgba(var(--blue-600-rgb), 0.9) 5%,
             var(--blue-700) 23%,
             var(--blue-800) 66%,
             var(--blue-850)
@@ -323,40 +420,6 @@ const Navbar = () => {
 
         .nav-actions {
         }
-
-        .button {
-          text-decoration: none;
-          font-size: 1.125rem;
-          letter-spacing: 0.025em;
-          font-weight: bold;
-          color: var(--blue-300);
-          padding: 8px 24px;
-          border-radius: 24px;
-          border: 1.5px solid var(--blue-550);
-          background: transparent;
-          box-shadow: 4px 4px 12px rgba(var(--blue-300-rgb), 0.2) inset,
-            0 0 3px 1px rgba(var(--blue-250-rgb), 0.15) inset,
-            1px 2px 12px rgba(var(--blue-250-rgb), 0.15),
-            8px 8px 32px rgba(34, 128, 195, 0.2);
-          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.3),
-            0 0 10px rgba(var(--blue-250-rgb), 0.1),
-            0 0 18px rgba(var(--blue-250-rgb), 0.1);
-          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-
-          :hover {
-            color: white;
-            background: rgba(34, 128, 195, 0.2);
-            box-shadow: 4px 4px 12px rgba(var(--blue-300-rgb), 0.25) inset,
-              0 0 3px 1px rgba(var(--blue-250-rgb), 0.25) inset,
-              1px 2px 12px rgba(var(--blue-250-rgb), 0.3),
-              8px 8px 32px rgba(34, 128, 195, 0.3);
-          }
-
-          :active {
-            color: var(--blue-400);
-            background: rgba(34, 128, 195, 0.3);
-          }
-        }
       `}</style>
     </div>
   )
@@ -388,7 +451,7 @@ const Div = () => {
         svg {
           position: relative;
           width: 7em;
-          margin: 32px 4px;
+          margin: 0 4px;
           opacity: 0.5;
           overflow: visible;
           filter: drop-shadow(0 0 4px rgba(var(--blue-400-rgb), 0.5));
@@ -429,6 +492,9 @@ const Feature = ({ activeId, setActiveId, item }) => {
           </div>
           <Div />
           <p>{item.description}</p>
+          <Button variant="ghost" href="/">
+            Check It Out
+          </Button>
         </div>
       </div>
       <style jsx>{`
@@ -449,6 +515,14 @@ const Feature = ({ activeId, setActiveId, item }) => {
             min-height: 100vh;
             opacity: 0.3;
           }
+        }
+
+        .content {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          gap: 36px;
         }
 
         .visible {
@@ -477,12 +551,13 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-450) 60%,
             var(--blue-500) 70%
           );
-          text-shadow: 0 0 7px rgba(var(--blue-250-rgb), 0.2),
-            0 0 10px rgba(var(--blue-250-rgb), 0.15),
-            0 0 18px rgba(var(--blue-250-rgb), 0.15),
-            0 0 42px rgba(var(--blue-300-rgb), 0.15);
+          text-shadow: 0 0 7px rgba(var(--blue-350-rgb), 0.2),
+            0 0 10px rgba(var(--blue-350-rgb), 0.15),
+            0 0 18px rgba(var(--blue-350-rgb), 0.15),
+            0 0 42px rgba(var(--blue-400-rgb), 0.15);
           -webkit-background-clip: text;
           background-clip: text;
+          margin: 0;
         }
 
         .title-wrapper {
@@ -664,8 +739,8 @@ const Story = ({ data }) => {
             var(--blue-500) 85%
           );
           box-shadow: 4px 4px 16px rgba(var(--blue-300-rgb), 0.15),
-            8px 8px 32px rgba(34, 128, 195, 0.15),
-            16px 16px 64px rgba(34, 128, 195, 0.3);
+            8px 8px 32px rgba(var(--blue-600-rgb), 0.15),
+            16px 16px 64px rgba(var(--blue-600-rgb), 0.3);
           border-radius: 10px;
           overflow: hidden;
 
@@ -745,16 +820,15 @@ const Story = ({ data }) => {
           height: 100%;
           opacity: 0.15;
           background: repeating-linear-gradient(
-            var(--blue-500),
-            var(--blue-300) 40%,
-            var(--blue-600) 50%,
+            var(--blue-400),
+            var(--blue-200) 40%,
+            var(--blue-550) 50%,
             var(--blue-800) 90%
           );
           background-repeat: repeat-both;
           background-size: auto 6px;
           mix-blend-mode: overlay;
           border-radius: 10px;
-          // backdrop-filter: blur(2px);
         }
 
         .glow-border {
@@ -926,13 +1000,13 @@ const Story = ({ data }) => {
   )
 }
 
-const Glass = () => {
+const Glass = ({ children }) => {
   return (
     <>
       <div className="container">
         <div className="box">
           <div className="glow"></div>
-          <div className="content"></div>
+          <div className="content">{children}</div>
         </div>
       </div>
       <style jsx>{`
@@ -958,8 +1032,9 @@ const Glass = () => {
             inset 8px 8px 64px -8px rgba(var(--blue-550-rgb), 0.2),
             inset -8px -8px 16px -8px rgba(var(--blue-700-rgb), 0.2),
             inset -8px -8px 64px -8px rgba(var(--blue-700-rgb), 0.2),
-            0 0 24px rgba(var(--blue-500-rgb), 0.2),
+            0 0 24px rgba(var(--blue-600-rgb), 0.2),
             0 0 48px rgba(var(--blue-850-rgb), 0.3);
+          overflow: hidden;
           border-radius: 10px;
         }
 
@@ -994,12 +1069,13 @@ const Glass = () => {
           background: linear-gradient(
             to bottom right,
             transparent 10%,
-            var(--blue-600) 40%,
+            var(--blue-500) 40%,
             transparent 60%
           );
+          background-blend-mode: overlay;
           border-radius: 11px;
           filter: blur(32px);
-          opacity: 0.5;
+          opacity: 0.3;
         }
 
         .container {
@@ -1020,6 +1096,20 @@ const Glass = () => {
   )
 }
 
+const Spacer = () => {
+  return (
+    <>
+      <div className="spacer"></div>
+      <style jsx>{`
+        .spacer {
+          display: block;
+          height: 72px;
+        }
+      `}</style>
+    </>
+  )
+}
+
 const Page = props => {
   return (
     <>
@@ -1028,6 +1118,14 @@ const Page = props => {
         <Story data={storyData} />
         <Glass></Glass>
         <Story data={storyData} />
+        <Glass>
+          <iframe
+            width="100%"
+            height="600px"
+            src="https://tina-gql-playground.vercel.app/iframe/string-body"
+          />
+        </Glass>
+        <Spacer />
       </div>
       <style jsx>{`
         :global(:root) {
