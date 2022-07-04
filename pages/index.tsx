@@ -159,6 +159,8 @@ const Video = ({ src }) => {
         .video {
           width: 100%;
           height: auto;
+          border-radius: 10px;
+          overflow: hidden;
         }
       `}</style>
     </>
@@ -184,7 +186,7 @@ const Button = ({ children, variant = 'primary', href }) => {
           padding: 10px 28px;
           border-radius: 24px;
           transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-          color: var(--blue-250);
+          color: var(--blue-200);
 
           &:after {
             content: '';
@@ -196,13 +198,13 @@ const Button = ({ children, variant = 'primary', href }) => {
             height: 100%;
             background: linear-gradient(
               110deg,
-              var(--blue-700),
-              var(--blue-600) 30%,
-              var(--blue-450) 45%,
-              var(--blue-600) 70%,
-              var(--blue-650) 100%
+              var(--blue-600),
+              var(--blue-500) 30%,
+              var(--blue-400) 45%,
+              var(--blue-500) 70%,
+              var(--blue-600) 100%
             );
-            opacity: 0.7;
+            opacity: 0.5;
             border-radius: 24px;
             z-index: -1;
           }
@@ -226,38 +228,43 @@ const Button = ({ children, variant = 'primary', href }) => {
           align-items: center;
           background: linear-gradient(
             110deg,
-            var(--blue-700),
-            var(--blue-750) 15%,
-            var(--blue-800) 55%,
-            var(--blue-750) 85%,
+            var(--blue-700) 0%,
+            rgba(var(--blue-800-rgb), 0.8) 55%,
             var(--blue-700) 100%
           );
           box-shadow: 1px 1px 12px rgba(var(--blue-600-rgb), 0.2) inset,
             0 0 3px 1px rgba(var(--blue-600-rgb), 0.2) inset,
-            1px 1px 12px rgba(var(--blue-600-rgb), 0.2),
+            1px 1px 12px rgba(var(--blue-500-rgb), 0.2),
             2px 2px 32px rgba(var(--blue-600-rgb), 0.2);
-          text-shadow: 0 0 6px rgba(var(--blue-500-rgb), 0.4),
-            0 0 12px rgba(var(--blue-500-rgb), 0.35),
-            0 0 32px rgba(var(--blue-500-rgb), 0.3);
+          text-shadow: 0 0 3px rgba(var(--blue-350-rgb), 0.2),
+            0 0 10px rgba(var(--blue-350-rgb), 0.3),
+            0 0 20px rgba(var(--blue-400-rgb), 0.4);
         }
 
         .glow-text:after {
           content: '';
           display: block;
           position: absolute;
-          top: -16px;
-          left: -16px;
-          width: calc(100% + 32px);
-          height: calc(100% + 32px);
+          top: -8px;
+          left: -8px;
+          width: calc(100% + 16px);
+          height: calc(100% + 16px);
           background: linear-gradient(
             110deg,
             transparent 10%,
-            var(--blue-600) 45%,
+            var(--blue-500) 45%,
             transparent 70%
           );
           border-radius: 64px;
-          filter: blur(32px);
+          z-index: -1;
+          filter: blur(16px);
           opacity: 0.3;
+        }
+
+        .button:hover .glow-text:after,
+        .button:focus .glow-text:after {
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          opacity: 0.5;
         }
       `}</style>
     </>
@@ -331,13 +338,14 @@ const Navbar = () => {
           height: 1.5px;
           background: linear-gradient(
             to right,
-            var(--blue-550),
-            var(--blue-400) 25%,
-            var(--blue-650) 50%,
-            var(--blue-700) 70%,
+            var(--blue-500),
+            var(--blue-450) 25%,
+            var(--blue-500) 35%,
+            var(--blue-600) 55%,
+            var(--blue-700) 75%,
             var(--blue-750) 100%
           );
-          opacity: 0.3;
+          opacity: 0.2;
         }
 
         .background {
@@ -350,8 +358,9 @@ const Navbar = () => {
           opacity: 0.7;
           background: linear-gradient(
             to right,
-            rgba(42, 183, 207, 0.8) -4%,
-            rgba(var(--blue-600-rgb), 0.9) 5%,
+            rgba(var(--blue-450-rgb), 0.7),
+            rgba(var(--blue-500-rgb), 0.8) 4%,
+            rgba(var(--blue-600-rgb), 0.9) 12%,
             var(--blue-700) 23%,
             var(--blue-800) 66%,
             var(--blue-850)
@@ -373,7 +382,7 @@ const Navbar = () => {
             width: 2.5em;
             height: auto;
             fill: white;
-            filter: drop-shadow(0 4px 4px rgba(var(--blue-500-rgb), 0.07));
+            filter: drop-shadow(0 0 6px rgba(var(--blue-300-rgb), 0.3));
           }
         }
 
@@ -454,7 +463,7 @@ const Div = () => {
           margin: 0 4px;
           opacity: 0.5;
           overflow: visible;
-          filter: drop-shadow(0 0 4px rgba(var(--blue-400-rgb), 0.5));
+          filter: drop-shadow(0 0 4px rgba(var(--blue-400-rgb), 0.4));
         }
       `}</style>
     </>
@@ -504,9 +513,7 @@ const Feature = ({ activeId, setActiveId, item }) => {
           justify-content: flex-start;
           align-items: stretch;
           padding: 32px 0;
-          opacity: 0.1;
           transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-          filter: blur(1px);
           min-height: 75vh;
         }
 
@@ -514,6 +521,10 @@ const Feature = ({ activeId, setActiveId, item }) => {
           .feature {
             min-height: 100vh;
             opacity: 0.3;
+          }
+
+          .feature.visible {
+            opacity: 1;
           }
         }
 
@@ -523,11 +534,6 @@ const Feature = ({ activeId, setActiveId, item }) => {
           justify-content: flex-start;
           align-items: flex-start;
           gap: 36px;
-        }
-
-        .visible {
-          filter: none;
-          opacity: 1;
         }
 
         @media (min-width: 1200px) {
@@ -552,9 +558,8 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-500) 70%
           );
           text-shadow: 0 0 7px rgba(var(--blue-350-rgb), 0.2),
-            0 0 10px rgba(var(--blue-350-rgb), 0.15),
-            0 0 18px rgba(var(--blue-350-rgb), 0.15),
-            0 0 42px rgba(var(--blue-400-rgb), 0.15);
+            0 0 18px rgba(var(--blue-350-rgb), 0.2),
+            0 0 48px rgba(var(--blue-400-rgb), 0.3);
           -webkit-background-clip: text;
           background-clip: text;
           margin: 0;
