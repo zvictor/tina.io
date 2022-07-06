@@ -5,6 +5,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import TinaIcon from '../public/svg/tina-icon.svg'
 import navData from '../content/navigation.json'
 import GitHubButton from 'react-github-btn'
+import { BsPlay } from 'react-icons/bs'
+import { ImSpinner6 } from 'react-icons/im'
 
 const storyData = {
   features: [
@@ -1132,15 +1134,36 @@ const Spacer = () => {
 }
 
 const LazyPlayground = () => {
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [state, setState] = React.useState('default')
+
+  React.useEffect(() => {
+    let timeout
+
+    if (state === 'loading') {
+      timeout = setTimeout(() => {
+        setState('loaded')
+      }, 3000)
+    }
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [state])
 
   return (
     <>
-      {!isLoaded && (
-        <div className="preview-wrapper">
+      {state !== 'default' && (
+        <iframe
+          width="100%"
+          height="600px"
+          src="https://tina-gql-playground.vercel.app/iframe/string-body"
+        />
+      )}{' '}
+      {state !== 'loaded' && (
+        <div className={`preview-wrapper preview-${state}`}>
           <button
             onClick={() => {
-              setIsLoaded(true)
+              setState('loading')
             }}
             className="playground-trigger"
           >
@@ -1151,27 +1174,39 @@ const LazyPlayground = () => {
             />
           </button>
           <div className="overlay-button">
-            <Button
-              size="large"
-              onClick={() => {
-                setIsLoaded(true)
-              }}
-            >
-              Load Playground
-            </Button>
+            {state === 'loading' ? (
+              <span className="loading">
+                Loading Playground <ImSpinner6 />
+              </span>
+            ) : (
+              <Button
+                size="large"
+                onClick={() => {
+                  setState('loading')
+                }}
+              >
+                Load Playground <BsPlay />
+              </Button>
+            )}
           </div>
         </div>
-      )}
-      {isLoaded && (
-        <iframe
-          width="100%"
-          height="600px"
-          src="https://tina-gql-playground.vercel.app/iframe/string-body"
-        />
       )}
       <style jsx>{`
         .preview-wrapper {
           position: relative;
+          background: var(--blue-900);
+        }
+
+        .preview-loading {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .preview-loading .playground-trigger {
+          pointer-events: none;
         }
 
         .overlay-button {
@@ -1179,6 +1214,44 @@ const LazyPlayground = () => {
           top: 50%;
           left: 50%;
           transform: translate3d(-50%, -50%, 0);
+        }
+
+        .overlay-button :global(svg) {
+          margin-left: 0.25em;
+          height: 1.375em;
+          width: auto;
+          display: inline-block;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        .loading {
+          display: flex;
+          align-items: center;
+          font-size: 1.5rem;
+          line-height: 1;
+          font-weight: 600;
+          color: var(--blue-700);
+          text-shadow: 0 0 7px rgba(var(--blue-350-rgb), 0.2),
+            0 0 18px rgba(var(--blue-350-rgb), 0.2),
+            0 0 48px rgba(var(--blue-400-rgb), 0.3);
+          pointer-events: none;
+          margin: 0;
+        }
+
+        .loading :global(svg) {
+          margin-left: 0.5em;
+          height: 1.375em;
+          width: auto;
+          display: inline-block;
+          animation: spin 1s linear infinite;
         }
 
         .playground-trigger {
@@ -1203,7 +1276,7 @@ const LazyPlayground = () => {
           height: 100%;
           background: linear-gradient(
             to bottom right,
-            var(--blue-550),
+            var(--blue-450),
             var(--blue-500) 40%,
             var(--blue-550) 70%,
             var(--blue-650) 100%
