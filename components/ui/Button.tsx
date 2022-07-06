@@ -1,185 +1,197 @@
 import styled, { css } from 'styled-components'
 
-interface ButtonProps {
-  color?:
-    | 'white'
-    | 'primary'
-    | 'secondary'
-    | 'seafoam'
-    | 'variable'
-    | 'blue'
-    | 'blueInverted'
-  size?: 'large' | 'small'
+export const Button = ({
+  children,
+  size = 'medium',
+  variant = 'primary',
+  ...props
+}) => {
+  return (
+    <>
+      <a {...props} className={`button ${size} ${variant}`}>
+        {children}
+        <span className="glow-text">{children}</span>
+      </a>
+      <style jsx>{`
+        .button {
+          cursor: pointer;
+          position: relative;
+          z-index: 1;
+          opacity: 0.85;
+          text-decoration: none;
+          letter-spacing: 0.0125em;
+          font-weight: bold;
+          border-radius: 24px;
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            z-index: -1;
+          }
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .primary {
+          color: var(--blue-100);
+
+          &:after {
+            background: linear-gradient(
+              110deg,
+              var(--tina-blue-dark),
+              var(--tina-blue) 15%,
+              var(--blue-450) 35%,
+              var(--blue-350) 55%,
+              var(--blue-500) 70%,
+              var(--tina-blue) 80%
+            );
+            opacity: 0.9;
+          }
+
+          .glow-text {
+            background: linear-gradient(
+              110deg,
+              var(--tina-blue) 10%,
+              var(--tina-blue-light) 35%,
+              var(--blue-450) 60%,
+              var(--blue-500) 100%
+            );
+            box-shadow: 1px 1px 12px rgba(var(--blue-500-rgb), 0.2) inset,
+              0 0 3px 1px rgba(var(--blue-500-rgb), 0.2) inset,
+              1px 1px 12px rgba(var(--blue-500-rgb), 0.2),
+              2px 2px 32px rgba(var(--blue-600-rgb), 0.2);
+            text-shadow: 0 0 3px rgba(var(--blue-600-rgb), 0.2),
+              0 0 10px rgba(var(--blue-600-rgb), 0.3),
+              0 0 20px rgba(var(--blue-600-rgb), 0.4);
+
+            &:after {
+              background: linear-gradient(
+                110deg,
+                transparent 10%,
+                var(--blue-400) 50%,
+                transparent 70%
+              );
+              opacity: 0.3;
+            }
+          }
+        }
+
+        .white {
+          color: var(--blue-550);
+
+          &:after {
+            background: linear-gradient(
+              110deg,
+              var(--blue-150),
+              var(--blue-100) 40%,
+              var(--blue-100) 70%,
+              var(--blue-150) 100%
+            );
+            opacity: 1;
+          }
+
+          .glow-text {
+            background: linear-gradient(
+              110deg,
+              var(--blue-50) 20%,
+              var(--blue-100) 66%,
+              var(--blue-50) 120%
+            );
+            box-shadow: 1px 1px 12px rgba(var(--blue-200-rgb), 0.2) inset,
+              0 0 3px 1px rgba(var(--blue-200-rgb), 0.2) inset,
+              1px 1px 12px rgba(var(--blue-400-rgb), 0.1),
+              2px 2px 32px rgba(var(--blue-400-rgb), 0.1);
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5),
+              0 0 10px rgba(255, 255, 255, 0.5),
+              0 0 20px rgba(255, 255, 255, 0.5);
+
+            &:after {
+              background: linear-gradient(
+                110deg,
+                transparent 10%,
+                var(--blue-400) 50%,
+                transparent 70%
+              );
+              opacity: 0.3;
+            }
+          }
+        }
+
+        .small {
+          padding: 8px 20px;
+          font-size: 1rem;
+        }
+
+        .medium {
+          padding: 12px 28px;
+          font-size: 1.125rem;
+        }
+
+        .large {
+          padding: 14px 32px;
+          font-size: 1.25rem;
+        }
+
+        .glow-text {
+          display: block;
+          position: absolute;
+          top: 1.5px;
+          left: 1.5px;
+          width: calc(100% - 3px);
+          height: calc(100% - 3px);
+          border-radius: 24px;
+          background: black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .glow-text:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -8px;
+          left: -8px;
+          width: calc(100% + 16px);
+          height: calc(100% + 16px);
+          border-radius: 64px;
+          z-index: -1;
+          filter: blur(16px);
+        }
+
+        .button:hover .glow-text:after,
+        .button:focus .glow-text:after {
+          transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+          opacity: 0.5;
+        }
+      `}</style>
+    </>
+  )
 }
 
-export const Button = styled.button<ButtonProps>`
-  font-size: 1rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  transition: all 150ms ease-out;
-  width: max-content;
-  transform: translate3d(0px, 0px, 0px);
-  display: flex;
-  align-items: center;
-  background-color: var(--color-seafoam);
-  color: var(--color-orange);
-  border-radius: 2rem;
-  text-transform: uppercase;
-  padding: 0 1.25rem;
-  height: 45px;
-  border: 1px solid #b4f4e0;
-  font-family: var(--font-tuner);
-  font-weight: regular;
-  font-style: normal;
-  text-decoration: none !important;
-  white-space: nowrap;
-  opacity: 1;
-  line-height: 1.25;
-
-  svg {
-    fill: currentColor;
-    margin-left: -0.25em;
-    margin-right: 0.125rem;
-  }
-
-  &:hover,
-  &:focus {
-    color: var(--color-orange);
-    text-decoration: none;
-    transform: translate3d(-1px, -2px, 0);
-    transition: transform 180ms ease-out;
-  }
-  &:focus {
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset,
-      rgba(236, 72, 21, 0.7) 0px 0px 0px 3px, rgba(0, 0, 0, 0.12) 0px 2px 3px;
-  }
-  &:focus,
-  &:active {
-    outline: none;
-  }
-  &:active {
-    filter: none;
-  }
-
-  svg {
-  }
-
-  ${props =>
-    props.size === 'small' &&
-    css`
-      padding: 0 1.25rem;
-      height: 38px;
-      font-size: 0.95rem;
-      line-height: 1;
-    `}
-
-  ${props =>
-    props.color === 'white' &&
-    css`
-      background-color: white;
-      border-color: rgba(0, 0, 0, 0.1);
-
-      &:focus {
-        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset,
-          rgba(255, 255, 255, 0.7) 0px 0px 0px 3px,
-          rgba(0, 0, 0, 0.12) 0px 2px 3px;
-      }
-    `};
-
-  ${props =>
-    props.color === 'primary' &&
-    css`
-      background-color: var(--color-orange);
-      color: white;
-      border-color: var(--color-orange);
-      font-weight: bold;
-
-      &:hover,
-      &:focus {
-        color: white;
-      }
-    `};
-
-  ${props =>
-    props.color === 'blue' &&
-    css`
-      background-color: var(--color-tina-blue);
-      border-color: var(--color-tina-blue-dark);
-      color: white;
-      font-weight: bold;
-
-      &:hover,
-      &:focus {
-        color: white;
-      }
-
-      &:focus {
-        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset,
-          var(--color-tina-blue) 0px 0px 0px 3px,
-          rgba(0, 0, 0, 0.12) 0px 2px 3px;
-      }
-    `};
-
-  ${props =>
-    props.color === 'blueInverted' &&
-    css`
-      background-color: white;
-      color: var(--color-tina-blue);
-      border-color: rgba(0, 0, 0, 0.1);
-
-      &:focus {
-        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset,
-          var(--color-tina-blue) 0px 0px 0px 3px,
-          rgba(0, 0, 0, 0.12) 0px 2px 3px;
-      }
-
-      &:hover,
-      &:focus {
-        color: var(--color-tina-blue-dark);
-      }
-    `};
-
-  ${props =>
-    props.color === 'secondary' &&
-    css`
-      background-color: var(--color-secondary);
-      color: var(--color-orange);
-      border-color: var(--color-secondary);
-
-      &:hover,
-      &:focus {
-        color: white;
-      }
-    `};
-
-  ${props =>
-    props.color === 'variable' &&
-    css`
-      background-color: var(--color-background);
-      color: var(--color-foreground);
-      border-color: var(--color-background);
-      &:focus {
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-      }
-    `};
-`
-
-Button.defaultProps = {
-  color: 'seafoam',
+export const ButtonGroup = ({ children }) => {
+  return (
+    <>
+      <div className="group">{children}</div>
+      <style>{`
+    .group {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+  `}</style>
+    </>
+  )
 }
-
-export const ButtonGroup = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-right: -1rem;
-  margin-bottom: -1rem;
-
-  ${Button} {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-  }
-`

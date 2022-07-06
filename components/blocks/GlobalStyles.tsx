@@ -6,9 +6,9 @@ export const GlobalStyles = css.global`
     --color-tina-blue-light: #2296fe;
     --color-tina-blue: #2296fe;
     --color-tina-blue-dark: #0574e4;
-    --color-orange: #ec4815;
-    --color-orange-light: #eb6337;
-    --color-orange-dark: #dc4419;
+    --color-tina-blue: #ec4815;
+    --color-tina-blue-light: #eb6337;
+    --color-tina-blue-dark: #dc4419;
     --color-yellow: #f2c94c;
     --color-green: #6fcf97;
     --color-black: #1c1b2e;
@@ -17,10 +17,10 @@ export const GlobalStyles = css.global`
     --color-white: #ffffff;
     --color-gray: #f3f3f3;
     --color-light-gray: #fafafa;
-    --color-seafoam: #e6faf8;
-    --color-seafoam-dark: #b4f4e0;
+    --blue: #e6faf8;
+    --blue-dark: #b4f4e0;
 
-    --color-emphasis: var(--color-orange);
+    --color-emphasis: var(--color-tina-blue);
     --color-card-background: var(--color-light-gray);
 
     --spacer-size: 4.5rem;
@@ -29,11 +29,11 @@ export const GlobalStyles = css.global`
   }
 
   ::-moz-selection {
-    background: var(--color-seafoam-dark);
+    background: var(--blue-dark);
     color: var(--color-blue-light);
   }
   ::selection {
-    background: var(--color-seafoam-dark);
+    background: var(--blue-dark);
     color: var(--color-blue-light);
   }
 
@@ -56,7 +56,7 @@ export const GlobalStyles = css.global`
   }
 
   .headingLarge {
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: bold;
     line-height: 1.4;
     margin-bottom: 1rem;
@@ -105,8 +105,8 @@ export const GlobalStyles = css.global`
   .orange {
     background: linear-gradient(
       to top right,
-      var(--color-orange),
-      var(--color-orange-light)
+      var(--color-tina-blue),
+      var(--color-tina-blue-light)
     );
     color: var(--color-white);
   }
@@ -119,13 +119,13 @@ export const GlobalStyles = css.global`
   .lightblue {
     background: var(--color-tina-blue);
     color: var(--color-white);
-    --color-emphasis: var(--color-orange);
+    --color-emphasis: var(--color-tina-blue);
   }
 
   .blue {
     background: var(--color-blue);
     color: var(--color-white);
-    --color-emphasis: var(--color-orange-light);
+    --color-emphasis: var(--color-tina-blue-light);
   }
 
   .lightGray {

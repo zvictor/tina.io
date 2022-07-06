@@ -53,10 +53,21 @@ const FooterForm = styled.div`
 `
 
 const FooterTop = styled.div`
+  position: relative;
   display: grid;
   grid-gap: 1rem;
   padding: 2.5rem 2rem;
-  background-color: var(--color-background);
+  background: linear-gradient(
+    145deg,
+    var(--blue-450) 3%,
+    var(--blue-500) 13%,
+    var(--tina-blue) 28%,
+    var(--blue-650) 48%,
+    var(--blue-700) 55%,
+    var(--blue-750) 65%,
+    var(--blue-800) 80%,
+    var(--blue-850) 100%
+  );
   align-items: start;
   grid-template-areas: 'logo' 'social' 'nav';
 
@@ -84,12 +95,22 @@ const FooterTop = styled.div`
 `
 
 const FooterBottom = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   padding: 1.5rem 2rem 0 2rem;
-  background-color: var(--color-background);
+  background: linear-gradient(
+    145deg,
+    var(--blue-700) 1%,
+    var(--blue-750) 13%,
+    var(--blue-800) 25%,
+    var(--blue-850) 50%,
+    var(--blue-950) 75%,
+    var(--blue-900) 90%,
+    var(--blue-850) 100%
+  );
 
   @media (min-width: 1200px) {
     flex-direction: row;
@@ -116,7 +137,7 @@ const Footnote = styled.span`
   button {
     height: 40px;
     color: white;
-    background-color: var(--color-orange);
+    background-color: var(--color-tina-blue);
 
     &:hover,
     &:focus {
@@ -179,6 +200,7 @@ export const Footer = styled(({ light, ...styleProps }) => {
   return (
     <div {...styleProps}>
       <FooterTop>
+        <span className="glowbar"></span>
         <TinaIcon />
         <LinkNav />
         <FooterSocial>
@@ -202,6 +224,7 @@ export const Footer = styled(({ light, ...styleProps }) => {
         </FooterSocial>
       </FooterTop>
       <FooterBottom>
+        <span className="glowbar"></span>
         <FooterForm>
           <span>Stay in touch 👉</span>
           <EmailForm isFooter />
@@ -244,8 +267,6 @@ export const Footer = styled(({ light, ...styleProps }) => {
 })`
   grid-area: footer;
   color: white;
-  --color-background: var(--color-orange);
-  --color-background-dark: var(--color-orange-dark);
   position: relative;
   z-index: 1000;
   flex: 0 1 auto;
@@ -262,29 +283,22 @@ export const Footer = styled(({ light, ...styleProps }) => {
     fill: white;
   }
 
-  ${FooterBottom} {
-    --color-background: var(--color-orange-dark);
+  .glowbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(
+      to right,
+      var(--blue-600),
+      var(--blue-550) 15%,
+      var(--blue-500) 25%,
+      var(--tina-blue) 40%,
+      var(--blue-600) 55%,
+      var(--blue-700) 70%,
+      var(--blue-750) 100%
+    );
+    opacity: 0.6;
   }
-
-  ${props =>
-    props.light &&
-    css`
-      border-top: 1px solid var(--color-light-dark);
-      color: var(--color-orange);
-      --color-background: var(--color-light);
-      --color-background-dark: var(--color-light-dark);
-
-      ${TinaIcon} {
-        fill: var(--color-orange);
-      }
-
-      ${FooterSocial} {
-        fill: var(--color-orange);
-      }
-
-      ${FooterBottom} {
-        color: white;
-        --color-background: var(--color-orange);
-      }
-    `};
 `

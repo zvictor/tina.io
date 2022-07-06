@@ -14,7 +14,7 @@ export const Overlay = styled.div<Overlay>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-secondary);
+  background-color: var(--blue-700);
   transition: all 180ms ease-out;
   opacity: 0;
   z-index: 1200;

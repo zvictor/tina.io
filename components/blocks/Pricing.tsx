@@ -69,7 +69,7 @@ const PricingCard = ({ data }) => {
           width: 100%;
           margin: 0 auto;
           max-width: 45rem;
-          border: 1px solid var(--color-seafoam-300);
+          border: 1px solid var(--blue-300);
           border-radius: 0.75rem;
           box-shadow: 0 6px 24px rgba(0, 37, 91, 0.05),
             0 2px 4px rgba(0, 37, 91, 0.03);
@@ -85,21 +85,21 @@ const PricingCard = ({ data }) => {
           flex-wrap: wrap;
           align-items: center;
           line-height: 1.2;
-          background: var(--color-seafoam-100);
-          border-bottom: 1px solid var(--color-seafoam-300);
+          background: var(--blue-100);
+          border-bottom: 1px solid var(--blue-300);
           padding: ${data.large ? '2.5rem' : '2.25rem'};
         }
         .title {
-          font-family: var(--font-tuner);
-          color: var(--color-orange);
+          font-family: var(--font-sans);
+          color: var(--color-tina-blue);
           font-size: ${data.large ? '2rem' : '1.5rem'};
           flex: 0 0 auto;
           padding-right: 1rem;
           margin: 0;
         }
         .price {
-          font-family: var(--font-tuner);
-          color: var(--color-secondary);
+          font-family: var(--font-sans);
+          color: var(--blue-700);
           font-size: ${data.large ? '2rem' : '1.5rem'};
           flex: 0 0 auto;
           padding-left: 1rem;
@@ -116,7 +116,7 @@ const PricingCard = ({ data }) => {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          color: var(--color-secondary);
+          color: var(--blue-700);
         }
         .content {
           :global(strong) {
@@ -139,7 +139,7 @@ const PricingCard = ({ data }) => {
               width: 0.5em;
               height: 0.5em;
               border-radius: 100%;
-              background: var(--color-seafoam-400);
+              background: var(--blue-400);
             }
           }
           :global(p) {
@@ -151,7 +151,7 @@ const PricingCard = ({ data }) => {
           border-right: none;
           border-left: none;
           border-image: initial;
-          border-bottom: 5px dotted var(--color-seafoam-dark);
+          border-bottom: 5px dotted var(--blue-dark);
           width: 100%;
           max-width: 100%;
           flex: 1 1 0;
@@ -255,11 +255,11 @@ export function PricingBlock({ data, index }) {
         }
 
         .seafoam {
-          background-color: var(--color-seafoam);
+          background-color: var(--blue);
           background: linear-gradient(
             to bottom,
-            var(--color-seafoam-200) 8rem,
-            var(--color-seafoam-100)
+            var(--blue-200) 8rem,
+            var(--blue-100)
           );
         }
 
@@ -273,28 +273,28 @@ export function PricingBlock({ data, index }) {
             }
 
             font-size: 1.25rem;
-            color: var(--color-secondary);
+            color: var(--blue-700);
           }
         }
         .faq-wrapper {
           :global(h3) {
             font-size: 2rem;
-            color: var(--color-secondary);
-            font-family: var(--font-tuner);
+            color: var(--blue-700);
+            font-family: var(--font-sans);
           }
           :global(p) {
             &:first-of-type {
               font-size: 1.5rem;
               margin-bottom: 2.5rem;
             }
-            color: var(--color-secondary);
+            color: var(--blue-700);
           }
         }
         .segue {
           position: relative;
           font-size: 1.5rem;
           text-align: center;
-          color: var(--color-secondary);
+          color: var(--blue-700);
           padding: 4.5rem 0;
 
           :global(span) {
@@ -310,7 +310,7 @@ export function PricingBlock({ data, index }) {
 
             font-size: 1.25rem;
             margin: 0.5rem 0;
-            color: var(--color-secondary);
+            color: var(--blue-700);
           }
 
           @media (min-width: 1100px) {
@@ -325,7 +325,7 @@ export function PricingBlock({ data, index }) {
             height: 100%;
             width: 0;
             transform: translateX(-50%);
-            border-left: 5px dotted var(--color-seafoam-dark);
+            border-left: 5px dotted var(--blue-dark);
             z-index: -1;
           }
         }

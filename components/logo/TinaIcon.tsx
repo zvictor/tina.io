@@ -24,7 +24,7 @@ export const TinaIcon = styled(({ docs, ...styleProps }: TinaIconProps) => {
   )
 })`
   text-decoration: none;
-  fill: var(--color-orange);
+  fill: var(--tina-blue);
 
   h1 {
     margin: 0;
@@ -35,14 +35,24 @@ export const TinaIcon = styled(({ docs, ...styleProps }: TinaIconProps) => {
   span {
     font-size: 1.5rem;
     margin-left: 0.675rem;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: bold;
-    color: var(--color-orange);
+    color: transparent;
+    background: linear-gradient(
+      110deg,
+      var(--tina-blue-light),
+      var(--tina-blue),
+      var(--blue-450),
+      var(--blue-500)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
     margin-top: 0.5rem;
   }
 
   svg {
     height: 40px;
     width: auto;
+    filter: drop-shadow(0 0 6px rgba(var(--blue-300-rgb), 0.3));
   }
 `

@@ -105,10 +105,14 @@ const DocsSidebarHeader = styled.div`
 const DocsSidebarHeaderWrapper = styled.div`
   flex: 0 0 auto;
   background-color: white;
-  background: linear-gradient(to bottom, white, var(--color-grey-1));
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--blue-50-rgb), 0.5),
+    var(--blue-50)
+  );
   z-index: 500;
   padding: 1rem 1rem 1.25rem 1rem;
-  border-bottom: 1px solid var(--color-grey-2);
+  border-bottom: 1px solid var(--blue-150);
   position: relative;
 
   ${HitsWrapper} {

@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components'
 
 export const DocsLeftSidebar = styled.div<{ open: boolean }>`
   line-height: 1.25;
-  background-color: white;
-  border-right: 1px solid var(--color-grey-2);
+  background: linear-gradient(to bottom, white, var(--blue-50));
+  border-right: 1px solid var(--blue-150);
   padding: 0;
   position: fixed;
   z-index: 250;

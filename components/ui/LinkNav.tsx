@@ -41,7 +41,7 @@ export const LinkNav = styled(({ ...styleProps }) => {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
     opacity: 1;

@@ -68,7 +68,7 @@ export const Hero = styled(({ overlap, narrow, children, ...styleProps }) => {
 export const HeroTitle = styled(({ narrow, children, ...styleProps }) => {
   return <h2 {...styleProps}>{children}</h2>
 })`
-  font-family: var(--font-tuner);
+  font-family: var(--font-sans);
   font-weight: bold;
   font-style: normal;
   font-size: 2.5rem;
@@ -78,9 +78,9 @@ export const HeroTitle = styled(({ narrow, children, ...styleProps }) => {
   color: transparent;
   background: linear-gradient(
     to right,
-    var(--color-orange-light),
-    var(--color-orange),
-    var(--color-orange-dark)
+    var(--color-tina-blue-light),
+    var(--color-tina-blue),
+    var(--color-tina-blue-dark)
   );
   -webkit-background-clip: text;
   background-clip: text;

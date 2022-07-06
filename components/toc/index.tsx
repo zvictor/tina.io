@@ -46,7 +46,7 @@ export default Toc
 const TocDesktopHeader = styled.span`
   display: none;
   font-size: 1rem;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   opacity: 0.5;
   background: transparent;
   line-height: 1;
@@ -72,7 +72,7 @@ const TocButton = styled.button<{ isOpen: boolean }>`
   padding: 0;
   outline: none;
   border: none;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   opacity: 0.65;
   background: transparent;
   cursor: pointer;
@@ -108,7 +108,7 @@ const TocButton = styled.button<{ isOpen: boolean }>`
   ${props =>
     props.isOpen
       ? css`
-          color: var(--color-orange);
+          color: var(--color-tina-blue);
 
           svg {
             transform: rotate(90deg);
@@ -142,7 +142,7 @@ const TocContent = styled.div<TocContentProps>`
       id =>
         css`
       a[href="#${id}"] {
-        color: var(--color-orange);
+        color: var(--color-tina-blue);
         text-decoration: none;
       }
     `
@@ -178,8 +178,8 @@ const TocContent = styled.div<TocContentProps>`
   }
 
   a {
-    color: var(--color-secondary);
-    /* font-family: var(--font-tuner); */
+    color: var(--blue-700);
+    /* font-family: var(--font-sans); */
   }
 
   /* Hide underline except on hover or focus */

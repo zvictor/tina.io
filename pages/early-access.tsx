@@ -98,7 +98,7 @@ const TEAMS_POINTS_BLOCKS = {
 
 const TeamsLayout = styled(Layout)`
   min-height: 100%;
-  background-color: var(--color-secondary-dark);
+  background-color: var(--blue-750);
   color: white;
 `
 
@@ -128,7 +128,7 @@ const TeamsGrid = styled.div`
 
 const TeamsFormWrapper = styled.div`
   padding: 2rem;
-  background-color: var(--color-secondary);
+  background-color: var(--blue-700);
   border-radius: 3rem;
 
   @media (min-width: 800px) {
@@ -143,10 +143,10 @@ const TeamsContent = styled.div`
   }
 
   h2 {
-    color: var(--color-seafoam-dark) !important;
+    color: var(--blue-dark) !important;
   }
 
   hr {
-    border-color: var(--color-seafoam-dark) !important;
+    border-color: var(--blue-dark) !important;
   }
 `

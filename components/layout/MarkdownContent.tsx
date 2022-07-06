@@ -77,7 +77,7 @@ const StyledCopyCodeButton = styled.button`
   border-radius: 0 0 0 5px;
 
   &:hover {
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     opacity: 1;
   }
 `
@@ -105,7 +105,7 @@ function WithHeadings({ children, level }) {
 }
 
 const HeadingLink = styled.a`
-  fill: var(--color-secondary);
+  fill: var(--blue-700);
   opacity: 0;
   display: flex;
   align-items: center;

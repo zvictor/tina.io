@@ -75,7 +75,7 @@ const DocsRichText = css`
   h5,
   h6 {
     position: relative;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
     em {
@@ -92,18 +92,31 @@ const DocsRichText = css`
   h4,
   .h4 {
     line-height: 1.3;
+    font-weight: 700;
     letter-spacing: 0.1px;
-    color: var(--color-secondary-dark);
+    text-shadow: 0 0 6px rgba(var(--blue-300-rgb), 0.2),
+      0 0 12px rgba(var(--blue-300-rgb), 0.2),
+      0 0 32px rgba(var(--blue-300-rgb), 0.2);
   }
 
   h1,
   .h1,
   h2,
   .h2 {
-    font-weight: bold;
-    color: var(--color-orange);
+    color: transparent;
+    background: linear-gradient(
+      110deg,
+      var(--tina-blue),
+      var(--tina-blue-light) 1.25em,
+      var(--blue-500) 2.5em,
+      var(--blue-600) 3.5em,
+      var(--blue-650) 5.5em
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+
     em {
-      color: var(--color-orange);
+      color: var(--blue-500);
       font-style: italic;
     }
   }
@@ -112,9 +125,10 @@ const DocsRichText = css`
   .h3,
   h4,
   .h4 {
-    color: var(--color-secondary);
+    color: var(--blue-550);
+    font-weight: 600;
     em {
-      color: var(--color-secondary);
+      color: var(--blue-550);
       font-style: italic;
     }
   }
@@ -145,9 +159,16 @@ const DocsRichText = css`
     font-size: 1.125rem;
   }
 
+  h6,
+  .h6,
+  h5,
+  .h5 {
+    color: var(--blue-600);
+  }
+
   p {
     font-size: 16px;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
 
     @media (min-width: 685px) {
       font-size: 18px;
@@ -194,16 +215,16 @@ const DocsRichText = css`
     &:hover,
     &:focus {
       opacity: 1;
-      color: var(--color-orange);
-      text-decoration-color: var(--color-orange);
+      color: var(--color-tina-blue);
+      text-decoration-color: var(--color-tina-blue);
     }
   }
 
   blockquote {
     display: block;
     font-size: 1.125rem;
-    background-color: var(--color-seafoam);
-    border: 1px solid var(--color-seafoam-dark);
+    background-color: var(--blue);
+    border: 1px solid var(--blue-dark);
     border-left-width: 6px;
     border-radius: 3px;
     padding: 1em;
@@ -215,7 +236,7 @@ const DocsRichText = css`
     border-radius: 0;
     background: none;
     padding: 0 0 0 1rem;
-    border-left: 1px solid var(--color-seafoam-dark);
+    border-left: 1px solid var(--blue-dark);
     margin: -1rem 0 1.5rem 0 !important;
 
     a {
@@ -228,7 +249,7 @@ const DocsRichText = css`
     border-right: none;
     border-left: none;
     border-image: initial;
-    border-bottom: 5px dotted var(--color-seafoam-dark);
+    border-bottom: 5px dotted var(--blue-dark);
     width: 6rem;
     max-width: 100%;
     display: block;
@@ -246,7 +267,7 @@ const DocsRichText = css`
 
   li {
     font-size: 1.125rem;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
   }
 
   *:not(pre) > code {
@@ -255,7 +276,7 @@ const DocsRichText = css`
     background-color: var(--color-light);
     border: 1px solid var(--color-light-dark);
     border-radius: 0.3rem;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     font-size: 1em;
     line-height: inherit;
   }
@@ -309,10 +330,10 @@ const DocsRichText = css`
 
   th {
     border-bottom: 3px solid var(--color-light-dark);
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     letter-spacing: 0.5px;
     font-size: 1.125rem;
     line-height: 1.3;
@@ -335,7 +356,7 @@ const DocsRichText = css`
     align-content: center;
     align-items: center;
     border-radius: 0.3rem;
-    border: 1px solid var(--color-seafoam);
+    border: 1px solid var(--blue);
     overflow: hidden;
 
     @media (min-width: 1000px) {
@@ -350,7 +371,7 @@ const DocsRichText = css`
     }
 
     h3 {
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
       font-size: 1.5rem;
       margin-bottom: 1.25rem;
     }
@@ -385,14 +406,14 @@ const DocsRichText = css`
     align-items: center;
     white-space: nowrap;
     outline: none;
-    background: var(--color-orange);
+    background: var(--color-tina-blue);
     transition: background 150ms ease-out;
     color: white;
 
     :hover,
     ::focus,
     :active {
-      background: var(--color-orange-light);
+      background: var(--color-tina-blue-light);
     }
 
     svg {

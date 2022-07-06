@@ -15,7 +15,7 @@ export const Card = styled.a`
   border-radius: 5px;
   padding: 1rem;
   background-color: #fafafa;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   border: 1px solid var(--color-light-dark);
   display: block;
   text-decoration: none;
@@ -50,10 +50,10 @@ export const Card = styled.a`
   &:hover {
     h3,
     h4 {
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
     }
     svg {
-      fill: var(--color-orange);
+      fill: var(--color-tina-blue);
     }
   }
 `

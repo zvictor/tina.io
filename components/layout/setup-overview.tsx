@@ -127,7 +127,7 @@ const OverviewTemplate = props => {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             width: 100%;
-            border: 1px solid var(--color-seafoam-300);
+            border: 1px solid var(--blue-300);
             box-shadow: 0 6px 24px rgba(0, 37, 91, 0.05),
               0 2px 4px rgba(0, 37, 91, 0.03);
           }
@@ -138,8 +138,8 @@ const OverviewTemplate = props => {
             width: calc(100% + 1px);
             height: calc(100% + 1px);
             margin: 0 -1px -1px 0;
-            border-right: 1px solid var(--color-seafoam-300);
-            border-bottom: 1px solid var(--color-seafoam-300);
+            border-right: 1px solid var(--blue-300);
+            border-bottom: 1px solid var(--blue-300);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -154,11 +154,11 @@ const OverviewTemplate = props => {
             }
 
             &:hover {
-              background-color: var(--color-seafoam-100);
+              background-color: var(--blue-100);
 
               h2,
               h3 {
-                color: var(--color-secondary);
+                color: var(--blue-700);
               }
             }
           }

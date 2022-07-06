@@ -114,7 +114,7 @@ export function ShowcaseBlock({ data, index }) {
           }
         }
         .featureTitle {
-          font-family: var(--font-tuner);
+          font-family: var(--font-sans);
           font-weight: bold;
           line-height: 1.4;
           margin-bottom: 1rem;
@@ -137,7 +137,7 @@ export function ShowcaseBlock({ data, index }) {
             text-decoration: underline;
             transition: all ease-out 150ms;
             color: var(--color-tina-blue-dark);
-            text-decoration-color: var(--color-seafoam-dark);
+            text-decoration-color: var(--blue-dark);
             &:hover {
               color: var(--color-tina-blue);
               text-decoration-color: var(--color-tina-blue);
@@ -172,7 +172,7 @@ export function ShowcaseBlock({ data, index }) {
           border-right: none;
           border-left: none;
           border-image: initial;
-          border-bottom: 5px dotted var(--color-seafoam-dark);
+          border-bottom: 5px dotted var(--blue-dark);
           width: 6rem;
           max-width: 100%;
           display: block;

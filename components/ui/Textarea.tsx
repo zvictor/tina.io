@@ -6,7 +6,7 @@ export const Textarea = styled.textarea`
   border: 0;
   border-radius: 5px;
   background: white;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
@@ -14,7 +14,7 @@ export const Textarea = styled.textarea`
   width: 100%;
   padding: 0.75rem 1rem;
   transition: all 85ms ease-out;
-  font-family: var(--font-tuner);
+  font-family: var(--font-sans);
   font-size: 16px;
   ::placeholder {
     opacity: 1;

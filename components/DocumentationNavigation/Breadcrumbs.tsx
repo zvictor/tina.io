@@ -96,12 +96,14 @@ const BreadcrumbList = styled.ul`
     text-decoration-color: transparent !important;
     transition: all 185ms ease-out;
     font-size: 1rem;
+    font-weight: 500;
     text-transform: uppercase;
     opacity: 0.5 !important;
-    color: var(--color-secondary);
+    color: var(--blue-700);
     line-height: 1 !important;
 
     &:hover {
+      color: var(--blue-550);
       text-decoration-color: currentColor !important;
       opacity: 1 !important;
     }

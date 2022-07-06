@@ -118,13 +118,12 @@ export const Actions = ({ items, align = 'left' }) => {
           transform: translate3d(0px, 0px, 0px);
           display: flex;
           align-items: center;
-          background-color: var(--color-seafoam);
-          color: var(--color-orange);
+          background-color: var(--blue);
+          color: var(--color-tina-blu);
           border-radius: 2rem;
-          text-transform: uppercase;
           padding: 1rem 1.5rem;
           border: 1px solid #b4f4e0;
-          font-family: var(--font-tuner);
+          font-family: var(--font-sans);
           font-weight: regular;
           font-style: normal;
           text-decoration: none !important;
@@ -134,7 +133,7 @@ export const Actions = ({ items, align = 'left' }) => {
 
           &:hover,
           &:focus {
-            color: var(--color-orange);
+            color: var(--color-tina-blu);
             text-decoration: none;
             transform: translate3d(-1px, -2px, 0);
             transition: transform 180ms ease-out;
@@ -168,7 +167,7 @@ export const Actions = ({ items, align = 'left' }) => {
 
         .link {
           font-size: 1.125rem;
-          color: var(--color-orange);
+          color: var(--color-tina-blu);
           padding: 0;
 
           &:after {
@@ -196,14 +195,14 @@ export const Actions = ({ items, align = 'left' }) => {
         }
 
         .orange {
-          background-color: var(--color-orange);
+          background-color: var(--color-tina-blue);
           background: linear-gradient(
             to bottom right,
-            var(--color-orange),
-            var(--color-orange-dark)
+            var(--color-tina-blue),
+            var(--color-tina-blue-dark)
           );
           color: white;
-          border-color: var(--color-orange);
+          border-color: var(--color-tina-blue);
           font-weight: bold;
 
           &:hover,
@@ -218,7 +217,7 @@ export const Actions = ({ items, align = 'left' }) => {
           padding: 0 0.25rem;
 
           :hover {
-            color: var(--color-orange-dark);
+            color: var(--color-tina-blue-dark);
           }
         }
       `}</style>
@@ -264,8 +263,8 @@ export const CodeButton = ({ children }) => {
           width: 100%;
           height: 100%;
           text-align: center;
-          color: var(--color-orange);
-          font-family: var(--font-tuner);
+          color: var(--color-tina-blue);
+          font-family: var(--font-sans);
           font-weight: regular;
           font-style: normal;
           background: white;
@@ -283,9 +282,9 @@ export const CodeButton = ({ children }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--color-seafoam);
+          background: var(--blue);
           border-left: 1px solid #b4f4e0;
-          color: var(--color-orange);
+          color: var(--color-tina-blue);
           align-self: stretch;
           opacity: 0.5;
           transition: opacity 180ms ease-out;
@@ -313,8 +312,7 @@ export const CodeButton = ({ children }) => {
           display: flex;
           align-items: center;
           background-color: white;
-          color: var(--color-secondary);
-          text-transform: uppercase;
+          color: var(--blue-700);
           font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
           padding: 0;
           border: 1px solid #b4f4e0;
@@ -327,7 +325,7 @@ export const CodeButton = ({ children }) => {
 
           &:hover,
           &:focus {
-            color: var(--color-orange);
+            color: var(--color-tina-blue);
             text-decoration: none;
             transform: translate3d(-1px, -2px, 0);
             transition: transform 180ms ease-out;

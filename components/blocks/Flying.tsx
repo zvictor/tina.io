@@ -55,12 +55,12 @@ export function FlyingBlock({ data, index }) {
           position: relative;
           z-index: 3;
           overflow: hidden;
-          background-color: var(--color-seafoam);
+          background-color: var(--blue);
           background: linear-gradient(
             to bottom,
-            var(--color-seafoam-100),
-            var(--color-seafoam-200),
-            var(--color-seafoam-300)
+            var(--blue-100),
+            var(--blue-200),
+            var(--blue-300)
           );
         }
 
@@ -123,16 +123,16 @@ export function FlyingBlock({ data, index }) {
         }
 
         .title {
-          font-family: var(--font-tuner);
+          font-family: var(--font-sans);
           font-weight: bold;
           line-height: 1.4;
           margin-bottom: 1.5rem;
           font-size: 2.5rem;
-          color: var(--color-orangeg);
+          color: var(--color-tina-blueg);
         }
 
         .text {
-          color: var(--color-secondary);
+          color: var(--blue-700);
           font-size: 1.125rem;
           opacity: 0.85;
 

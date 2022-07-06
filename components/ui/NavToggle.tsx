@@ -29,7 +29,7 @@ export const NavToggle = styled(({ open, ...styleProps }) => {
     border-radius: 3px;
     display: block;
     position: absolute;
-    background-color: var(--color-orange);
+    background-color: var(--color-tina-blue);
     top: 50%;
     left: 50%;
     transition: all 180ms ease-out;

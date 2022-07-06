@@ -55,7 +55,7 @@ const RichText = css`
   h5,
   h6 {
     position: relative;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
     em {
@@ -68,10 +68,10 @@ const RichText = css`
     font-size: 2.5rem;
     line-height: 1.3;
     letter-spacing: 0.1px;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
 
     em {
-      color: var(--color-secondary-dark);
+      color: var(--blue-750);
     }
 
     @media (min-width: 800px) {
@@ -88,11 +88,11 @@ const RichText = css`
     font-size: 2.25rem;
     line-height: 1.3;
     letter-spacing: 0.1px;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     font-weight: bold;
 
     em {
-      color: var(--color-secondary-dark);
+      color: var(--blue-750);
     }
   }
 
@@ -102,10 +102,10 @@ const RichText = css`
     font-weight: bold;
     line-height: 1.3;
     letter-spacing: 0.1px;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
 
     em {
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
     }
   }
 
@@ -115,16 +115,16 @@ const RichText = css`
     font-weight: bold;
     line-height: 1.3;
     letter-spacing: 0.1px;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
 
     em {
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
     }
   }
 
   p {
     font-size: 16px;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
 
     @media (min-width: 685px) {
       font-size: 18px;
@@ -162,16 +162,16 @@ const RichText = css`
     &:hover,
     &:focus {
       opacity: 1;
-      color: var(--color-orange);
-      text-decoration-color: var(--color-orange);
+      color: var(--color-tina-blue);
+      text-decoration-color: var(--color-tina-blue);
     }
   }
 
   blockquote {
     display: block;
     font-size: 1.125rem;
-    background-color: var(--color-seafoam);
-    border: 1px solid var(--color-seafoam-dark);
+    background-color: var(--blue);
+    border: 1px solid var(--blue-dark);
     border-left-width: 6px;
     border-radius: 3px;
     padding: 1em;
@@ -182,7 +182,7 @@ const RichText = css`
     border-right: none;
     border-left: none;
     border-image: initial;
-    border-bottom: 5px dotted var(--color-seafoam-dark);
+    border-bottom: 5px dotted var(--blue-dark);
     width: 6rem;
     max-width: 100%;
     display: block;
@@ -200,7 +200,7 @@ const RichText = css`
 
   li {
     font-size: 1.125rem;
-    color: var(--color-secondary-dark);
+    color: var(--blue-750);
   }
 
   *:not(pre) > code {
@@ -209,7 +209,7 @@ const RichText = css`
     background-color: var(--color-light);
     border: 1px solid var(--color-light-dark);
     border-radius: 0.3rem;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     font-size: 1em;
     line-height: inherit;
   }
@@ -240,10 +240,10 @@ const RichText = css`
 
   th {
     border-bottom: 3px solid var(--color-light-dark);
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     letter-spacing: 0.5px;
     font-size: 1.125rem;
     line-height: 1.3;

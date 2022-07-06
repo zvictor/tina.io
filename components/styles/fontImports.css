@@ -1,13 +1,3 @@
-/* Tuner Regular */
-@font-face {
-  font-family: 'tuner-regular';
-  font-style: normal;
-  font-weight: regular;
-  font-display: fallback;
-  src: url('../../public/fonts/tunerweb-regular.eot') format('eot'),
-    url('../../public/fonts/tunerweb-regular.woff') format('woff');
-}
-
 @font-face {
   font-family: 'Inter';
   font-style: normal;

@@ -12,7 +12,7 @@ export const IconWrapper = styled.div`
   right: 0;
   width: 44px;
   height: 44px;
-  fill: var(--color-orange);
+  fill: var(--color-tina-blue);
   pointer-events: none;
   display: flex;
   justify-content: center;
@@ -72,10 +72,10 @@ export const SearchContainer = styled.div<SearchContainerProps>`
   position: relative;
   font-size: 1rem;
   padding: 0.625rem 0;
-  font-family: var(--font-tuner);
+  font-family: var(--font-sans);
   background-color: white;
-  box-shadow: 3px 3px 4px var(--tina-color-grey-2), -4px -4px 6px white;
-  color: var(--color-foreground);
+  box-shadow: 3px 3px 4px var(--blue-100), -4px -4px 6px white;
+  color: var(--blue-800);
   display: flex;
   align-items: center;
   transition: filter 250ms ease;
@@ -90,7 +90,7 @@ export const SearchContainer = styled.div<SearchContainerProps>`
   ${p =>
     p.expanded
       ? css`
-          border: 1px solid var(--color-light-dark);
+          border: 1px solid var(--blue-150);
         `
       : css`
           @media (max-width: 684px) {
@@ -98,7 +98,7 @@ export const SearchContainer = styled.div<SearchContainerProps>`
             display: none;
             /* End temp fix */
             margin: 1rem;
-            border: 1px solid var(--color-light-dark);
+            border: 1px solid var(--blue-150);
           }
         `};
 `
@@ -137,7 +137,7 @@ export const HitsWrapper = styled.div<HitsWrapperProps>`
   border-radius: 5px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1),
     0 3rem 6rem 0rem rgba(0, 0, 0, 0.2);
-  color: var(--color-secondary);
+  color: var(--blue-700);
   padding: 0;
   background: white;
   li {
@@ -145,7 +145,7 @@ export const HitsWrapper = styled.div<HitsWrapperProps>`
     padding: 0.5rem 0;
   }
   li + li {
-    border-top: 1px solid var(--color-seafoam-dark);
+    border-top: 1px solid var(--blue-dark);
   }
   ul {
     list-style: none;
@@ -160,8 +160,8 @@ export const HitsWrapper = styled.div<HitsWrapperProps>`
     color: rgba(0, 0, 0, 0.5);
     h3 {
       margin: 0;
-      color: var(--color-orange);
-      font-family: var(--font-tuner);
+      color: var(--color-tina-blue);
+      font-family: var(--font-sans);
       font-weight: bold;
       text-transform: uppercase;
       font-size: 1.125rem;
@@ -176,12 +176,12 @@ export const HitsWrapper = styled.div<HitsWrapperProps>`
     &:hover,
     &:focus {
       opacity: 1;
-      color: var(--color-orange);
-      text-decoration-color: var(--color-orange);
+      color: var(--color-tina-blue);
+      text-decoration-color: var(--color-tina-blue);
     }
   }
   a {
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
   }
 `
 
@@ -189,7 +189,7 @@ export const NoResultsLabel = styled.div`
   padding: 1rem 1.25rem 0 1.5rem;
   font-size: 1.25rem;
   font-weight: bold;
-  color: var(--color-orange);
+  color: var(--color-tina-blue);
 `
 
 export const PoweredBy = styled(({ ...styleProps }) => (

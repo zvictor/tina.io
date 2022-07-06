@@ -29,14 +29,12 @@ export const DocsHeaderNav = styled(
         <div className="actions">
           <ButtonGroup>
             <Link href="https://app.tina.io/signin">
-              <Button size="small" color="blueInverted">
+              <Button variant="white" size="small">
                 Sign In
               </Button>
             </Link>
             <Link href="/docs/setup-overview/">
-              <Button size="small" color="blue">
-                Get Started
-              </Button>
+              <Button size="small">Get Started</Button>
             </Link>
           </ButtonGroup>
         </div>
@@ -90,22 +88,22 @@ export const DocsHeaderNav = styled(
   }
 
   --color-background: white;
-  --color-foreground: var(--color-orange);
+  --color-foreground: var(--color-tina-blue);
 
   ${props =>
     props.color &&
     props.color === 'secondary' &&
     css`
-      --color-background: var(--color-secondary);
-      --color-foreground: var(--color-orange);
+      --color-background: var(--blue-700);
+      --color-foreground: var(--color-tina-blue);
     `};
 
   ${props =>
     props.color &&
     props.color === 'seafoam' &&
     css`
-      --color-background: var(--color-seafoam);
-      --color-foreground: var(--color-orange);
+      --color-background: var(--blue);
+      --color-foreground: var(--color-tina-blue);
     `};
 
   ${props =>
@@ -113,7 +111,7 @@ export const DocsHeaderNav = styled(
     props.color === 'light' &&
     css`
       --color-background: var(--color-light);
-      --color-foreground: var(--color-orange);
+      --color-foreground: var(--color-tina-blue);
 
       ${Button} {
         border: 1px solid var(--color-light-dark);

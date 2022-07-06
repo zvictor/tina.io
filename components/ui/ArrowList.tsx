@@ -8,7 +8,7 @@ export const ArrowList = styled(({ children, ...styleProps }) => {
   list-style: none !important;
   padding-left: 0 !important;
   padding-bottom: 0 !important;
-  color: var(--color-secondary-dark, #241748);
+  color: var(--blue-750, #241748);
   li {
     position: relative;
     margin-bottom: 1rem !important;
@@ -22,7 +22,7 @@ export const ArrowList = styled(({ children, ...styleProps }) => {
       top: -1px;
       font-size: 1.75rem;
       line-height: 1;
-      color: var(--color-orange, #ec4815);
+      color: var(--color-tina-blue, #ec4815);
     }
   }
 `

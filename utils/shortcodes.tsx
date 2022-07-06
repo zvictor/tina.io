@@ -41,6 +41,6 @@ export const WarningCallout = styled(({ text, ...styleProps }) => {
     left: 1rem;
     width: 1.625rem;
     height: auto;
-    fill: var(--color-orange);
+    fill: var(--color-tina-blue);
   }
 `

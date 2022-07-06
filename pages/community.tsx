@@ -247,6 +247,6 @@ const FormSection = styled(Section)`
 
   p {
     margin-bottom: 2rem;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
   }
 `

@@ -89,11 +89,11 @@ export function FaqBlock({ data, index }) {
         }
 
         .seafoam {
-          background-color: var(--color-seafoam);
+          background-color: var(--blue);
           background: linear-gradient(
             to bottom,
-            var(--color-seafoam-200) 8rem,
-            var(--color-seafoam-100)
+            var(--blue-200) 8rem,
+            var(--blue-100)
           );
         }
 
@@ -102,15 +102,15 @@ export function FaqBlock({ data, index }) {
 
           :global(h3) {
             font-size: 2rem;
-            color: var(--color-secondary);
-            font-family: var(--font-tuner);
+            color: var(--blue-700);
+            font-family: var(--font-sans);
           }
           :global(p) {
             ${data.intro && `&:first-of-type {
               font-size: 1.5rem;
               margin-bottom: 2.5rem;
             }`}
-            color: var(--color-secondary);
+            color: var(--blue-700);
           }
         }
       `}</style>

@@ -79,9 +79,7 @@ export const GlobalStyle = React.memo(createGlobalStyle`
   html {
     font-size: 81.25%;
     font-weight: normal;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
+    font-family: var(--font-sans);
     line-height: 1.6;
     width: 100%;
     overflow-x: hidden;
@@ -101,38 +99,75 @@ export const GlobalStyle = React.memo(createGlobalStyle`
     }
 
     /* Color */
+    --blue-50-rgb: 238, 252, 247;
+    --blue-100-rgb: 215, 249, 238;
+    --blue-150-rgb: 199, 244, 230;
+    --blue-200-rgb: 175, 238, 220;
+    --blue-250-rgb: 150, 233, 216;
+    --blue-300-rgb: 108, 224, 208;
+    --blue-350-rgb: 77, 209, 200;
+    --blue-400-rgb: 45, 200, 205;
+    --blue-450-rgb: 42, 183, 207;
+    --blue-500-rgb: 38, 157, 197;
+    --blue-550-rgb: 37, 130, 187;
+    --blue-600-rgb: 32, 102, 177;
+    --blue-650-rgb: 30, 75, 159;
+    --blue-700-rgb: 29, 56, 145;
+    --blue-750-rgb: 24, 35, 119;
+    --blue-800-rgb: 21, 17, 95;
+    --blue-850-rgb: 16, 11, 70;
+    --blue-900-rgb: 17, 6, 50;
+    --blue-950-rgb: 12, 3, 33;
+
+    --blue-0: white;
+    --blue-50: rgba(var(--blue-50-rgb), 1);
+    --blue-100: rgba(var(--blue-100-rgb), 1);
+    --blue-150: rgba(var(--blue-150-rgb), 1);
+    --blue-200: rgba(var(--blue-200-rgb), 1);
+    --blue-250: rgba(var(--blue-250-rgb), 1);
+    --blue-300: rgba(var(--blue-300-rgb), 1);
+    --blue-350: rgba(var(--blue-350-rgb), 1);
+    --blue-400: rgba(var(--blue-400-rgb), 1);
+    --blue-450: rgba(var(--blue-450-rgb), 1);
+    --blue-500: rgba(var(--blue-500-rgb), 1);
+    --blue-550: rgba(var(--blue-550-rgb), 1);
+    --blue-600: rgba(var(--blue-600-rgb), 1);
+    --blue-650: rgba(var(--blue-650-rgb), 1);
+    --blue-700: rgba(var(--blue-700-rgb), 1);
+    --blue-750: rgba(var(--blue-750-rgb), 1);
+    --blue-800: rgba(var(--blue-800-rgb), 1);
+    --blue-850: rgba(var(--blue-850-rgb), 1);
+    --blue-900: rgba(var(--blue-900-rgb), 1);
+    --blue-950: rgba(var(--blue-950-rgb), 1);
+    --blue-1000: black;
+
+    --tina-blue: rgb(5, 116, 228);
+    
+    --color-orange-light: #EB8237;
+    --color-orange: #F36D21;
+    --color-orange-dark: #E75D1D;
     --color-white: #FFFFFF;
-    --color-orange-light: #EB6337;
-    --color-orange: #EC4815;
-    --color-orange-dark: #CE411D;
-    --color-secondary: #31215E;
-    --color-secondary-dark: #241748;
-    --color-blue: var(--color-secondary-dark);
-    --color-blue-light: var(--color-secondary);
+    --color-blue: var(--blue-550);
+    --color-blue-light: var(--blue-500);
     --color-tina-blue: #2296FE;
-    --color-tina-blue-light: #00A5FF;
-    --color-tina-blue-dark: #0574E4;
-    --color-seafoam-100: #F2FDFC;
-    --color-seafoam-200: #E6FAF8;
-    --color-seafoam-300: #D1FAF6;
-    --color-seafoam-400: #B4F4E0;
-    --color-seaforam-500: #96E7D8;
-    --color-seafoam: var(--color-seafoam-200);
-    --color-seafoam-dark: var(--color-seafoam-400);
+    --color-tina-blue-light: #2796FF;
+    --color-tina-blue-dark: #006CD0;
+    --tina-blue: #2296FE;
+    --tina-blue-light: #2796FF;
+    --tina-blue-dark: #006CD0;
     --color-light: #FAFAFA;
     --color-light-dark: #E9E9EC;
+
     --color-warning-light: #FFFBEB;
     --color-warning: #FEF3C7;
     --color-warning-dark: #FDE68A;
-    --color-tina-blue-light: #2296fe;
-    --color-tina-blue: #0084ff;
-    --color-tina-blue-dark: #0574e4;
     --color-error-light: var(--color-orange-light);
     --color-error: var(--color-orange);
     --color-error-dark: var(--color-orange-dark);
     --color-success-light: #57c355;
     --color-success: #3cad3a;
     --color-success-dark: #249a21;
+
     --color-grey: #595959;
     --color-grey-dark: #404040;
     --color-grey-0: #ffffff;
@@ -194,9 +229,9 @@ export const GlobalStyle = React.memo(createGlobalStyle`
     --container-padding: 2rem;
 
     /* Typography */
-    --font-tuner: 'tuner-regular', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
 
     * {
       box-sizing: inherit;
@@ -209,11 +244,11 @@ export const GlobalStyle = React.memo(createGlobalStyle`
   }
 
   ::-moz-selection {
-    background: var(--color-seafoam-dark);
+    background: var(--blue-dark);
     color: var(--color-blue-light);
   }
   ::selection {
-    background: var(--color-seafoam-dark);
+    background: var(--blue-dark);
     color: var(--color-blue-light);
   }
 

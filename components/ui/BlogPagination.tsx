@@ -66,7 +66,7 @@ export const BlogPagination = styled(
   margin-bottom: 2rem;
 
   p {
-    color: var(--color-secondary);
+    color: var(--blue-700);
   }
 
   select {
@@ -76,7 +76,7 @@ export const BlogPagination = styled(
     background-color: var(--color-light);
     border: 1px solid var(--color-light-dark);
     border-radius: 0.3rem;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     outline: none;
     cursor: pointer;
 
@@ -95,7 +95,7 @@ export const BlogPagination = styled(
 
   a {
     text-decoration: none;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     position: relative;
     overflow: visible;
     padding: 0.5rem;
@@ -114,7 +114,7 @@ const SelectWrapper = styled.div`
     right: 0.5rem;
     top: 50%;
     transform: translate3d(0, -50%, 0);
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     font-size: 0.5rem;
   }
 `

@@ -164,8 +164,8 @@ export function Navbar({}) {
         }
 
         .logomark {
-          color: var(--color-orange);
-          fill: var(--color-orange);
+          color: var(--color-tina-blue);
+          fill: var(--color-tina-blue);
           display: flex;
           align-items: center;
 
@@ -180,7 +180,7 @@ export function Navbar({}) {
         .wordmark {
           font-size: 26px;
           font-weight: bold;
-          font-family: var(--font-tuner);
+          font-family: var(--font-sans);
 
           :global(span) {
             margin-left: 1px;

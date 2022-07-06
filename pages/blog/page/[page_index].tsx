@@ -163,7 +163,7 @@ const BlogTitle = styled(({ children, ...styleProps }) => {
     </h3>
   )
 })`
-  font-family: var(--font-tuner);
+  font-family: var(--font-sans);
   font-weight: regular;
   font-style: normal;
   font-size: 2rem;
@@ -171,7 +171,7 @@ const BlogTitle = styled(({ children, ...styleProps }) => {
   transition: all 180ms ease-out;
   line-height: 1.3;
   margin-bottom: 1.5rem;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   max-width: 38rem;
 `
 
@@ -182,7 +182,7 @@ const BlogExcerpt = styled.a`
   &:focus {
     outline: none;
     ${BlogTitle} {
-      color: var(--color-orange) !important;
+      color: var(--color-tina-blue) !important;
     }
   }
   &:focus {

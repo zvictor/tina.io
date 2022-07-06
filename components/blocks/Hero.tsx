@@ -106,7 +106,7 @@ export const HeroFeature = ({ item }) => {
         }
 
         .heading {
-          font-family: var(--font-tuner);
+          font-family: var(--font-sans);
           font-weight: bold;
           font-size: 3.125rem;
           line-height: 1.4;
@@ -114,9 +114,9 @@ export const HeroFeature = ({ item }) => {
           color: transparent;
           background: linear-gradient(
             to right,
-            var(--color-orange-light),
-            var(--color-orange),
-            var(--color-orange-dark)
+            var(--color-tina-blue-light),
+            var(--color-tina-blue),
+            var(--color-tina-blue-dark)
           );
           -webkit-background-clip: text;
           background-clip: text;

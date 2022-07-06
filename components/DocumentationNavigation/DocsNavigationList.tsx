@@ -17,7 +17,7 @@ const NavTitle = styled.a<NavTitleProps>`
   text-decoration: none;
   transition: all 180ms ease-out 0s;
   cursor: pointer;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   font-family: var(--font-primary);
   font-size: 0.9375rem;
   opacity: 0.75;
@@ -51,9 +51,19 @@ const NavTitle = styled.a<NavTitleProps>`
     props.level === 0 &&
     css`
       opacity: 1;
-      color: var(--color-orange);
-      font-family: var(--font-tuner);
+      color: transparent;
+      display: block;
+      background: linear-gradient(
+        110deg,
+        var(--blue-500),
+        var(--blue-600) 3.5em,
+        var(--blue-650) 5.5em
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-family: var(--font-sans);
       font-size: 1.25rem;
+      font-weight: 600;
       padding: 0.5rem 0.5rem 0.125rem 1.125rem;
     `}
 
@@ -75,7 +85,7 @@ const NavTitle = styled.a<NavTitleProps>`
     props.selected &&
     css`
       opacity: 1;
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
       font-weight: bold;
     `}
 `
@@ -195,13 +205,18 @@ const NavLabelContainer = styled.div<{ beta: boolean }>`
         content: 'Experimental';
         font-size: 12px;
         font-weight: bold;
-        background-color: #f9ebe6;
-        border: 1px solid #edcdc4;
+        background: linear-gradient(
+          110deg,
+          var(--blue-100) 15%,
+          var(--blue-200),
+          var(--blue-300) 75%
+        );
+        border: 1px solid var(--blue-400);
         width: fit-content;
         padding: 2px 5px;
         border-radius: 5px;
         letter-spacing: 0.25px;
-        color: #ec4815;
+        color: var(--blue-650);
         margin-right: 5px;
         margin-left: 5px;
         line-height: 1;
@@ -248,9 +263,9 @@ const MobileMainNav = styled.div`
     font-size: 1rem;
     font-weight: bold;
     padding: 0.375rem 1rem 0.375rem 1rem;
-    color: var(--color-orange);
+    color: var(--color-tina-blue);
     margin: 0;
-    font-family: var(--font-tuner);
+    font-family: var(--font-sans);
     font-style: normal;
     opacity: 1;
     transition: transform 180ms ease-out;

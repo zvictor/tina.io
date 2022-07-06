@@ -7,6 +7,7 @@ import navData from '../content/navigation.json'
 import GitHubButton from 'react-github-btn'
 import { BsPlay } from 'react-icons/bs'
 import { ImSpinner6 } from 'react-icons/im'
+import { Footer } from 'components/layout'
 
 const storyData = {
   features: [
@@ -192,7 +193,7 @@ const Button = ({
           font-weight: bold;
           border-radius: 24px;
           transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-          color: var(--blue-200);
+          color: var(--blue-100);
 
           &:after {
             content: '';
@@ -204,13 +205,14 @@ const Button = ({
             height: 100%;
             background: linear-gradient(
               110deg,
-              var(--blue-600),
-              var(--blue-500) 30%,
-              var(--blue-400) 45%,
+              var(--tina-blue-dark),
+              var(--tina-blue) 15%,
+              var(--blue-450) 35%,
+              var(--blue-350) 55%,
               var(--blue-500) 70%,
-              var(--blue-600) 100%
+              var(--tina-blue) 80%
             );
-            opacity: 0.5;
+            opacity: 0.9;
             border-radius: 24px;
             z-index: -1;
           }
@@ -221,7 +223,7 @@ const Button = ({
         }
 
         .medium {
-          padding: 10px 28px;
+          padding: 12px 28px;
           font-size: 1.125rem;
         }
 
@@ -244,19 +246,18 @@ const Button = ({
           align-items: center;
           background: linear-gradient(
             110deg,
-            var(--blue-700) 0%,
-            var(--blue-750) 25%,
-            var(--blue-800) 55%,
-            var(--blue-750) 75%,
-            var(--blue-700) 100%
+            var(--tina-blue) 10%,
+            var(--tina-blue-light) 50%,
+            var(--blue-500) 70%,
+            var(--blue-550) 100%
           );
-          box-shadow: 1px 1px 12px rgba(var(--blue-600-rgb), 0.2) inset,
-            0 0 3px 1px rgba(var(--blue-600-rgb), 0.2) inset,
+          box-shadow: 1px 1px 12px rgba(var(--blue-500-rgb), 0.2) inset,
+            0 0 3px 1px rgba(var(--blue-500-rgb), 0.2) inset,
             1px 1px 12px rgba(var(--blue-500-rgb), 0.2),
             2px 2px 32px rgba(var(--blue-600-rgb), 0.2);
-          text-shadow: 0 0 3px rgba(var(--blue-350-rgb), 0.2),
-            0 0 10px rgba(var(--blue-350-rgb), 0.3),
-            0 0 20px rgba(var(--blue-400-rgb), 0.4);
+          text-shadow: 0 0 3px rgba(var(--blue-600-rgb), 0.2),
+            0 0 10px rgba(var(--blue-600-rgb), 0.3),
+            0 0 20px rgba(var(--blue-600-rgb), 0.4);
         }
 
         .glow-text:after {
@@ -270,7 +271,7 @@ const Button = ({
           background: linear-gradient(
             110deg,
             transparent 10%,
-            var(--blue-500) 45%,
+            var(--blue-400) 50%,
             transparent 70%
           );
           border-radius: 64px;
@@ -358,8 +359,9 @@ const Navbar = () => {
             to right,
             var(--blue-500),
             var(--blue-450) 25%,
-            var(--blue-500) 35%,
-            var(--blue-600) 55%,
+            var(--blue-500) 33%,
+            var(--tina-blue) 45%,
+            var(--blue-600) 58%,
             var(--blue-700) 75%,
             var(--blue-750) 100%
           );
@@ -377,9 +379,9 @@ const Navbar = () => {
           background: linear-gradient(
             to right,
             rgba(var(--blue-450-rgb), 0.7),
-            rgba(var(--blue-500-rgb), 0.8) 4%,
-            rgba(var(--blue-600-rgb), 0.9) 12%,
-            var(--blue-700) 23%,
+            rgba(var(--blue-500-rgb), 0.8) 5%,
+            var(--tina-blue) 13%,
+            var(--blue-700) 27%,
             var(--blue-800) 66%,
             var(--blue-850)
           );
@@ -575,11 +577,11 @@ const Feature = ({ activeId, setActiveId, item }) => {
             var(--blue-450) 60%,
             var(--blue-500) 70%
           );
+          -webkit-background-clip: text;
+          background-clip: text;
           text-shadow: 0 0 7px rgba(var(--blue-350-rgb), 0.2),
             0 0 18px rgba(var(--blue-350-rgb), 0.2),
             0 0 48px rgba(var(--blue-400-rgb), 0.3);
-          -webkit-background-clip: text;
-          background-clip: text;
           margin: 0;
         }
 
@@ -1318,6 +1320,7 @@ const Page = props => {
           <LazyPlayground />
         </Glass>
         <Spacer />
+        <Footer />
       </div>
       <style jsx>{`
         :global(:root) {

@@ -51,12 +51,12 @@ const PaginationLink = styled.a<PaginationLinkProps>`
   padding: 1rem;
   display: block;
   flex: 1 1 auto;
-  font-family: var(--font-tuner);
+  font-family: var(--font-sans);
   font-weight: regular;
   font-style: normal;
   text-decoration: none;
   background-color: #fafafa;
-  color: var(--color-secondary);
+  color: var(--blue-700);
   position: relative;
   text-align: right;
   padding-right: 3.5rem;
@@ -88,10 +88,10 @@ const PaginationLink = styled.a<PaginationLinkProps>`
 
   &:hover {
     h5 {
-      color: var(--color-orange);
+      color: var(--color-tina-blue);
     }
     svg {
-      fill: var(--color-orange);
+      fill: var(--color-tina-blue);
     }
   }
 

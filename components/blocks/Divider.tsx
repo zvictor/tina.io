@@ -9,7 +9,7 @@ export const TripleDividerSvg = () => {
     >
       <g>
         <path
-          stroke="var(--color-orange)"
+          stroke="var(--color-tina-blue)"
           strokeWidth="4"
           strokeDasharray="8 14"
           strokeLinecap="round"
@@ -23,7 +23,7 @@ export const TripleDividerSvg = () => {
         x2="49.25%"
         y1="0"
         y2="100%"
-        stroke="var(--color-orange)"
+        stroke="var(--color-tina-blue)"
         strokeWidth="4"
         strokeDasharray="8 14"
         strokeLinecap="round"
@@ -48,7 +48,7 @@ export const SingleDividerSvg = () => {
         x2="50%"
         y1="0"
         y2="100%"
-        stroke="var(--color-orange)"
+        stroke="var(--color-tina-blue)"
         strokeWidth="4"
         strokeDasharray="8 14"
         strokeLinecap="round"
