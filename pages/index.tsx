@@ -706,6 +706,7 @@ const Story = ({ data }) => {
         @media (min-width: 1200px) {
           .left {
             width: 40%;
+            padding-top: 32px;
           }
         }
 

@@ -58,10 +58,9 @@ const FooterTop = styled.div`
   grid-gap: 1rem;
   padding: 2.5rem 2rem;
   background: linear-gradient(
-    145deg,
-    var(--blue-450) 3%,
-    var(--blue-500) 13%,
-    var(--tina-blue) 28%,
+    140deg,
+    var(--blue-450) 10%,
+    var(--tina-blue) 26%,
     var(--blue-650) 48%,
     var(--blue-700) 55%,
     var(--blue-750) 65%,
