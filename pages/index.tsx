@@ -167,23 +167,27 @@ const Video = ({ src }) => {
   )
 }
 
-const Button = ({ children, variant = 'primary', href }) => {
+const Button = ({
+  children,
+  size = 'medium',
+  variant = 'primary',
+  ...props
+}) => {
   return (
     <>
-      <a href={href} className={`button`}>
+      <a {...props} className={`button ${size}`}>
         {children}
         <span className="glow-text">{children}</span>
       </a>
       <style jsx>{`
         .button {
+          cursor: pointer;
           position: relative;
           z-index: 1;
           opacity: 0.8;
           text-decoration: none;
-          font-size: 1.125rem;
           letter-spacing: 0.0125em;
           font-weight: bold;
-          padding: 10px 28px;
           border-radius: 24px;
           transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
           color: var(--blue-200);
@@ -214,6 +218,16 @@ const Button = ({ children, variant = 'primary', href }) => {
           }
         }
 
+        .medium {
+          padding: 10px 28px;
+          font-size: 1.125rem;
+        }
+
+        .large {
+          padding: 14px 32px;
+          font-size: 1.25rem;
+        }
+
         .glow-text {
           display: block;
           position: absolute;
@@ -229,7 +243,9 @@ const Button = ({ children, variant = 'primary', href }) => {
           background: linear-gradient(
             110deg,
             var(--blue-700) 0%,
-            rgba(var(--blue-800-rgb), 0.8) 55%,
+            var(--blue-750) 25%,
+            var(--blue-800) 55%,
+            var(--blue-750) 75%,
             var(--blue-700) 100%
           );
           box-shadow: 1px 1px 12px rgba(var(--blue-600-rgb), 0.2) inset,
@@ -1115,6 +1131,108 @@ const Spacer = () => {
   )
 }
 
+const LazyPlayground = () => {
+  const [isLoaded, setIsLoaded] = React.useState(false)
+
+  return (
+    <>
+      {!isLoaded && (
+        <div className="preview-wrapper">
+          <button
+            onClick={() => {
+              setIsLoaded(true)
+            }}
+            className="playground-trigger"
+          >
+            <img
+              className="playground-preview"
+              src="https://res.cloudinary.com/forestry-demo/image/upload/v1657043847/tina-io/new-homepage/playground-preview.png"
+              alt=""
+            />
+          </button>
+          <div className="overlay-button">
+            <Button
+              size="large"
+              onClick={() => {
+                setIsLoaded(true)
+              }}
+            >
+              Load Playground
+            </Button>
+          </div>
+        </div>
+      )}
+      {isLoaded && (
+        <iframe
+          width="100%"
+          height="600px"
+          src="https://tina-gql-playground.vercel.app/iframe/string-body"
+        />
+      )}
+      <style jsx>{`
+        .preview-wrapper {
+          position: relative;
+        }
+
+        .overlay-button {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate3d(-50%, -50%, 0);
+        }
+
+        .playground-trigger {
+          display: block;
+          width: 100%;
+          padding: 0;
+          margin: 0;
+          border: none;
+          background: none;
+          overflow: hidden;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+        .playground-trigger:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            to bottom right,
+            var(--blue-550),
+            var(--blue-500) 40%,
+            var(--blue-550) 70%,
+            var(--blue-650) 100%
+          );
+          mix-blend-mode: hard-light;
+          opacity: 0.7;
+        }
+
+        .playground-preview {
+          display: block;
+          margin: 0;
+          width: 100%;
+          height: auto;
+          filter: blur(2px);
+          opacity: 0.7;
+        }
+
+        iframe {
+          display: block;
+          margin: 0;
+          background: white;
+          overflow: hidden;
+          border-radius: 10px;
+        }
+      `}</style>
+    </>
+  )
+}
+
 const Page = props => {
   return (
     <>
@@ -1124,11 +1242,7 @@ const Page = props => {
         <Glass></Glass>
         <Story data={storyData} />
         <Glass>
-          <iframe
-            width="100%"
-            height="600px"
-            src="https://tina-gql-playground.vercel.app/iframe/string-body"
-          />
+          <LazyPlayground />
         </Glass>
         <Spacer />
       </div>
