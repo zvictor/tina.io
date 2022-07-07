@@ -106,11 +106,10 @@ const DocsRichText = css`
     color: transparent;
     background: linear-gradient(
       110deg,
-      var(--tina-blue),
-      var(--tina-blue-light) 1.25em,
-      var(--blue-500) 2.5em,
-      var(--blue-600) 3.5em,
-      var(--blue-650) 5.5em
+      var(--tina-blue) -2em,
+      var(--tina-blue-dark) 2em,
+      var(--blue-550) 4em,
+      var(--blue-600) 6em
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -224,7 +223,7 @@ const DocsRichText = css`
     display: block;
     font-size: 1.125rem;
     background-color: var(--blue);
-    border: 1px solid var(--blue-dark);
+    border: 1px solid var(--blue-150);
     border-left-width: 6px;
     border-radius: 3px;
     padding: 1em;
@@ -236,7 +235,7 @@ const DocsRichText = css`
     border-radius: 0;
     background: none;
     padding: 0 0 0 1rem;
-    border-left: 1px solid var(--blue-dark);
+    border-left: 1px solid var(--blue-150);
     margin: -1rem 0 1.5rem 0 !important;
 
     a {
@@ -249,7 +248,7 @@ const DocsRichText = css`
     border-right: none;
     border-left: none;
     border-image: initial;
-    border-bottom: 5px dotted var(--blue-dark);
+    border-bottom: 5px dotted var(--blue-150);
     width: 6rem;
     max-width: 100%;
     display: block;

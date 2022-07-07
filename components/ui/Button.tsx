@@ -60,10 +60,10 @@ export const Button = ({
           .glow-text {
             background: linear-gradient(
               110deg,
-              var(--tina-blue) 10%,
-              var(--tina-blue-light) 35%,
-              var(--blue-450) 60%,
-              var(--blue-500) 100%
+              var(--tina-blue) 0%,
+              var(--tina-blue-light) 20%,
+              var(--blue-450) 80%,
+              var(--blue-500) 120%
             );
             box-shadow: 1px 1px 12px rgba(var(--blue-500-rgb), 0.2) inset,
               0 0 3px 1px rgba(var(--blue-500-rgb), 0.2) inset,

@@ -171,7 +171,7 @@ const RichText = css`
     display: block;
     font-size: 1.125rem;
     background-color: var(--blue);
-    border: 1px solid var(--blue-dark);
+    border: 1px solid var(--blue-150);
     border-left-width: 6px;
     border-radius: 3px;
     padding: 1em;
@@ -182,7 +182,7 @@ const RichText = css`
     border-right: none;
     border-left: none;
     border-image: initial;
-    border-bottom: 5px dotted var(--blue-dark);
+    border-bottom: 5px dotted var(--blue-150);
     width: 6rem;
     max-width: 100%;
     display: block;

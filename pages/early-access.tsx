@@ -143,10 +143,10 @@ const TeamsContent = styled.div`
   }
 
   h2 {
-    color: var(--blue-dark) !important;
+    color: var(--blue-150) !important;
   }
 
   hr {
-    border-color: var(--blue-dark) !important;
+    border-color: var(--blue-150) !important;
   }
 `

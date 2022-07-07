@@ -181,7 +181,7 @@ const StyledForm = styled.form`
   }
 
   p {
-    color: var(--blue-dark) !important;
+    color: var(--blue-150) !important;
     margin: 1rem 0 0.5rem 0 !important;
   }
 `

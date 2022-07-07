@@ -29,11 +29,11 @@ export const GlobalStyles = css.global`
   }
 
   ::-moz-selection {
-    background: var(--blue-dark);
+    background: var(--blue-150);
     color: var(--color-blue-light);
   }
   ::selection {
-    background: var(--blue-dark);
+    background: var(--blue-150);
     color: var(--color-blue-light);
   }
 

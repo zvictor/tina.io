@@ -28,25 +28,6 @@ const NavTitle = styled.a<NavTitleProps>`
     opacity: 1;
   }
 
-  span {
-    display: inline-block;
-    background: white;
-    padding-right: 0.75rem;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      left: 1.125rem;
-      top: 50%;
-      height: 1px;
-      margin-top: -3px;
-      width: 100%;
-      border-bottom: 5px dotted var(--color-grey-1);
-      z-index: -1;
-    }
-  }
-
   ${(props: any) =>
     props.level === 0 &&
     css`
@@ -85,7 +66,16 @@ const NavTitle = styled.a<NavTitleProps>`
     props.selected &&
     css`
       opacity: 1;
-      color: var(--color-tina-blue);
+      color: transparent;
+      background: linear-gradient(
+        140deg,
+        var(--tina-blue),
+        var(--tina-blue-light) 30%,
+        var(--blue-450) 70%,
+        var(--blue-500) 120%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
       font-weight: bold;
     `}
 `
@@ -148,11 +138,7 @@ const NavLevel = ({
       <NavLabelContainer beta={categoryData.beta}>
         <DynamicLink href={categoryData.slug} passHref>
           <NavTitle ref={navLevelElem} level={level} selected={isSelected}>
-            {isSelected ? (
-              <span>{categoryData.title || categoryData.category}</span>
-            ) : (
-              categoryData.title || categoryData.category
-            )}
+            {categoryData.title || categoryData.category}
           </NavTitle>
         </DynamicLink>
       </NavLabelContainer>
@@ -207,16 +193,16 @@ const NavLabelContainer = styled.div<{ beta: boolean }>`
         font-weight: bold;
         background: linear-gradient(
           110deg,
-          var(--blue-100) 15%,
-          var(--blue-200),
-          var(--blue-300) 75%
+          var(--blue-50) 15%,
+          var(--blue-100),
+          var(--blue-150) 75%
         );
-        border: 1px solid var(--blue-400);
+        border: 1px solid var(--blue-350);
         width: fit-content;
         padding: 2px 5px;
         border-radius: 5px;
         letter-spacing: 0.25px;
-        color: var(--blue-650);
+        color: var(--blue-600);
         margin-right: 5px;
         margin-left: 5px;
         line-height: 1;

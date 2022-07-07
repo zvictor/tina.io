@@ -137,7 +137,7 @@ export function ShowcaseBlock({ data, index }) {
             text-decoration: underline;
             transition: all ease-out 150ms;
             color: var(--color-tina-blue-dark);
-            text-decoration-color: var(--blue-dark);
+            text-decoration-color: var(--blue-150);
             &:hover {
               color: var(--color-tina-blue);
               text-decoration-color: var(--color-tina-blue);
@@ -172,7 +172,7 @@ export function ShowcaseBlock({ data, index }) {
           border-right: none;
           border-left: none;
           border-image: initial;
-          border-bottom: 5px dotted var(--blue-dark);
+          border-bottom: 5px dotted var(--blue-150);
           width: 6rem;
           max-width: 100%;
           display: block;

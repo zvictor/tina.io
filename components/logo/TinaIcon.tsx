@@ -40,10 +40,8 @@ export const TinaIcon = styled(({ docs, ...styleProps }: TinaIconProps) => {
     color: transparent;
     background: linear-gradient(
       110deg,
-      var(--tina-blue-light),
-      var(--tina-blue),
-      var(--blue-450),
-      var(--blue-500)
+      var(--tina-blue-light) 15%,
+      var(--blue-450) 75%
     );
     -webkit-background-clip: text;
     background-clip: text;

@@ -151,7 +151,7 @@ const PricingCard = ({ data }) => {
           border-right: none;
           border-left: none;
           border-image: initial;
-          border-bottom: 5px dotted var(--blue-dark);
+          border-bottom: 5px dotted var(--blue-150);
           width: 100%;
           max-width: 100%;
           flex: 1 1 0;
@@ -325,7 +325,7 @@ export function PricingBlock({ data, index }) {
             height: 100%;
             width: 0;
             transform: translateX(-50%);
-            border-left: 5px dotted var(--blue-dark);
+            border-left: 5px dotted var(--blue-150);
             z-index: -1;
           }
         }

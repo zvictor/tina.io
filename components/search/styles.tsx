@@ -145,7 +145,7 @@ export const HitsWrapper = styled.div<HitsWrapperProps>`
     padding: 0.5rem 0;
   }
   li + li {
-    border-top: 1px solid var(--blue-dark);
+    border-top: 1px solid var(--blue-150);
   }
   ul {
     list-style: none;
