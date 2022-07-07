@@ -13,6 +13,8 @@ interface PaginationProps {
 }
 
 export function DocsPagination({ prevPage, nextPage }: PaginationProps) {
+  if (!prevPage && !nextPage) return null
+
   return (
     <Wrapper>
       {prevPage && prevPage.slug && (
@@ -55,23 +57,24 @@ const PaginationLink = styled.a<PaginationLinkProps>`
   font-weight: regular;
   font-style: normal;
   text-decoration: none;
-  background-color: #fafafa;
-  color: var(--blue-700);
+  color: var(--blue-600);
   position: relative;
   text-align: right;
   padding-right: 3.5rem;
-  margin: 0 1px 1px 0;
 
   span {
-    font-size: 0.9375rem;
-    text-transform: uppercase;
-    opacity: 0.5;
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--blue-450);
+    margin-bottom: 0.25rem;
   }
 
   h5 {
     font-size: 1.25rem;
     line-height: 1.3;
     margin: 0 !important;
+    padding: 0 !important;
     transition: all 180ms ease-out;
   }
 
@@ -82,7 +85,7 @@ const PaginationLink = styled.a<PaginationLinkProps>`
     transform: translate3d(0, -50%, 0);
     width: 2rem;
     height: auto;
-    fill: var(--color-grey);
+    fill: var(--blue-400);
     transition: all 180ms ease-out;
   }
 
@@ -112,11 +115,11 @@ const PaginationLink = styled.a<PaginationLinkProps>`
 
 const Wrapper = styled.div`
   margin-top: 2rem;
-  background-color: var(--color-light-dark);
+  border: 1px solid var(--blue-100);
+  background: linear-gradient(140deg, white, var(--blue-50));
   display: flex;
   border-radius: 5px;
   overflow: hidden;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 1px 0 0 1px;
 `

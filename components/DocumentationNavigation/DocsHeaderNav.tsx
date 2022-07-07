@@ -53,7 +53,7 @@ export const DocsHeaderNav = styled(
     list-style-type: none;
     display: flex;
     justify-content: flex-end;
-    margin: 0 1rem 0 0;
+    margin: 0 1.5rem 0 0;
 
     @media (max-width: 1200px) {
       display: none;
@@ -64,12 +64,12 @@ export const DocsHeaderNav = styled(
     margin: 0 1.5rem;
 
     a {
-      color: var(--color-blue);
+      color: var(--blue-550);
       font-weight: 500;
-      opacity: 0.7;
+      opacity: 0.8;
       transition: opacity 150ms ease-out;
       text-decoration: none;
-      font-size: 1.125rem;
+      font-size: 1rem;
       &:hover {
         opacity: 1;
       }
@@ -102,7 +102,7 @@ export const DocsHeaderNav = styled(
     props.color &&
     props.color === 'seafoam' &&
     css`
-      --color-background: var(--blue);
+      --color-background: var(--blue-50);
       --color-foreground: var(--color-tina-blue);
     `};
 
@@ -110,11 +110,11 @@ export const DocsHeaderNav = styled(
     props.color &&
     props.color === 'light' &&
     css`
-      --color-background: var(--color-light);
+      --color-background: var(--blue-100);
       --color-foreground: var(--color-tina-blue);
 
       ${Button} {
-        border: 1px solid var(--color-light-dark);
+        border: 1px solid var(--blue-100);
       }
     `};
 `

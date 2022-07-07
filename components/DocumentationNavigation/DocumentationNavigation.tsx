@@ -52,8 +52,8 @@ export function DocumentationNavigation({ navItems }: DocsNavProps) {
 
 const MobileNavToggle = styled(NavToggle)`
   position: fixed;
-  background: var(--color-light);
-  border: 1px solid var(--color-light-dark);
+  background: var(--blue-100);
+  border: 1px solid var(--blue-100);
   margin-top: 1rem;
   padding: 0 0 0 1rem;
   border-radius: 0 2rem 2rem 0;

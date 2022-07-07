@@ -255,7 +255,7 @@ export function PricingBlock({ data, index }) {
         }
 
         .seafoam {
-          background-color: var(--blue);
+          background-color: var(--blue-50);
           background: linear-gradient(
             to bottom,
             var(--blue-200) 8rem,

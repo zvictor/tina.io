@@ -17,15 +17,15 @@ const FallbackWrapper = styled.div`
 const FallbackItem = styled.div`
   width: 100%;
   height: 50vh;
-  background-color: var(--color-light);
+  background-color: var(--blue-50);
   border-radius: 5px;
   animation: bgfade 1.5s ease infinite;
   @keyframes bgfade {
     0% {
-      background-color: var(--color-light);
+      background-color: var(--blue-50);
     }
     50% {
-      background-color: var(--color-light-dark);
+      background-color: var(--blue-100);
     }
   }
 `

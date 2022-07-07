@@ -73,8 +73,8 @@ export const BlogPagination = styled(
     display: inline-block;
     padding: 0.1rem 1.25rem 0.1rem 0.5rem;
     border-radius: 0.3em;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light-dark);
+    background-color: var(--blue-50);
+    border: 1px solid var(--blue-100);
     border-radius: 0.3rem;
     color: var(--color-tina-blue);
     outline: none;

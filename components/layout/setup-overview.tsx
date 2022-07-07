@@ -154,7 +154,7 @@ const OverviewTemplate = props => {
             }
 
             &:hover {
-              background-color: var(--blue-100);
+              background-color: var(--blue-50);
 
               h2,
               h3 {

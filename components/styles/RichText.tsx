@@ -170,7 +170,7 @@ const RichText = css`
   blockquote {
     display: block;
     font-size: 1.125rem;
-    background-color: var(--blue);
+    background-color: var(--blue-50);
     border: 1px solid var(--blue-150);
     border-left-width: 6px;
     border-radius: 3px;
@@ -206,10 +206,10 @@ const RichText = css`
   *:not(pre) > code {
     padding: 0.1em 0.2em;
     border-radius: 0.3em;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light-dark);
+    background-color: var(--blue-50);
+    border: 1px solid var(--blue-100);
     border-radius: 0.3rem;
-    color: var(--color-tina-blue);
+    color: var(--blue-600);
     font-size: 1em;
     line-height: inherit;
   }
@@ -229,7 +229,7 @@ const RichText = css`
 
   tr {
     &:nth-child(even) {
-      background-color: var(--color-light);
+      background-color: var(--blue-50);
     }
   }
 
@@ -239,7 +239,7 @@ const RichText = css`
   }
 
   th {
-    border-bottom: 3px solid var(--color-light-dark);
+    border-bottom: 3px solid var(--blue-100);
     font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
@@ -251,7 +251,7 @@ const RichText = css`
   }
 
   td {
-    border-bottom: 1px solid var(--color-light-dark);
+    border-bottom: 1px solid var(--blue-100);
   }
 `
 

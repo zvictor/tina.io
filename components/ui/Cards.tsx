@@ -16,7 +16,7 @@ export const Card = styled.a`
   padding: 1rem;
   background-color: #fafafa;
   color: var(--blue-700);
-  border: 1px solid var(--color-light-dark);
+  border: 1px solid var(--blue-100);
   display: block;
   text-decoration: none;
   position: relative;

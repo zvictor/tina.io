@@ -118,7 +118,7 @@ export const Actions = ({ items, align = 'left' }) => {
           transform: translate3d(0px, 0px, 0px);
           display: flex;
           align-items: center;
-          background-color: var(--blue);
+          background-color: var(--blue-50);
           color: var(--color-tina-blu);
           border-radius: 2rem;
           padding: 1rem 1.5rem;
@@ -282,7 +282,7 @@ export const CodeButton = ({ children }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--blue);
+          background: var(--blue-50);
           border-left: 1px solid #b4f4e0;
           color: var(--color-tina-blue);
           align-self: stretch;

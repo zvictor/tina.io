@@ -14,7 +14,7 @@ export const Section = styled.section<SectionProps>`
   ${props =>
     props.color === 'seafoam' &&
     css`
-      background-color: var(--blue);
+      background-color: var(--blue-50);
       background: linear-gradient(
         to bottom,
         var(--blue-100),

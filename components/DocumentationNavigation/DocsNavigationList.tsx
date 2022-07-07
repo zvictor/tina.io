@@ -241,7 +241,7 @@ export const DocsNavigationList = ({ navItems }: DocsNavProps) => {
 const MobileMainNav = styled.div`
   padding: 0.5rem 0;
   background: var(--color-grey-1);
-  border-bottom: 1px solid var(--color-light-dark);
+  border-bottom: 1px solid var(--blue-100);
 
   a {
     display: block;

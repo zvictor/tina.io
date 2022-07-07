@@ -222,7 +222,7 @@ const DocsRichText = css`
   blockquote {
     display: block;
     font-size: 1.125rem;
-    background-color: var(--blue);
+    background: linear-gradient(140deg, white, var(--blue-50));
     border: 1px solid var(--blue-150);
     border-left-width: 6px;
     border-radius: 3px;
@@ -272,17 +272,17 @@ const DocsRichText = css`
   *:not(pre) > code {
     padding: 0.1em 0.2em;
     border-radius: 0.3em;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light-dark);
+    background-color: var(--blue-50);
+    border: 1px solid var(--blue-100);
     border-radius: 0.3rem;
-    color: var(--color-tina-blue);
+    color: var(--blue-600);
     font-size: 1em;
     line-height: inherit;
   }
 
   pre {
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light-dark);
+    background-color: var(--blue-50);
+    border: 1px solid var(--blue-100);
     text-shadow: white 0px 1px;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     text-align: left;
@@ -318,7 +318,7 @@ const DocsRichText = css`
 
   tr {
     &:nth-child(even) {
-      background-color: var(--color-light);
+      background-color: var(--blue-50);
     }
   }
 
@@ -328,7 +328,7 @@ const DocsRichText = css`
   }
 
   th {
-    border-bottom: 3px solid var(--color-light-dark);
+    border-bottom: 3px solid var(--blue-100);
     font-family: var(--font-sans);
     font-weight: regular;
     font-style: normal;
@@ -340,7 +340,7 @@ const DocsRichText = css`
   }
 
   td {
-    border-bottom: 1px solid var(--color-light-dark);
+    border-bottom: 1px solid var(--blue-100);
   }
 
   .callout {
@@ -355,7 +355,7 @@ const DocsRichText = css`
     align-content: center;
     align-items: center;
     border-radius: 0.3rem;
-    border: 1px solid var(--blue);
+    border: 1px solid var(--blue-50);
     overflow: hidden;
 
     @media (min-width: 1000px) {
