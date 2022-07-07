@@ -26,6 +26,9 @@ const NavTitle = styled.a<NavTitleProps>`
 
   &:hover {
     opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: var(--blue-200);
+    color: var(--blue-500);
   }
 
   ${(props: any) =>
