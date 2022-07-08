@@ -199,7 +199,7 @@ export const Footer = styled(({ light, ...styleProps }) => {
   return (
     <div {...styleProps}>
       <FooterTop>
-        <span className="glowbar"></span>
+        <span className="glowbar light"></span>
         <TinaIcon />
         <LinkNav />
         <FooterSocial>
@@ -299,5 +299,18 @@ export const Footer = styled(({ light, ...styleProps }) => {
       var(--blue-750) 100%
     );
     opacity: 0.6;
+  }
+
+  .glowbar.light {
+    background: linear-gradient(
+      to right,
+      var(--blue-500),
+      var(--blue-450) 15%,
+      var(--blue-400) 25%,
+      var(--tina-blue-light) 40%,
+      var(--blue-500) 55%,
+      var(--blue-600) 70%,
+      var(--blue-650) 100%
+    );
   }
 `

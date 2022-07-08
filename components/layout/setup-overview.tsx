@@ -82,7 +82,6 @@ const OverviewTemplate = props => {
                 <Actions
                   items={[
                     {
-                      variant: 'secondary',
                       label: 'Get Started',
                       icon: 'arrowRight',
                       url: card.link,

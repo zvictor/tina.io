@@ -16,10 +16,11 @@ export const Section = styled.section<SectionProps>`
     css`
       background-color: var(--blue-50);
       background: linear-gradient(
-        to bottom,
+        140deg,
+        white,
+        var(--blue-50),
         var(--blue-100),
-        var(--blue-200),
-        var(--blue-300)
+        var(--blue-150)
       );
     `};
 `

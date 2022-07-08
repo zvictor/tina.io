@@ -2,6 +2,7 @@ import React from 'react'
 import { BiCopy } from 'react-icons/bi'
 import { IconRight } from './Icons'
 import { copyToClipboard } from 'components/layout/MarkdownContent'
+import { Button } from 'components/ui'
 
 export const actionsTemplate = {
   label: 'Actions',
@@ -29,12 +30,8 @@ export const actionsTemplate = {
           label: 'Default',
         },
         {
-          value: 'orange',
-          label: 'Orange',
-        },
-        {
-          value: 'ghost',
-          label: 'Ghost',
+          value: 'white',
+          label: 'White',
         },
         {
           value: 'command',
@@ -67,25 +64,45 @@ export const Actions = ({ items, align = 'left' }) => {
             let link = null
             if (external) {
               link = (
-                <a
+                <Button
                   key={`action-${label}`}
                   href={url}
-                  className={`action ${variant}`}
+                  variant={variant === 'default' ? 'primary' : variant}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {label} {icon && <IconRight />}
-                </a>
+                  {label}{' '}
+                  {icon && (
+                    <IconRight
+                      style={{
+                        color: 'white',
+                        height: '1rem',
+                        width: 'auto',
+                        marginLeft: '0.5rem',
+                      }}
+                    />
+                  )}
+                </Button>
               )
             } else {
               link = (
-                <a
+                <Button
                   key={`action-${label}`}
                   href={url}
-                  className={`action ${variant}`}
+                  variant={variant === 'default' ? 'primary' : variant}
                 >
-                  {label} {icon && <IconRight />}
-                </a>
+                  {label}{' '}
+                  {icon && (
+                    <IconRight
+                      style={{
+                        color: 'white',
+                        height: '1rem',
+                        width: 'auto',
+                        marginLeft: '0.5rem',
+                      }}
+                    />
+                  )}
+                </Button>
               )
             }
             return link
@@ -108,66 +125,9 @@ export const Actions = ({ items, align = 'left' }) => {
           justify-content: center;
         }
 
-        .action {
-          font-weight: bold;
-          font-size: 1.125rem;
-          border-radius: 2rem;
-          cursor: pointer;
-          transition: all 150ms ease-out;
-          width: max-content;
-          transform: translate3d(0px, 0px, 0px);
-          display: flex;
-          align-items: center;
-          background-color: var(--blue-50);
-          color: var(--color-tina-blu);
-          border-radius: 2rem;
-          padding: 1rem 1.5rem;
-          border: 1px solid #b4f4e0;
-          font-family: var(--font-sans);
-          font-weight: regular;
-          font-style: normal;
-          text-decoration: none !important;
-          white-space: nowrap;
-          opacity: 1;
-          line-height: 1;
-
-          &:hover,
-          &:focus {
-            color: var(--color-tina-blu);
-            text-decoration: none;
-            transform: translate3d(-1px, -2px, 0);
-            transition: transform 180ms ease-out;
-          }
-          &:focus {
-            box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset,
-              rgba(236, 72, 21, 0.7) 0px 0px 0px 3px,
-              rgba(0, 0, 0, 0.12) 0px 2px 3px;
-          }
-          &:focus,
-          &:active {
-            outline: none;
-          }
-          &:active {
-            filter: none;
-          }
-
-          :global(svg) {
-            display: inline-block;
-            fill: currentColor;
-            margin-left: 0.375em;
-            margin-right: 0;
-            height: 1em;
-            width: auto;
-            transition: opacity ease-out 150ms;
-          }
-          :not(:hover):global(svg) {
-            opacity: 0.85;
-          }
-        }
-
         .link {
           font-size: 1.125rem;
-          color: var(--color-tina-blu);
+          color: var(--color-tina-blue);
           padding: 0;
 
           &:after {

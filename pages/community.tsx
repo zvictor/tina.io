@@ -48,11 +48,11 @@ function CommunityPage(props) {
                     href={'https://github.com/tinacms/tinacms/discussions'}
                     passHref
                   >
-                    <Button color="white" as="a">
+                    <Button as="a">
                       <TinaIconSvg
                         // @ts-ignore
                         style={{
-                          color: '#EC4815',
+                          fill: 'white',
                           height: '1.675rem',
                           width: 'auto',
                           margin: '0 0.5rem 0 0.125rem',
@@ -65,10 +65,10 @@ function CommunityPage(props) {
                     href={'https://discord.com/invite/zumN63Ybpf'}
                     passHref
                   >
-                    <Button color="white" as="a">
+                    <Button as="a">
                       <FaDiscord
                         style={{
-                          color: '#5865f2',
+                          color: 'white',
                           height: '1.5rem',
                           width: 'auto',
                           margin: '0 0.5rem 0 0.125rem',
@@ -81,10 +81,10 @@ function CommunityPage(props) {
                     href={'https://github.com/tinacms/tinacms'}
                     passHref
                   >
-                    <Button color="white" as="a">
+                    <Button as="a">
                       <FaGithub
                         style={{
-                          color: '#24292e',
+                          color: 'white',
                           height: '1.5rem',
                           width: 'auto',
                           margin: '0 0.5rem 0 0.125rem',
@@ -94,10 +94,10 @@ function CommunityPage(props) {
                     </Button>
                   </DynamicLink>
                   <DynamicLink href={'https://twitter.com/tina_cms'} passHref>
-                    <Button color="white" as="a">
+                    <Button as="a">
                       <FaTwitter
                         style={{
-                          color: '#1DA1F2',
+                          color: 'white',
                           height: '1.5rem',
                           width: 'auto',
                           margin: '0 0.5rem 0 0.125rem',

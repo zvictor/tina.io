@@ -21,7 +21,7 @@ export const Button = ({
           text-decoration: none;
           letter-spacing: 0.0125em;
           font-weight: bold;
-          border-radius: 24px;
+          border-radius: 100px;
           transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 
           &:after {
@@ -32,7 +32,7 @@ export const Button = ({
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 24px;
+            border-radius: 100px;
             z-index: -1;
           }
 
@@ -51,8 +51,8 @@ export const Button = ({
               var(--tina-blue) 15%,
               var(--blue-450) 35%,
               var(--blue-350) 55%,
-              var(--blue-500) 70%,
-              var(--tina-blue) 80%
+              var(--blue-450) 70%,
+              var(--tina-blue-light) 80%
             );
             opacity: 0.9;
           }
@@ -132,7 +132,7 @@ export const Button = ({
         }
 
         .medium {
-          padding: 12px 28px;
+          padding: 11px 28px;
           font-size: 1.125rem;
         }
 
@@ -148,7 +148,7 @@ export const Button = ({
           left: 1.5px;
           width: calc(100% - 3px);
           height: calc(100% - 3px);
-          border-radius: 24px;
+          border-radius: 100px;
           background: black;
           display: flex;
           justify-content: center;
@@ -163,7 +163,7 @@ export const Button = ({
           left: -8px;
           width: calc(100% + 16px);
           height: calc(100% + 16px);
-          border-radius: 64px;
+          border-radius: 100px;
           z-index: -1;
           filter: blur(16px);
         }
