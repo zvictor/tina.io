@@ -130,7 +130,7 @@ const OverviewTemplate = props => {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             width: 100%;
-            border: 1px solid var(--blue-150);
+            border: 1.5px solid var(--blue-150);
             box-shadow: 0 6px 24px rgba(var(--blue-400-rgb), 0.2),
               0 2px 4px rgba(var(--blue-400-rgb), 0.1);
             background: linear-gradient(140deg, white, var(--blue-50));
@@ -141,11 +141,11 @@ const OverviewTemplate = props => {
             z-index: 10;
             width: 100%;
             padding: 2.25rem 2rem;
-            width: calc(100% + 1px);
-            height: calc(100% + 1px);
-            margin: 0 -1px -1px 0;
-            border-right: 1px solid var(--blue-150);
-            border-bottom: 1px solid var(--blue-150);
+            width: calc(100% + 1.5px);
+            height: calc(100% + 1.5px);
+            margin: 0 -1.5px -1.5px 0;
+            border-right: 1.5px solid var(--blue-150);
+            border-bottom: 1.5px solid var(--blue-150);
             overflow: hidden;
             display: flex;
             flex-direction: column;

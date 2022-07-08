@@ -38,10 +38,11 @@ const NavTitle = styled.a<NavTitleProps>`
       color: transparent;
       display: block;
       background: linear-gradient(
-        110deg,
-        var(--blue-450),
-        var(--blue-550) 3.5em,
-        var(--blue-650) 6.5em
+        140deg,
+        var(--tina-blue-light) 0em,
+        var(--tina-blue) 2em,
+        var(--blue-500) 4em,
+        var(--blue-550) 6em
       );
       -webkit-background-clip: text;
       background-clip: text;
@@ -243,8 +244,8 @@ export const DocsNavigationList = ({ navItems }: DocsNavProps) => {
 
 const MobileMainNav = styled.div`
   padding: 0.5rem 0;
-  background: var(--color-grey-1);
-  border-bottom: 1px solid var(--blue-100);
+  background: var(--blue-50);
+  border-bottom: 1.5px solid var(--blue-100);
 
   a {
     display: block;

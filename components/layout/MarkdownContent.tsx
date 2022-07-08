@@ -66,10 +66,10 @@ const StyledCopyCodeButton = styled.button`
   right: 0;
   top: 0;
   cursor: pointer;
-  border: 1px solid var(--tina-color-grey-3);
-  opacity: 0.6;
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--tina-color-grey-7);
+  border: 1.5px solid var(--blue-100);
+  opacity: 0.7;
+  background: var(--blue-50);
+  color: var(--blue-600);
   border-right-width: 0;
   transition: all 150ms ease-out;
   border-top-width: 0;

@@ -23,17 +23,16 @@ export function CloudBanner() {
         <div className="actions">
           <ButtonGroup>
             <Link href="https://app.tina.io/">
-              <Button size="small" color="blueInverted">
+              <Button size="small" variant="dark">
                 Sign In
               </Button>
             </Link>
             <Link href="https://tina.io/docs/setup-overview/">
-              <Button size="small" color="blue">
-                Get Started
-              </Button>
+              <Button size="small">Get Started</Button>
             </Link>
           </ButtonGroup>
         </div>
+        <div className="glowbar"></div>
       </div>
       <style jsx>{`
         .desktop {
@@ -66,16 +65,38 @@ export function CloudBanner() {
           }
         }
 
+        .glowbar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1.5px;
+          background: linear-gradient(
+            to right,
+            var(--blue-500),
+            var(--blue-450) 15%,
+            var(--blue-400) 25%,
+            var(--tina-blue-light) 40%,
+            var(--blue-500) 55%,
+            var(--blue-600) 70%,
+            var(--blue-650) 100%
+          );
+          opacity: 0.6;
+        }
+
         .banner {
           background: linear-gradient(
-            90deg,
-            white,
-            #f2fdfc 33.3%,
-            #e6faf8 100%
+            140deg,
+            var(--blue-450) 10%,
+            var(--tina-blue) 22%,
+            var(--blue-650) 42%,
+            var(--blue-700) 55%,
+            var(--blue-750) 65%,
+            var(--blue-850) 80%,
+            var(--blue-800) 100%
           );
           box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.03);
-          border-bottom: 1px solid #d1faf6;
-          color: var(--color-tina-blue);
+          color: white;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -86,28 +107,6 @@ export function CloudBanner() {
           line-height: 1.2;
           flex: 0 1 auto;
           width: 100%;
-
-          :global(a) {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: inherit;
-            transition: opacity 150ms ease-out;
-            font-size: 1.125rem;
-            opacity: 0.7;
-
-            &:not(:hover) {
-              text-decoration: none;
-            }
-            &:hover {
-              opacity: 1;
-            }
-
-            @media (min-width: 1200px) {
-              margin-left: 1rem;
-            }
-          }
 
           :global(em) {
             font-style: normal;
@@ -136,6 +135,26 @@ export function CloudBanner() {
         }
 
         .link {
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: inherit;
+          transition: opacity 150ms ease-out;
+          font-size: 1.125rem;
+          opacity: 0.7;
+
+          &:not(:hover) {
+            text-decoration: none;
+          }
+          &:hover {
+            opacity: 1;
+          }
+
+          @media (min-width: 1200px) {
+            margin-left: 1rem;
+          }
+
           font-size: 1rem;
           margin-right: 1rem;
           :global(svg) {

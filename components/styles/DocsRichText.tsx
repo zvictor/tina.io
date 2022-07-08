@@ -105,11 +105,11 @@ const DocsRichText = css`
   .h2 {
     color: transparent;
     background: linear-gradient(
-      110deg,
-      var(--tina-blue) -2em,
-      var(--tina-blue-dark) 2em,
-      var(--blue-550) 4em,
-      var(--blue-600) 6em
+      140deg,
+      var(--tina-blue-light) 0em,
+      var(--tina-blue) 2em,
+      var(--blue-450) 4em,
+      var(--blue-500) 6em
     );
     -webkit-background-clip: text;
     background-clip: text;

@@ -85,6 +85,51 @@ export const Button = ({
           }
         }
 
+        .dark {
+          color: var(--blue-100);
+
+          &:after {
+            background: linear-gradient(
+              110deg,
+              var(--blue-700),
+              var(--blue-650) 15%,
+              var(--blue-550) 25%,
+              var(--blue-500) 40%,
+              var(--blue-450) 55%,
+              var(--blue-550) 70%,
+              var(--blue-600) 80%
+            );
+            opacity: 0.8;
+          }
+
+          .glow-text {
+            background: linear-gradient(
+              110deg,
+              var(--blue-750) 0%,
+              var(--blue-700) 20%,
+              var(--blue-650) 80%,
+              var(--blue-600) 120%
+            );
+            box-shadow: 1px 1px 12px rgba(var(--blue-500-rgb), 0.2) inset,
+              0 0 3px 1px rgba(var(--blue-500-rgb), 0.2) inset,
+              1px 1px 12px rgba(var(--blue-500-rgb), 0.2),
+              2px 2px 32px rgba(var(--blue-600-rgb), 0.2);
+            text-shadow: 0 0 3px rgba(var(--blue-600-rgb), 0.2),
+              0 0 10px rgba(var(--blue-600-rgb), 0.3),
+              0 0 20px rgba(var(--blue-600-rgb), 0.4);
+
+            &:after {
+              background: linear-gradient(
+                110deg,
+                transparent 10%,
+                var(--blue-400) 50%,
+                transparent 70%
+              );
+              opacity: 0.3;
+            }
+          }
+        }
+
         .white {
           color: var(--blue-550);
 

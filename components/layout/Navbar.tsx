@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '../blocks'
 import TinaLogo from '../../public/svg/tina-logo.svg'
 import data from '../../content/navigation.json'
+import { TinaIcon } from 'components/logo'
 
 export function Navbar({}) {
   return (
@@ -11,7 +12,7 @@ export function Navbar({}) {
         <div className="navGrid">
           <Link href="/">
             <a className="navLogo">
-              <TinaLogo />
+              <TinaIcon gradient={true} />
             </a>
           </Link>
           <nav className="navWrapper navNav">
@@ -70,7 +71,11 @@ export function Navbar({}) {
         .navbar {
           padding: 2rem 0 1rem 0;
           margin-bottom: -1px;
-          background: linear-gradient(to bottom, #d1faf6, #e6faf8);
+          background: linear-gradient(
+            to bottom,
+            var(--blue-100),
+            var(--blue-50) 50%
+          );
           flex: 0 1 auto;
 
           @media (min-width: 1200px) {
@@ -88,7 +93,7 @@ export function Navbar({}) {
           @media (min-width: 800px) {
             grid-gap: 1rem;
             align-items: center;
-            grid-template-columns: auto 1fr auto;
+            grid-template-columns: 1fr auto 1fr;
             grid-template-rows: 1fr;
           }
         }
@@ -100,9 +105,10 @@ export function Navbar({}) {
           grid-row-end: 2;
           text-decoration: none;
           padding-bottom: 10px;
+          color: white;
 
           :global(svg) {
-            width: 115px;
+            width: 42px;
             height: auto;
           }
 
@@ -151,13 +157,17 @@ export function Navbar({}) {
           margin: 0 1.75rem;
 
           :global(a) {
-            color: var(--color-blue);
+            color: var(--tina-blue);
             font-weight: 500;
-            opacity: 0.7;
-            transition: opacity 150ms ease-out;
+            opacity: 0.8;
+            transition: all 150ms ease-out;
             text-decoration: none;
             font-size: 1.125rem;
             &:hover {
+              color: var(--tina-blue-dark);
+              text-shadow: 0 0 3px rgba(var(--blue-400-rgb), 0.2),
+                0 0 10px rgba(var(--blue-400-rgb), 0.3),
+                0 0 20px rgba(var(--blue-400-rgb), 0.4);
               opacity: 1;
             }
           }

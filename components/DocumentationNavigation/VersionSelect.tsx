@@ -62,7 +62,7 @@ const SelectWrapper = styled.div`
     font-size: 0.875rem;
     padding: 0.375rem 0.75rem;
     background-color: white;
-    border: 1px solid var(--blue-100);
+    border: 1.5px solid var(--blue-100);
     color: var(--color-grey-7);
     display: flex;
     width: 100%;

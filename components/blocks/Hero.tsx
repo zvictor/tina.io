@@ -113,10 +113,11 @@ export const HeroFeature = ({ item }) => {
           display: inline-block;
           color: transparent;
           background: linear-gradient(
-            to right,
-            var(--color-tina-blue-light),
-            var(--color-tina-blue),
-            var(--color-tina-blue-dark)
+            140deg,
+            var(--tina-blue-light) 0em,
+            var(--tina-blue) 2em,
+            var(--blue-450) 4em,
+            var(--blue-500) 6em
           );
           -webkit-background-clip: text;
           background-clip: text;
