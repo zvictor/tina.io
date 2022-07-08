@@ -168,15 +168,12 @@ export function ShowcaseBlock({ data, index }) {
           transition: .5s ease;
         }
         .dottedBorder {
-          border-top: none;
-          border-right: none;
-          border-left: none;
-          border-image: initial;
-          border-bottom: 5px dotted var(--blue-150);
-          width: 6rem;
-          max-width: 100%;
+          border: none;
+          width: 100%;
           display: block;
-          height: 0px;
+          background: url('/svg/divider.svg') no-repeat;
+          background-size: auto 100%;
+          height: 6px;
           margin: 1.5rem 0px;
         }
         .blob {

@@ -39,9 +39,9 @@ const NavTitle = styled.a<NavTitleProps>`
       display: block;
       background: linear-gradient(
         110deg,
-        var(--blue-500),
-        var(--blue-600) 3.5em,
-        var(--blue-650) 5.5em
+        var(--blue-450),
+        var(--blue-550) 3.5em,
+        var(--blue-650) 6.5em
       );
       -webkit-background-clip: text;
       background-clip: text;

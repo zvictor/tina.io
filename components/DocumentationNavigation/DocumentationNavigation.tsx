@@ -30,7 +30,7 @@ export function DocumentationNavigation({ navItems }: DocsNavProps) {
       <DocsLeftSidebar open={mobileNavIsOpen}>
         <DocsSidebarHeaderWrapper>
           <DocsSidebarHeader>
-            <DocsDesktopTinaIcon docs />
+            <TinaIcon docs gradient={true} />
             <VersionSelect />
           </DocsSidebarHeader>
           <Search collapse expanded={true} indices={searchIndices} />
@@ -82,22 +82,13 @@ const MobileNavLogo = styled(TinaIcon)`
   }
 `
 
-const DocsDesktopTinaIcon = styled(TinaIcon)`
-  position: relative;
-  display: none;
-
-  @media (min-width: 840px) {
-    display: block;
-  }
-`
-
 const DocsSidebarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 
-  ${DocsDesktopTinaIcon} {
+  :global(svg) {
     margin-right: 1rem;
   }
 `

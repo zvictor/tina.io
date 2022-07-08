@@ -31,14 +31,13 @@ export const LinkNav = styled(({ ...styleProps }) => {
     display: block;
 
     &:not(:last-child) {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
   }
 
   a {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    color: inherit;
+    font-size: 1.375rem;
+    color: var(--blue-200);
     text-decoration: none;
     cursor: pointer;
     font-family: var(--font-sans);

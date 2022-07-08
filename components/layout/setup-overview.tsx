@@ -102,7 +102,11 @@ const OverviewTemplate = props => {
             margin: 0 auto;
 
             @media (min-width: 500px) {
-              padding: 1rem 3rem 3rem 3rem;
+              padding: 1rem 3rem 4rem 3rem;
+            }
+
+            @media (min-width: 1200px) {
+              padding: 1rem 3rem 5rem 3rem;
             }
 
             @media (min-width: 900px) {
@@ -126,19 +130,22 @@ const OverviewTemplate = props => {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             width: 100%;
-            border: 1px solid var(--blue-300);
-            box-shadow: 0 6px 24px rgba(0, 37, 91, 0.05),
-              0 2px 4px rgba(0, 37, 91, 0.03);
+            border: 1px solid var(--blue-150);
+            box-shadow: 0 6px 24px rgba(var(--blue-400-rgb), 0.2),
+              0 2px 4px rgba(var(--blue-400-rgb), 0.1);
+            background: linear-gradient(140deg, white, var(--blue-50));
           }
 
           .card {
+            position: relative;
+            z-index: 10;
             width: 100%;
             padding: 2.25rem 2rem;
             width: calc(100% + 1px);
             height: calc(100% + 1px);
             margin: 0 -1px -1px 0;
-            border-right: 1px solid var(--blue-300);
-            border-bottom: 1px solid var(--blue-300);
+            border-right: 1px solid var(--blue-150);
+            border-bottom: 1px solid var(--blue-150);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -147,17 +154,39 @@ const OverviewTemplate = props => {
             transition: all ease-out 150ms;
             background-color: transparent;
 
+            &:after {
+              content: '';
+              dipslay: block;
+              position: absolute;
+              top: 0;
+              left: 1px;
+              right: 0;
+              bottom: 0;
+              background: linear-gradient(
+                140deg,
+                white,
+                var(--blue-50),
+                var(--blue-100),
+                var(--blue-150)
+              );
+              opacity: 0;
+              z-index: -1;
+              transition: all ease-out 150ms;
+            }
+
             h2,
             h3 {
               transition: all ease-out 150ms;
             }
 
             &:hover {
-              background-color: var(--blue-50);
+              &:after {
+                opacity: 1;
+              }
 
               h2,
               h3 {
-                color: var(--blue-700);
+                color: var(--tina-blue);
               }
             }
           }

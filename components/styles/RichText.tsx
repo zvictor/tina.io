@@ -170,23 +170,20 @@ const RichText = css`
   blockquote {
     display: block;
     font-size: 1.125rem;
-    background-color: var(--blue-50);
-    border: 1px solid var(--blue-150);
+    background: linear-gradient(140deg, white, var(--blue-50));
+    border: 1.5px solid var(--blue-150);
     border-left-width: 6px;
-    border-radius: 3px;
+    border-radius: 6px;
     padding: 1em;
   }
 
   hr {
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-image: initial;
-    border-bottom: 5px dotted var(--blue-150);
-    width: 6rem;
-    max-width: 100%;
+    border: none;
+    width: 100%;
     display: block;
-    height: 0px;
+    background: url('/svg/divider.svg') no-repeat;
+    background-size: auto 100%;
+    height: 6px;
     margin: 2rem 0px;
   }
 

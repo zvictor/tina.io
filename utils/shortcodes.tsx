@@ -16,9 +16,15 @@ export const WarningCallout = styled(({ text, ...styleProps }) => {
   display: block;
   font-size: 1.125rem;
   background-color: var(--color-warning);
-  border: 1px solid var(--color-warning-dark);
+  background: linear-gradient(
+    140deg,
+    white,
+    var(--color-warning-light),
+    var(--color-warning)
+  );
+  border: 1.5px solid var(--color-warning-dark);
   border-left-width: 6px;
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 1rem 1rem 1rem 3.5rem;
 
   *:first-child {
