@@ -18,7 +18,13 @@ export const featuresTemplate: TinaTemplate = {
           label: 'Feature',
           name: 'feature',
           fields: [
-            { name: 'headline', label: 'Headline', type: 'string' },
+            {
+              name: 'headline',
+              label: 'Headline',
+              type: 'string',
+              required: true,
+              isTitle: true,
+            },
             {
               name: 'text',
               label: 'Text',

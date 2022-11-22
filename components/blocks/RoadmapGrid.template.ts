@@ -5,7 +5,13 @@ export const roadmapGridTemplate: TinaTemplate = {
   label: 'Roadmap Grid',
   name: 'roadmapGrid',
   fields: [
-    { name: 'headline', label: 'Headline', type: 'string' },
+    {
+      name: 'headline',
+      label: 'Headline',
+      type: 'string',
+      required: true,
+      isTitle: true,
+    },
     {
       name: 'items',
       label: 'Roadmap Items',
@@ -18,7 +24,13 @@ export const roadmapGridTemplate: TinaTemplate = {
         }),
       },
       fields: [
-        { name: 'headline', label: 'Headline', type: 'string' },
+        {
+          name: 'headline',
+          label: 'Headline',
+          type: 'string',
+          required: true,
+          isTitle: true,
+        },
         { name: 'status', label: 'Status', type: 'string' },
         {
           name: 'content',

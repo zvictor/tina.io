@@ -17,7 +17,13 @@ export const showcaseTemplate: TinaTemplate = {
           label: 'Project',
           name: 'project',
           fields: [
-            { name: 'headline', label: 'Headline', type: 'string' },
+            {
+              name: 'headline',
+              label: 'Headline',
+              type: 'string',
+              required: true,
+              isTitle: true,
+            },
             {
               name: 'text',
               label: 'Text',

@@ -3,6 +3,8 @@ export const FeaturedItemsFields = [
     label: 'Headline',
     name: 'headline',
     component: 'text',
+    required: true,
+    isTitle: true,
   },
   {
     label: 'Subline',
@@ -33,6 +35,8 @@ export const CallToActionFields = [
     label: 'Headline',
     name: 'headline',
     component: 'markdown',
+    required: true,
+    isTitle: true,
   },
   {
     label: 'Subline',

@@ -43,7 +43,9 @@ const heroBlock: TinaTemplate = {
     {
       type: 'string',
       label: 'Headline',
-      name: 'headline',
+      name: 'headline', 
+      required: true, 
+      isTitle: true
     },
     {
       type: 'string',
