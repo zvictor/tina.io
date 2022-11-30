@@ -1,6 +1,6 @@
 # Tina.io website
 
-Source code for the [tina.io](https://tina.io) website.
+Source code for the [tina.io](https://tina.io) website
 
 ## Development
 
