@@ -10,19 +10,19 @@ draft: false
 
 > **02.08.22**: This post has been updated to use Next 12 and it's latest features.
 
-_Want to skip to using Tina with Next.js? Jump to _[_Part II_](https://tinacms.org/blog/using-tinacms-with-nextjs/)_ of this series._
+*Want to skip to using Tina with Next.js? Jump to [Part II](https://tinacms.org/blog/using-tinacms-with-nextjs/ "") of this series.*
 
 Next.js is a React "metaframework" (a framework built on a framework) for developing web applications. Next.js has become a popular choice for web developers due to its bootstrapped React environment (similar to `create-react-app`) and its simple, file-based routing for writing backend code.
 
 **Next.js is simple and flexible.** Compared to a full-fledged static site generator, there are less prescriptive guide rails placed on developers in the implementation of an app or site. Due to this flexibility, this article shares just one perspective to approach building a simple, Markdown-based blog. Take what’s helpful, disregard the rest.
 
----
+***
 
-If you'd like to skip ahead and reference final versions of the starter, feel free to checkout the [finished implementation](https://github.com/tinalabs/brevifolia-next-2022).
+If you'd like to skip ahead and reference final versions of the starter, feel free to checkout the [finished implementation](https://github.com/tinalabs/brevifolia-next-2022 "").
 
 ## Clone the starter
 
-Let’s get started. I have provided a [bare bones starter](https://github.com/tinalabs/nextjs-starter-boilerplate) to use as a starting point for this tutorial. You can clone the project or check it out on [github](https://github.com/tinalabs/nextjs-starter-boilerplate) for reference.
+Let’s get started. I have provided a [bare bones starter](https://github.com/tinalabs/nextjs-starter-boilerplate "") to use as a starting point for this tutorial. You can clone the project or check it out on [github](https://github.com/tinalabs/nextjs-starter-boilerplate "") for reference.
 
 ```javascript
 // clone the repo from your terminal
@@ -38,7 +38,7 @@ $ yarn dev
 
 After you clone the project and start the dev server, navigate to `http://localhost:3000/` in your browser to see what you're working with.
 
-![nextjs starter blog](/img/blog/next-blog-1.png)
+![nextjs starter blog](/img/blog/next-blog-1.png "")
 
 As you can see, it's pretty simple at the moment. If you look at the project in your code editor, you will see the following directory structure:
 
@@ -85,13 +85,13 @@ You’ll see that you now have a `Layout` component wrapping a `<section>` with 
 
 ## Data Handling
 
-Next.js [pre-renders](https://nextjs.org/docs/basic-features/pages#pre-rendering) every page, meaning it generates HTML for pages in advance. As of [Next.js 9.3](https://nextjs.org/blog/next-9-3), there are two ways to pre-render pages: **static generation or server-side-rendering (SSR)**. Next.js is unique in that you can use either approach depending on the project.
+Next.js [pre-renders](https://nextjs.org/docs/basic-features/pages#pre-rendering "") every page, meaning it generates HTML for pages in advance. As of [Next.js 9.3](https://nextjs.org/blog/next-9-3 ""), there are two ways to pre-render pages: **static generation or server-side-rendering (SSR)**. Next.js is unique in that you can use either approach depending on the project.
 
 For this blog, you will implement static generation, this means HTML pages for each route will be generated at build time. Static generation allows pages to be cached by a CDN, improving performance.
 
-### _getStaticProps_
+### *getStaticProps*
 
-In the initial example`index.js`, notice the use of [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) below the component. This function allows you to fetch data and return it as props to your page component. The page will be rendered at **build time** with the props from the return object in `getStaticProps`.
+In the initial example`index.js`, notice the use of [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation "") below the component. This function allows you to fetch data and return it as props to your page component. The page will be rendered at **build time** with the props from the return object in `getStaticProps`.
 
 **This is your bread and butter for retrieving page-level data in Next.** You can use `getStaticProps` to fetch data from an external api, or as seen in this example, you can get a hold of local data sources.
 
@@ -105,7 +105,7 @@ To zoom out a little, the purpose of the `Layout` component is to provide the vi
 
 Within `Layout`, there is a `Meta` component that contains all global styles along with anything needed to be put in the `head` of the site for SEO or accessibility purposes. Note that the use of a `Layout` component isn’t unique to Next.js; you’ll see it commonly used in Gatsby sites as well.
 
-One thing you may notice in the `Layout` component is the use of component level CSS. **Next.js works out of the box with** [**component level css**](https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css). It’s super intuitive to use. All of the styles are scoped to the component, this means you don't have to worry about accidentally overriding a style somewhere else.
+One thing you may notice in the `Layout` component is the use of component level CSS. **Next.js works out of the box with** **[component level css](https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css "")**. It’s super intuitive to use. All of the styles are scoped to the component, this means you don't have to worry about accidentally overriding a style somewhere else.
 
 Note that global styles and fonts are handled in the `globals.css` found in the `styles` directory, so if you want to change fonts, or add more global styles you can add it here.
 
@@ -113,7 +113,7 @@ Note that global styles and fonts are handled in the `globals.css` found in the 
 
 Now that you’re familiar with the structure of the project and Next.js fundamentals, let’s start adding the pieces and parts to get the Markdown blog up and running.
 
-First, add a new folder in the root of your project called `posts`. You can add all your Markdown blog posts here. If you don’t already have content ready, just add a few dummy blog posts. I like to use [Unsplash](https://unsplash.com/) for sample photos and [Cupcake](http://www.cupcakeipsum.com), [Hipsum](https://hipsum.co/), or [Sagan Ipsum](http://saganipsum.com/) are my preferred text generators — keeps things interesting.
+First, add a new folder in the root of your project called `posts`. You can add all your Markdown blog posts here. If you don’t already have content ready, just add a few dummy blog posts. I like to use [Unsplash](https://unsplash.com/ "") for sample photos and [Cupcake](http://www.cupcakeipsum.com ""), [Hipsum](https://hipsum.co/ ""), or [Sagan Ipsum](http://saganipsum.com/ "") are my preferred text generators — keeps things interesting.
 
 Here’s an example filler blog post with some commonly used frontmatter values.
 
@@ -137,11 +137,11 @@ Next, you need to install a few packages that will process your Markdown files.
 $ yarn add raw-loader gray-matter react-markdown
 ```
 
-[Raw Loader](https://github.com/webpack-contrib/raw-loader) will process your Markdown files. [Gray Matter](https://github.com/jonschlinkert/gray-matter) will parse your yaml frontmatter values. And [React Markdown](https://github.com/rexxars/react-markdown) will parse and render the body of your Markdown files.
+[Raw Loader](https://github.com/webpack-contrib/raw-loader "") will process your Markdown files. [Gray Matter](https://github.com/jonschlinkert/gray-matter "") will parse your yaml frontmatter values. And [React Markdown](https://github.com/rexxars/react-markdown "") will parse and render the body of your Markdown files.
 
 ### Add Next.js Config
 
-Now that you’ve installed some packages needed to handle Markdown, you need to configure the use of the `raw-loader` by creating a [next.config.js](https://nextjs.org/docs#custom-configuration) file at the root of the project. In this file you will handle any custom configuration for webpack, routing, build & runtime config, export options, and a whole lot more. In your use case, you will simply be adding a webpack rule to use `raw-loader` for processing all Markdown files.
+Now that you’ve installed some packages needed to handle Markdown, you need to configure the use of the `raw-loader` by creating a [next.config.js](https://nextjs.org/docs#custom-configuration "") file at the root of the project. In this file you will handle any custom configuration for webpack, routing, build & runtime config, export options, and a whole lot more. In your use case, you will simply be adding a webpack rule to use `raw-loader` for processing all Markdown files.
 
 ```javascript
 //next.config.js
@@ -164,7 +164,7 @@ For some background knowledge, the `pages` directory is special in Next.js. Each
 
 This is awesome for static pages, but you’d like to have a single template from which all blog posts will be built, sourcing the different data from each Markdown file. This means you need some sort of dynamic routing, such that unique blog posts utilizing the same template have ‘pretty’ urls and their own individual pages.
 
-[Dynamic routes](https://nextjs.org/docs#dynamic-routing) in Next.js are identified by **square brackets** `[]` in the filename. Within these brackets you can pass a query parameter to the page component. For example, let’s create a new folder within `pages` called `blog`, then add a new file within that blog folder `[slug].js`, you can use whatever is passed as this `slug` parameter to dynamically access data. So if you visit `http://localhost:3000/blog/julius-caesar`, whatever is returned from the `[slug].js` page component will render, and will have access to that ‘slug’ query parameter, i.e. ‘julius-caesar’.
+[Dynamic routes](https://nextjs.org/docs#dynamic-routing "") in Next.js are identified by **square brackets** `[]` in the filename. Within these brackets you can pass a query parameter to the page component. For example, let’s create a new folder within `pages` called `blog`, then add a new file within that blog folder `[slug].js`, you can use whatever is passed as this `slug` parameter to dynamically access data. So if you visit `http://localhost:3000/blog/julius-caesar`, whatever is returned from the `[slug].js` page component will render, and will have access to that ‘slug’ query parameter, i.e. ‘julius-caesar’.
 
 ### Get Markdown Data For the Blog Template
 
@@ -231,17 +231,17 @@ export async function getStaticPaths() {
 
 **A zoomed out look at how this is working:** when you navigate to a dynamic route, .e.g. `http://localhost:3000/blog/julius-caesar`, the BlogTemplate component in `pages/blog/[slug].js` is passed the `params` object `{ slug: ‘julius-caesar’ }`. When the `getStaticProps` function is called, that `params` object is passed in through the context. You get a hold of that slug value and then go search for a file within the `posts` directory that contains the same filename. Once you get the data from that file, you parse the frontmatter from the Markdown body and return the data. That data is passed down as props to the `BlogTemplate` component which can then render that data as it needs.
 
-#### _getStaticPaths_
+#### *getStaticPaths*
 
 At this point, you may be more familiar with `getStaticProps`, but this function should look new — `getStaticPaths`. Since this template uses dynamic routes, you need to define a list of paths for each blog, so all the pages will be rendered statically at build time.
 
 In the return object from `getStaticPaths`, **two keys are required**: `paths` and `fallback`. `paths` should return an array of pathnames and any `params` used in the page name. For example the 'param' used in `/blog/[slug].js` is 'slug'. You should only need to use `getStaticPaths` for dynamic routing.
 
-The [`fallback` property](https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required) allows you to control the behavior if a path is not returned from `getStaticPaths`. You should set this to `false` so that unreturned paths will show a 404 page.
+The [`fallback` property](https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required "") allows you to control the behavior if a path is not returned from `getStaticPaths`. You should set this to `false` so that unreturned paths will show a 404 page.
 
-> Before the release of Next.js 9.3, this path generation for static export could be handled via [`exportPathMap`](https://nextjs.org/docs/api-reference/next.config.js/exportPathMap).
+> Before the release of Next.js 9.3, this path generation for static export could be handled via [`exportPathMap`](https://nextjs.org/docs/api-reference/next.config.js/exportPathMap "").
 
-Checkout the [\[slug\].js file](brevifolia-next-2022blob/master/pages/blog/%5Bslug%5D.js) in the final version of my starter blog to get another idea of how that blog data could be rendered and styles applied.
+Checkout the [\[slug\].js file](brevifolia-next-2022blob/master/pages/blog/%5Bslug%5D.js "") in the final version of my starter blog to get another idea of how that blog data could be rendered and styles applied.
 
 ### Get Data For the Blog Index
 
@@ -285,11 +285,11 @@ export async function getStaticProps() {
 }
 ```
 
-This can be slightly complex to look at, but let’s take it one step at a time. Feel free to reference [this blog](https://blog.toukopeltomaa.com/next-js-markdown-blog#gets-posts-from-posts-folder) for the original code. It uses a function provided by Webpack, [require.context()](https://webpack.js.org/guides/dependency-management/#requirecontext), that allows you to create your own ‘context’ based on three parameters:
+This can be slightly complex to look at, but let’s take it one step at a time. Feel free to reference [this blog](https://blog.toukopeltomaa.com/next-js-markdown-blog#gets-posts-from-posts-folder "") for the original code. It uses a function provided by Webpack, [require.context()](https://webpack.js.org/guides/dependency-management/#requirecontext ""), that allows you to create your own ‘context’ based on three parameters:
 
-- The directory to match within.
-- A boolean flag to include or exclude subdirectories.
-- A regular expression to match files against.
+* The directory to match within.
+* A boolean flag to include or exclude subdirectories.
+* A regular expression to match files against.
 
 ```javascript
 require.context(directory, (useSubdirectories = false), (regExp = /^\.\//))
@@ -317,13 +317,13 @@ const Index = props => {
 export default Index
 ```
 
-Then you are free to loop through the blogs and render the list within your `BlogList` component as you need. Feel free to check out the [BlogList component](https://github.com/tinalabs/brevifolia-next-2022/blob/master/components/BlogList.js) in my starter to see how that data could be handled.
+Then you are free to loop through the blogs and render the list within your `BlogList` component as you need. Feel free to check out the [BlogList component](https://github.com/tinalabs/brevifolia-next-2022/blob/master/components/BlogList.js "") in my starter to see how that data could be handled.
 
 ## Next Steps
 
-> Checkout the [final repo](https://github.com/tinalabs/brevifolia-next-2022)!
+> Checkout the [final repo](https://github.com/tinalabs/brevifolia-next-2022 "")!
 
-After setting up your blog or portfolio site, you’ll most likely need a content management system to make editing and updating your posts or data easier. Stay tuned for my next blog on setting up this starter with TinaCMS. In the meantime, you can check out our [documentation ](/docs), or [try out a starter](https://tina.io/docs/introduction/using-starter/) to start playing with TinaCMS right away.
+After setting up your blog or portfolio site, you’ll most likely need a content management system to make editing and updating your posts or data easier. Stay tuned for my next blog on setting up this starter with TinaCMS. In the meantime, you can check out our [documentation ](/docs ""), or [try out a starter](https://tina.io/docs/introduction/using-starter/ "") to start playing with TinaCMS right away.
 
 ## Where can you keep up to date with Tina?
 
@@ -331,13 +331,13 @@ You know that you want to be part of this creative, innovative, supportive commu
 
 ### Tina Community Discord
 
-Tina has a community [Discord](https://discord.com/invite/zumN63Ybpf) that is full of Jamstack lovers and Tina enthusiasts. When you join you will find a place:
+Tina has a community [Discord](https://discord.com/invite/zumN63Ybpf "") that is full of Jamstack lovers and Tina enthusiasts. When you join you will find a place:
 
-- To get help with issues
-- Find the latest Tina news and sneak previews
-- Share your project with Tina community, and talk about your experience
-- Chat about the Jamstack
+* To get help with issues
+* Find the latest Tina news and sneak previews
+* Share your project with Tina community, and talk about your experience
+* Chat about the Jamstack
 
 ### Tina Twitter
 
-Our Twitter account ([@tinacms](https://twitter.com/tinacms)) announces the latest features, improvements, and sneak peeks to Tina. We would also be psyched if you tagged us in projects you have built.
+Our Twitter account ([@tinacms](https://twitter.com/tinacms "")) announces the latest features, improvements, and sneak peeks to Tina. We would also be psyched if you tagged us in projects you have built.
