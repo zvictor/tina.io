@@ -5,7 +5,7 @@ date: '2023-01-20T05:00:00.000Z'
 
 # Self Hosted Demo
 
-> Just want to see the code? You can find the example [here](# 'Link to self hosted demo').
+> Just want to see the code? You can find the example [here](# "Link to self hosted demo").
 
 ## Goal
 
@@ -14,12 +14,12 @@ The goal of this demo is to provide an example of how someone could self host Ti
 \
 Caveats of Self Hosting
 
----
+***
 
-- You must provide your own authentication (If you don't want to use Tina Cloud)
-  - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
-- Provide and manage your own database and level implementation (We have provided MongoDB as an example)
-- Provide a backend endpoint (like a next.js api function)
+* You must provide your own authentication (If you don't want to use Tina Cloud)
+  * This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
+* Provide and manage your own database and level implementation (We have provided MongoDB as an example)
+* Provide a backend endpoint (like a next.js api function)
 
 ## The Parts
 
@@ -39,7 +39,7 @@ export default createDatabase({
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme 'mongodb-level')which we have created as an example. You are free to use the mongodb example or make your own level implementation and use that instead.&#x20;
+You must provide an [abstract-level database](https://github.com/Level/abstract-level "Abstract Level ") implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme "mongodb-level")which we have created as an example. You are free to use the mongodb example or make your own level implementation and use that instead.&#x20;
 
 The level store is meant to be ephemeral cacheing layer so that when you query your content you do not need to go to the source of truth (Probably Github).
 
@@ -49,7 +49,7 @@ The onPut and onDelete functions are describe how the data gets saved to the sou
 
 ### Using the database on the server
 
-Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
+Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ "The Tina Client"). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
 
 ##### `lib/databaseConnection.ts`&#x20;
 
@@ -99,7 +99,7 @@ export const dbConnection = getDatabaseConnection({ database, queries })
 ```
 
 \
-With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.\
+With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client "TinaCMS Client"). It will have all the generated queries and a request function for raw GraphQL requests.\
 \
 For example.
 
@@ -233,9 +233,9 @@ export default defineConfig({
 
 \
 \
-Next you can use the value passed from \`getToken\` in your backend function to make sure the user is Authenticated.\
+Next you can use the value passed from \`getToken\` in your backend function to make sure the user is Authenticated.\\
 
-pages/api/gql.{js,ts}\
+`pages/api/gql.{js,ts}`
 
 ```diff
 import { databaseRequest } from "../../lib/databaseConnection";
