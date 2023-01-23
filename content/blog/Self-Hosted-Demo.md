@@ -11,10 +11,7 @@ date: '2023-01-20T05:00:00.000Z'
 
 The goal of this demo is to provide an example of how someone could self host Tina. Self hosted Tina allows you to own your own content and your own auth. We also want to provide a way to self host parts of your app. If you want to self host but still want to use Tina Cloud for authorization you can do so.
 
-\
-Caveats of Self Hosting
-
----
+## Caveats of Self Hosting
 
 - You must provide your own authentication (If you don't want to use Tina Cloud)
   - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
@@ -25,9 +22,9 @@ Caveats of Self Hosting
 
 ### The Database File
 
-The database is described in **`.tina/database.{js,ts}`** .
+The database is configured in **`.tina/database.{js,ts}`** .
 
-This file is the main part of the self hosted solution. This file has the default export of the CreateDatabase function. This function will setup a Database class that will be used for indexing, and crud operations.&#x20;
+This file is the main part of the self hosted solution. This file exports an instead of the TinaCMS Database, which handles indexing, queries and CRUD operations.
 
 ```typescript
 export default createDatabase({
@@ -39,13 +36,13 @@ export default createDatabase({
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme 'mongodb-level')which we have created as an example. You are free to use the mongodb example or make your own level implementation and use that instead.&#x20;
+You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by TinaCMS. You are free to use the mongodb example or make your own level implementation and use that instead.
 
-The level store is meant to be ephemeral cacheing layer so that when you query your content you do not need to go to the source of truth (Probably Github).
+The Database is an ephemeral cacheing layer so that when you query your content it is not necessary to retrieve it from the git provider.
 
 #### `onPut` and `onDelete`
 
-The onPut and onDelete functions are describe how the data gets saved to the source of truth. In our example we show how to save data to Github but feel free to swap our example for any git provider.
+The onPut and onDelete functions are used to update the git repository when there are updates and deletes via TinaCMS. In our example we show how to save data to Github but feel free to swap our example for any git provider.
 
 ### Using the database on the server
 
@@ -126,8 +123,7 @@ When editing with TinaCMS crud operations get send to a GraphQL endpoint. Normal
 
 ```typescript
 import { databaseRequest } from '../../lib/databaseConnection'
-import createDatabase from '../../.tina/database'
-const database = createDatabase()
+import database from '../.tina/database'
 
 export default async function handler(req, res) {
   // Add your own Auth here.
