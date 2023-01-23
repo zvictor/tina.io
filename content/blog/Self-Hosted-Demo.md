@@ -95,9 +95,8 @@ export function getDatabaseConnection<GenQueries = Record<string, unknown>>({
 export const dbConnection = getDatabaseConnection({ database, queries })
 ```
 
-\
 With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.\
-\
+
 For example.
 
 ```typescript
@@ -227,11 +226,9 @@ export default defineConfig({
 
 ```
 
-\
-\
-Next you can use the value passed from \`getToken\` in your backend function to make sure the user is Authenticated.\
+Next you can use the value passed from `getToken` in your backend function to make sure the user is Authenticated.\\
 
-pages/api/gql.{js,ts}\
+`pages/api/gql.{js,ts}`
 
 ```diff
 import { databaseRequest } from "../../lib/databaseConnection";
