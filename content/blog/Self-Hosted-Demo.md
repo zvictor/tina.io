@@ -15,7 +15,7 @@ The goal of this demo is to provide an example of how someone could self host Ti
 
 - You must provide your own authentication (If you don't want to use Tina Cloud)
   - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
-- Provide and manage your own database and level implementation (We have provided MongoDB as an example)
+- Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
 - Provide a backend endpoint (like a next.js api function)
 
 ## The Parts
