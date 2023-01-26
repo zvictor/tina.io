@@ -1,11 +1,12 @@
 ---
 title: Self Hosted Demo
 date: '2023-01-20T05:00:00.000Z'
+author: Logan Anderson
 ---
 
 # Self Hosted Demo
 
-> Just want to see the code? You can find the example [here](# 'Link to self hosted demo').
+> Just want to see the code? You can find the example [here](# "Link to self hosted demo").
 
 ## Goal
 
@@ -13,10 +14,10 @@ The goal of this demo is to provide an example of how someone could self host Ti
 
 ## Caveats of Self Hosting
 
-- You must provide your own authentication (If you don't want to use Tina Cloud)
-  - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
-- Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
-- Provide a backend endpoint (like a next.js api function)
+* You must provide your own authentication (If you don't want to use Tina Cloud)
+  * This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
+* Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
+* Provide a backend endpoint (like a next.js api function)
 
 ## The Parts
 
@@ -27,16 +28,59 @@ The database is configured in **`.tina/database.{js,ts}`** .
 This file is the main part of the self hosted solution. This file exports an instead of the TinaCMS Database, which handles indexing, queries and CRUD operations.
 
 ```typescript
+import { createDatabase, TinaLevelClient } from "@tinacms/graphql";
+import { MongodbLevel } from "mongodb-level";
+import { Octokit } from "@octokit/rest";
+import { Base64 } from "js-base64";
+
+// Use whatever metric you want for running TinaCMS in "LocalMode" 
+// When in "Local Mode" a local levelDB server is used and data is saved to the file system
+// When in "Production Mode" Your provided LevelDB implemetntion is used (MongoDB Level in this example) and data is saved with "onPut" and "onDelete" callback functions
+const isLocal = process.env.TINA_IS_LOCAL === "true";
+
+if (isLocal) console.log("Running TinaCMS in local mode.");
+else console.log("Running TinaCMS in production mode.");
+
+const owner = process.env.GITHUB_OWNER as string;
+const repo = process.env.GITHUB_REPO as string;
+// Must create a personal access token
+const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN as string;
+const branch = process.env.GITHUB_BRANCH as string;
+
+const octokit = new Octokit({
+  auth: token,
+});
+const localLevelStore = new TinaLevelClient();
+const mongodbLevelStore = new MongodbLevel({
+  collectionName: "tinacms",
+  dbName: "tinacms",
+  mongoUri: process.env.MONGODB_URI as string,
+});
+if (isLocal) {
+  localLevelStore.openConnection();
+}
+
+// When the data is updated this function is called
+const githubOnPut = async (key, value) => {
+  // See example for implementaion
+};
+
+// When the data is deelted this function is called
+const githubOnDelete = async (key) => {
+  // See example for implementaion
+};
+
 export default createDatabase({
-  level: yourLevelImplementation,
-  onPut: yourOnPutImplementation,
-  onDelete: yourOnDeleteImplemention,
-})
+  level: isLocal ? localLevelStore : mongodbLevelStore,
+  onPut: isLocal ? undefined : githubOnPut,
+  onDelete: isLocal ? undefined : githubOnDelete,
+});
+
 ```
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by TinaCMS. You are free to use the mongodb example or make your own level implementation and use that instead.
+You must provide an [abstract-level database](https://github.com/Level/abstract-level "Abstract Level ") implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme "mongodb-level") which is a LevelDB implementation maintained by TinaCMS. You are free to use the mongodb example or make your own level implementation and use that instead.
 
 The Database is an ephemeral cacheing layer so that when you query your content it is not necessary to retrieve it from the git provider.
 
@@ -46,7 +90,7 @@ The onPut and onDelete functions are used to update the git repository when ther
 
 ### Using the database on the server
 
-Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
+Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ "The Tina Client"). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
 
 ##### `lib/databaseConnection.ts`&#x20;
 
@@ -57,7 +101,7 @@ import { resolve } from '@tinacms/graphql'
 import type { Database } from '@tinacms/graphql'
 import type { TinaClient } from 'tinacms/dist/client'
 
-export async function databaseRequest({ query, variables, database }) {
+export async function databaseRequest({ query, variables }) {
   const config = {
     useRelativeMedia: true,
   } as any
@@ -95,7 +139,7 @@ export function getDatabaseConnection<GenQueries = Record<string, unknown>>({
 export const dbConnection = getDatabaseConnection({ database, queries })
 ```
 
-With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.\
+With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client "TinaCMS Client"). It will have all the generated queries and a request function for raw GraphQL requests.
 
 For example.
 
