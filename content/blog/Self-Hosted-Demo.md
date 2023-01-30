@@ -6,7 +6,7 @@ author: Logan Anderson
 
 # Self Hosted Demo
 
-> Just want to see the code? You can find the example [here](# "Link to self hosted demo").
+> Just want to see the code? You can find the example [here](https://github.com/tinacms/tina-self-hosted-demo 'Link to self hosted demo').
 
 ## Goal
 
@@ -14,10 +14,22 @@ The goal of this demo is to provide an example of how someone could self host Ti
 
 ## Caveats of Self Hosting
 
-* You must provide your own authentication (If you don't want to use Tina Cloud)
-  * This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
-* Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
-* Provide an api endpoint (like a next.js api function)
+- You must provide your own authentication (If you don't want to use Tina Cloud)
+  - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
+- Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
+- Provide an api endpoint (like a next.js api function)
+
+## Video's
+
+We have also recorded two videos that explain how to self host Tina. The first video demonstrates how to self host the content and API endpoint. The second video demonstrates how to implement authentication.
+
+### Self Hosting the Content and API Endpoint
+
+[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/1gUyhO4svbc/0.jpg)](https://www.youtube.com/watch?v=1gUyhO4svbc)
+
+### Self Hosting Authentication
+
+[![Self Hosting Authentication](https://img.youtube.com/vi/_IRuE72Uazw/0.jpg)](https://www.youtube.com/watch?v=_IRuE72Uazw)
 
 ## The Parts
 
@@ -64,22 +76,28 @@ if (isLocal) {
 const githubOnPut = async (key, value) => {
   // See example for implementation
 }
+const localOnPut = async (key, value) => {
+  // See example for implementation
+}
 
 // When the data is deelted this function is called
 const githubOnDelete = async (key) => {
   // See example for implementation
 }
+const localOnDelete = async (key, value) => {
+  // See example for implementation
+}
 
 export default createDatabase({
   level: isLocal ? localLevelStore : mongodbLevelStore,
-  onPut: isLocal ? undefined : githubOnPut,
-  onDelete: isLocal ? undefined : githubOnDelete,
+  onPut: isLocal ? localOnPut : githubOnPut,
+  onDelete: isLocal ? localOnDelete : githubOnDelete,
 })
 ```
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level "Abstract Level ") implementation. In our example we have used [mongodb-level ](https://github.com/tinacms/mongodb-level#readme "mongodb-level") which is a LevelDB implementation maintained by TinaCMS. You are free to use the mongodb example or make your own level implementation and use that instead.
+You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by the TinaCMS team. You are free to use the mongodb example or make your own level implementation and use that instead.
 
 The Database is an ephemeral cacheing layer so that when you query your content it is not necessary to retrieve it from the git provider.
 
@@ -89,7 +107,7 @@ The onPut and onDelete functions are used to update the git repository when ther
 
 ### Using the database on the server
 
-Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ "The Tina Client"). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
+Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
 
 ##### `lib/databaseConnection.ts`&#x20;
 
@@ -97,7 +115,6 @@ Querying the database from the server works a bit different when using self host
 import database from '../.tina/database'
 import { queries } from '../.tina/__generated__/types'
 import { resolve } from '@tinacms/graphql'
-import type { Database } from '@tinacms/graphql'
 import type { TinaClient } from 'tinacms/dist/client'
 
 export async function databaseRequest({ query, variables }) {
@@ -117,16 +134,14 @@ export async function databaseRequest({ query, variables }) {
 }
 
 export function getDatabaseConnection<GenQueries = Record<string, unknown>>({
-  database,
   queries,
 }: {
-  database: Database
   queries: (client: {
     request: TinaClient<GenQueries>['request']
   }) => GenQueries
 }) {
   const request = async ({ query, variables }) => {
-    const data = await databaseRequest({ query, variables, database })
+    const data = await databaseRequest({ query, variables })
     return { data: data.data as any, query, variables, errors: data.errors }
   }
   const q = queries({
@@ -135,10 +150,10 @@ export function getDatabaseConnection<GenQueries = Record<string, unknown>>({
   return { queries: q, request }
 }
 
-export const dbConnection = getDatabaseConnection({ database, queries })
+export const dbConnection = getDatabaseConnection({ queries })
 ```
 
-With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client "TinaCMS Client"). It will have all the generated queries and a request function for raw GraphQL requests.
+With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.
 
 For example.
 
@@ -286,7 +301,7 @@ const database = createDatabase();
 
 export default async function handler(req, res) {
 +  const isAuthorized = await myCustomIsAuthorizedFunction({
-+       // This has the format of `Bearer <id_token>` 
++       // This has the format of `Bearer <id_token>`
 +       token: req.headers.authorization,
 +  });
 
@@ -299,4 +314,3 @@ const result = await databaseRequest({ query, variables, database });
 return res.json(result);
 }
 ```
-
