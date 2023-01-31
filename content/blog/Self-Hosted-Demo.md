@@ -244,9 +244,19 @@ export default async function handler(req, res) {
 
 #### Self hosting your Authentication
 
-To self host your own authentication, you must implement several functions.
+To self host your own authentication, you must implement several functions. These functions are passed to the TinaCMS client when it is initialized. The following functions are available:
 
-Add the following methods to your `config.{ts,js}`&#x20;
+`authenticate`: This function is called when the user goes into `/admin` and they are not logged in (Determined by `getUser`). This function should redirect the user to the login page or do whatever is necessary to authenticate the user.
+
+`getUser`: This function is called when the user goes into `/admin` and it is used to determine if the user is logged in. If it returns a truthy value the user is logged in, if it returns a falsy value the user is not logged in.
+
+`getToken`: This function is called when a request is made to the GraphQL endpoint. It should return an object with an `id_token` property. This will be passed as an `Authorization` header in the format `Bearer <id_token>`
+
+`logOut`: This function is called when the user clicks the logout button in the admin.
+
+Set `customAuth` to `true` in the config to enable this.
+
+Add the functions to your `config.{ts,js}`&#x20;
 
 ```javascript
 export default defineConfig({
