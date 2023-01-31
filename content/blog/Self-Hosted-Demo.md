@@ -10,18 +10,18 @@ author: Logan Anderson
 
 ## Goal
 
-The goal of this demo is to provide an example of how someone could self host Tina. Self hosted Tina allows you to own your own content and your own auth. We also want to provide a way to self host parts of your app. If you want to self host but still want to use Tina Cloud for authorization you can do so.
+This demo provides an example of self hosting Tina Self hosted Tina allows you to own your own content and your own auth. If you want to self host but still want to use Tina Cloud for authorization you can do so.
 
 ## Caveats of Self Hosting
 
-- You must provide your own authentication (If you don't want to use Tina Cloud)
-  - This means you will have to provide your own functionally for "Read only tokens" if this is something that you need in your App
-- Provide and manage your own database and levelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
-- Provide an api endpoint (like a next.js api function)
+- If not using Tina Cloud's authorization, you must implement your own authentication.
+  - Note: this means you will have to provide your own read-only token implementation.
+- You are responsible for hosting your own database and LevelDB implementation (We have provided MongoDB LevelDB implementation that can be used)
+- You are responsible for hosting your TinaCMS API endpoint (like a next.js api function)
 
-## Video's
+## Demo
 
-We have also recorded two videos that explain how to self host Tina. The first video demonstrates how to self host the content and API endpoint. The second video demonstrates how to implement authentication.
+We have recorded the following videos that explain how to self host Tina. The first video demonstrates how to self host the content and API endpoint. The second video demonstrates how to implement authentication.
 
 ### Self Hosting the Content and API Endpoint
 
@@ -31,13 +31,15 @@ We have also recorded two videos that explain how to self host Tina. The first v
 
 [![Self Hosting Authentication](https://img.youtube.com/vi/_IRuE72Uazw/0.jpg)](https://www.youtube.com/watch?v=_IRuE72Uazw)
 
-## The Parts
+## Elements of Self Hosted Tina
 
-### The Database File
+### Database File
 
 The database is configured in **`.tina/database.{js,ts}`** .
 
-This file is the main part of the self hosted solution. This file exports an instead of the TinaCMS Database, which handles indexing, queries and CRUD operations.
+This file is the main element of the self hosted solution. It exports an instance of the TinaCMS Database, which handles indexing, queries and CRUD operations. A database instance requires a LevelDB implementation. It is also configured with optional onPut/onDelete handlers which are used to make updates to your Git repository.
+
+The Database is an ephemeral caching layer so that when you query your content it is not necessary to retrieve it from the git provider.
 
 ```typescript
 import { createDatabase, TinaLevelClient } from '@tinacms/graphql'
@@ -45,9 +47,10 @@ import { MongodbLevel } from 'mongodb-level'
 import { Octokit } from '@octokit/rest'
 import { Base64 } from 'js-base64'
 
-// Use whatever metric you want for running TinaCMS in "LocalMode"
+// `isLocal` determines if the database is running in "Local Mode" or "Production Mode". You can set this value in your .env file or use a different method for determining the value. In this example we are using an environment variable.
+
 // When in "Local Mode" a local levelDB server is used and data is saved to the file system
-// When in "Production Mode" Your provided LevelDB implemetntion is used (MongoDB Level in this example) and data is saved with "onPut" and "onDelete" callback functions
+// When in "Production Mode" Your provided LevelDB implemetntion is used (MongoDB Level in this example) and data is written to the Git repository with "onPut" and "onDelete" callback functions
 const isLocal = process.env.NEXT_PUBLIC_TINA_IS_LOCAL === 'true'
 
 if (isLocal) console.log('Running TinaCMS in local mode.')
@@ -97,17 +100,17 @@ export default createDatabase({
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by the TinaCMS team. You are free to use the mongodb example or make your own level implementation and use that instead.
-
-The Database is an ephemeral cacheing layer so that when you query your content it is not necessary to retrieve it from the git provider.
+You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by the TinaCMS team. You are free to use the mongodb example or make your own LevelDB implementation and use that instead.
 
 #### `onPut` and `onDelete`
 
 The onPut and onDelete functions are used to update the git repository when there are updates and deletes via TinaCMS. In our example we show how to save data to Github but feel free to swap our example for any git provider.
 
+The onPut function takes a key and a value parameter. The key is the path to the file in the repository that was updated and the value is the file contents. The onDelete function takes a key value, which is the path to the file in the repository that was deleted.
+
 ### Using the database on the server
 
-Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use the [client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But since you are self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying your content from the server it is suggestion that you use the database directly. We have created an example of what this looks like.&#x20;
+Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use [The Tina Client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But when self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying content from the server we recommend querying the database directly. We have created an example of what this looks like. The following examples demonstrates this:
 
 ##### `lib/databaseConnection.ts`&#x20;
 
@@ -153,9 +156,9 @@ export function getDatabaseConnection<GenQueries = Record<string, unknown>>({
 export const dbConnection = getDatabaseConnection({ queries })
 ```
 
-With this, you can use `dbConnection` just like [the client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.
+With this, you can use `dbConnection` just like [the Tina Client would be used](https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client'). It will have all the generated queries and a request function for raw GraphQL requests.
 
-For example.
+Here is an example of using this:
 
 ```typescript
 import { dbConnection } from '../../lib/databaseConnection'
@@ -174,7 +177,7 @@ export const getStaticProps = async ({ params }) => {
 
 ### The GraphQL endpoint.
 
-When editing with TinaCMS crud operations get send to a GraphQL endpoint. Normally this is Tina Cloud but when you self host you must provide this endpoint. This example will show how this could be done in a next.js API route but it could modified to be used in any Environment. You must add your own authorization function here or you could use TinaClouds auth server if you wish.
+When editing with TinaCMS CRUD operations get sent to a GraphQL endpoint. Normally this is Tina Cloud, but when you self host you must provide this endpoint. The following examples show how this can be done in a Next.js API route but it can adapted for use in any environment. You must add your own authorization function here or you could use TinaClouds auth server if you wish.
 
 ##### `pages/api/gql.{ts,js}`
 
@@ -213,7 +216,7 @@ const config = defineConfig({
 
 #### Using Tina Cloud for Authentication
 
-If you just wish to self host you'r content and you don't need to self host your authentication you can use Tina Cloud for authorization and authentication. This can be done but adding the following to your to your endpoint.
+If you just wish to self host your content and you don't need your own authentication you can use Tina Cloud for authorization and authentication. This can be done by adding the following to your endpoint.
 
 ##### `pages/api/gql.{ts,js}`
 
@@ -241,8 +244,8 @@ export default async function handler(req, res) {
 
 #### Self hosting your Authentication
 
-To self host your own authentication, you must provide some functions to get your authorization.\
-\
+To self host your own authentication, you must implement several functions.
+
 Add the following methods to your `config.{ts,js}`&#x20;
 
 ```javascript
@@ -251,12 +254,6 @@ export default defineConfig({
   admin: {
     auth: {
       customAuth: true,
-      // Get token this will be called when a request and will be passed as an `Authorization` header in the format `Bearer <id_token>`
-      getToken: async () => {
-        return {
-          id_token: 'Foo',
-        }
-      },
       // This is called when they want to authenticate a user. For a lot of implementations it just may be redirecting to the login page
       async authenticate() {
         console.log('Authenticating...')
@@ -266,13 +263,19 @@ export default defineConfig({
         )
         return {}
       },
+      // Get token this will be called when a request and will be passed as an `Authorization` header in the format `Bearer <id_token>`
+      getToken: async () => {
+        return {
+          id_token: 'Foo',
+        }
+      },
       // Called to log the user out
       async logOut() {
         console.log('logOut...')
         localStorage.removeItem('local_cache')
         window.location.href = '/'
       },
-      // The CMS uses this function to get info about the user. It also uses it to see if the user is logged in. Provide a truethy value if the user is logged in and a falsy value if the user is not
+      // The CMS uses this function to get info about the user. It also uses it to see if the user is logged in. Provide a truthy value if the user is logged in and a falsy value if the user is not
       async getUser() {
         console.log('getUser...')
         const userStr = localStorage.getItem('local_cache')
@@ -290,7 +293,7 @@ export default defineConfig({
 
 ```
 
-Next you can use the value passed from `getToken` in your backend function to make sure the user is Authenticated.\\
+Next you can use the value passed from `getToken` in your backend function to make sure the user is authenticated.
 
 `pages/api/gql.{js,ts}`
 
