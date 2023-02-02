@@ -10,7 +10,7 @@ author: Logan Anderson
 
 ## Goal
 
-This demo provides an example of self hosting Tina Self hosted Tina allows you to own your own content and your own auth. If you want to self host but still want to use Tina Cloud for authorization you can do so.
+This demo provides an example of self hosting Tina. This allows you to own your own content and your own auth. It is also possible to self host and still use Tina Cloud for just authorization.
 
 ## Caveats of Self Hosting
 
@@ -37,12 +37,10 @@ We have recorded the following videos that explain how to self host Tina. The fi
 
 The database is configured in **`.tina/database.{js,ts}`** .
 
-This file is the main element of the self hosted solution. It exports an instance of the TinaCMS Database, which handles indexing, queries and CRUD operations. A database instance requires a LevelDB implementation. It is also configured with optional onPut/onDelete handlers which are used to make updates to your Git repository.
-
-The Database is an ephemeral caching layer so that when you query your content it is not necessary to retrieve it from the git provider.
+This file is the main element of the self hosted solution. It exports an instance of the TinaCMS Database, which handles indexing, queries and CRUD operations. A database instance requires a LevelDB implementation. It is also configured with optional onPut/onDelete handlers which are used to make updates to your Git repository. The database is an ephemeral caching layer so that when you query your content it is not necessary to retrieve it from the git provider.
 
 ```typescript
-import { createDatabase, TinaLevelClient } from '@tinacms/graphql'
+import { createDatabase, TinaLevelClient } from '@tinacms/datalayer'
 import { MongodbLevel } from 'mongodb-level'
 import { Octokit } from '@octokit/rest'
 import { Base64 } from 'js-base64'
@@ -50,7 +48,7 @@ import { Base64 } from 'js-base64'
 // `isLocal` determines if the database is running in "Local Mode" or "Production Mode". You can set this value in your .env file or use a different method for determining the value. In this example we are using an environment variable.
 
 // When in "Local Mode" a local levelDB server is used and data is saved to the file system
-// When in "Production Mode" Your provided LevelDB implemetntion is used (MongoDB Level in this example) and data is written to the Git repository with "onPut" and "onDelete" callback functions
+// When in "Production Mode" Your provided LevelDB implementation is used (MongoDB Level in this example) and data is written to the Git repository with "onPut" and "onDelete" callback functions
 const isLocal = process.env.NEXT_PUBLIC_TINA_IS_LOCAL === 'true'
 
 if (isLocal) console.log('Running TinaCMS in local mode.')
@@ -100,24 +98,24 @@ export default createDatabase({
 
 #### `Level`
 
-You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In our example we have used [mongodb-level](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by the TinaCMS team. You are free to use the mongodb example or make your own LevelDB implementation and use that instead.
+You must provide an [abstract-level database](https://github.com/Level/abstract-level 'Abstract Level ') implementation. In the example above we have used [mongodb-level](https://github.com/tinacms/mongodb-level#readme 'mongodb-level') which is a LevelDB implementation maintained by the TinaCMS team. You are free to use the mongodb example or make your own LevelDB implementation and use that instead.
 
 #### `onPut` and `onDelete`
 
-The onPut and onDelete functions are used to update the git repository when there are updates and deletes via TinaCMS. In our example we show how to save data to Github but feel free to swap our example for any git provider.
+The onPut and onDelete functions are used to update the git repository when there are updates and deletes via TinaCMS. In the example above we show how to save data to Github but feel free to swap our example for any git provider.
 
-The onPut function takes a key and a value parameter. The key is the path to the file in the repository that was updated and the value is the file contents. The onDelete function takes a key value, which is the path to the file in the repository that was deleted.
+The onPut function takes a key and a value parameter. The key is the path to the file in the repository that was updated and the value is the file contents. The onDelete function takes a key parameter, which is the path to the file in the repository that was deleted.
 
 ### Using the database on the server
 
-Querying the database from the server works a bit different when using self hosted Tina. When using tina, you can normally use [The Tina Client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But when self hosting, it is likely that that the GraphQL endpoint will not be available at build time (For example, if you are using Next.js api endpoints). So when querying content from the server we recommend querying the database directly. We have created an example of what this looks like. The following examples demonstrates this:
+Querying the database from the server works a bit different when using self hosted Tina. When using tina, you normally use [The Tina Client](https://tina.io/docs/features/data-fetching/ 'The Tina Client'). But when self hosting, it is likely that that the GraphQL endpoint will not be available at build time (If you are using Next.js api endpoints, for example). So when querying content from the server we recommend querying the database directly. We have created an example of what this looks like.
 
 ##### `lib/databaseConnection.ts`&#x20;
 
 ```typescript
 import database from '../.tina/database'
 import { queries } from '../.tina/__generated__/types'
-import { resolve } from '@tinacms/graphql'
+import { resolve } from '@tinacms/datalayer'
 import type { TinaClient } from 'tinacms/dist/client'
 
 export async function databaseRequest({ query, variables }) {
@@ -175,9 +173,9 @@ export const getStaticProps = async ({ params }) => {
 }
 ```
 
-### The GraphQL endpoint.
+### The GraphQL Endpoint
 
-When editing with TinaCMS CRUD operations get sent to a GraphQL endpoint. Normally this is Tina Cloud, but when you self host you must provide this endpoint. The following examples show how this can be done in a Next.js API route but it can adapted for use in any environment. You must add your own authorization function here or you could use TinaClouds auth server if you wish.
+When editing with TinaCMS, CRUD operations get sent to a GraphQL endpoint. Normally this is Tina Cloud, but when you self host you must provide this endpoint. The following examples show how this can be done in a Next.js API route but it can adapted for use in any environment. You must add your own authorization function here or you could use Tina Cloud's auth server if you wish.
 
 ##### `pages/api/gql.{ts,js}`
 
@@ -197,7 +195,7 @@ export default async function handler(req, res) {
 }
 ```
 
-Now you can configure this endpoint in the config.
+Now you can configure this endpoint in the config:
 
 `.tina/config.{ts,js}`
 
@@ -216,7 +214,7 @@ const config = defineConfig({
 
 #### Using Tina Cloud for Authentication
 
-If you just wish to self host your content and you don't need your own authentication you can use Tina Cloud for authorization and authentication. This can be done by adding the following to your endpoint.
+If you just wish to self host your content and you don't need your own authentication you can use Tina Cloud for authorization and authentication. This can be done by adding the following to your endpoint:
 
 ##### `pages/api/gql.{ts,js}`
 
@@ -303,7 +301,7 @@ export default defineConfig({
 
 ```
 
-Next you can use the value passed from `getToken` in your backend function to make sure the user is authenticated.
+Next you can use the value passed from `getToken` in your backend function to make sure the user is authenticated:
 
 `pages/api/gql.{js,ts}`
 
