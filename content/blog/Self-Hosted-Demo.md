@@ -23,9 +23,13 @@ This demo provides an example of self hosting Tina. This allows you to own your 
 
 We have recorded the following videos that explain how to self host Tina. The first video demonstrates how to self host the content and API endpoint. The second video demonstrates how to implement authentication.
 
+### Self Hosting Overview
+
+[![Self Hosting Overview](https://img.youtube.com/vi/zIAFFvac0mQ/0.jpg)](https://www.youtube.com/watch?v=zIAFFvac0mQ)
+
 ### Self Hosting the Content and API Endpoint
 
-[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/1gUyhO4svbc/0.jpg)](https://www.youtube.com/watch?v=1gUyhO4svbc)
+[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/k2R302Ub9oA/0.jpg)](https://www.youtube.com/watch?v=k2R302Ub9oA)
 
 ### Self Hosting Authentication
 
@@ -172,6 +176,8 @@ export const getStaticProps = async ({ params }) => {
   }
 }
 ```
+
+`dbConnection` has direct database access so it can only be used on the server. If you want to fetch data on the client side, you must use the [Tina Client]((https://tina.io/docs/features/data-fetching/#making-requests-with-the-tina-client 'TinaCMS Client')).
 
 ### The GraphQL Endpoint
 
