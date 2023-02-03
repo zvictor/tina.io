@@ -25,15 +25,15 @@ We have recorded the following videos that explain how to self host Tina. The fi
 
 ### Self Hosting Overview
 
-[![Self Hosting Overview](https://img.youtube.com/vi/zIAFFvac0mQ/0.jpg)](https://www.youtube.com/watch?v=zIAFFvac0mQ)
+[![Self Hosting Overview](https://img.youtube.com/vi/NX6BCwegymU/0.jpg)](https://www.youtube.com/watch?v=NX6BCwegymU)
 
 ### Self Hosting the Content and API Endpoint
 
-[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/k2R302Ub9oA/0.jpg)](https://www.youtube.com/watch?v=k2R302Ub9oA)
+[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/zIAFFvac0mQ/0.jpg)](https://www.youtube.com/watch?v=zIAFFvac0mQ)
 
 ### Self Hosting Authentication
 
-[![Self Hosting Authentication](https://img.youtube.com/vi/_IRuE72Uazw/0.jpg)](https://www.youtube.com/watch?v=_IRuE72Uazw)
+[![Self Hosting Authentication](https://img.youtube.com/vi/k2R302Ub9oA/0.jpg)](https://www.youtube.com/watch?v=k2R302Ub9oA)
 
 ## Elements of Self Hosted Tina
 
