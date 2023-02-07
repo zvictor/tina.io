@@ -53,7 +53,7 @@ import { Base64 } from 'js-base64'
 
 // When in "Local Mode" a local levelDB server is used and data is saved to the file system
 // When in "Production Mode" Your provided LevelDB implementation is used (MongoDB Level in this example) and data is written to the Git repository with "onPut" and "onDelete" callback functions
-const isLocal = process.env.NEXT_PUBLIC_TINA_IS_LOCAL === 'true'
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true'
 
 if (isLocal) console.log('Running TinaCMS in local mode.')
 else console.log('Running TinaCMS in production mode.')
@@ -210,7 +210,7 @@ const config = defineConfig({
   contentApiUrlOverride: '/api/gql',
   admin: {
     auth: {
-      useLocalAuth: process.env.NEXT_PUBLIC_TINA_IS_LOCAL === 'true',
+      useLocalAuth: process.env.TINA_PUBLIC_IS_LOCAL === 'true',
     }
   }
   //...
