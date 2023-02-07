@@ -25,15 +25,21 @@ We have recorded the following videos that explain how to self host Tina. The fi
 
 ### Self Hosting Overview
 
-[![Self Hosting Overview](https://img.youtube.com/vi/NX6BCwegymU/0.jpg)](https://www.youtube.com/watch?v=NX6BCwegymU)
+This video provides an overview of the self hosting process. It will show a demo as well as explain what the Data Layer is.
+
+[![Self Hosting Overview](https://img.youtube.com/vi/zo-Wj8tcJTE/0.jpg)](https://www.youtube.com/watch?v=zo-Wj8tcJTE)
 
 ### Self Hosting the Content and API Endpoint
 
-[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/zIAFFvac0mQ/0.jpg)](https://www.youtube.com/watch?v=zIAFFvac0mQ)
+This video will show how to turn a Next.js site into a self hosted Tina site.
+
+[![Self Hosting the Content and API Endpoint](https://img.youtube.com/vi/PqJ1FiunL4A/0.jpg)](https://www.youtube.com/watch?v=PqJ1FiunL4A)
 
 ### Self Hosting Authentication
 
-[![Self Hosting Authentication](https://img.youtube.com/vi/k2R302Ub9oA/0.jpg)](https://www.youtube.com/watch?v=k2R302Ub9oA)
+This video will show how to implement authentication for a self hosted Tina site.
+
+[![Self Hosting Authentication](https://img.youtube.com/vi/Ck0DbJGzaEM/0.jpg)](https://www.youtube.com/watch?v=Ck0DbJGzaEM)
 
 ## Elements of Self Hosted Tina
 
