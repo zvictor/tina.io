@@ -1,7 +1,7 @@
 ---
 title: Contextual Editing234f
 id: /docs/contextual-editing/overview
-prev: hmm2
+prev: ''
 next: /docs/contextual-editing/react
 body: >
   Out of the box, once you define a new collection in Tina, its content becomes
