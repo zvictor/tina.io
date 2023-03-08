@@ -4,7 +4,7 @@ id: /docs/contextual-editing/router
 prev: /docs/contextual-editing/overview
 ---
 
-## Accessing contextual-editing from the CMS
+## hmmm Accessing contextual-editing from the CMS
 
 At this point, when your editors go to `/your-page-url` in edit-mode, they will be able to edit content and see those changes reflected on the page, in real-time. Next, let's ensure users will be navigated to that same live-editing experience (instead of the basic editor experience) every time they click on a document in the CMS Document List.
 
