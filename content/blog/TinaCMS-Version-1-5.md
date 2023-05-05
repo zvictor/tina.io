@@ -7,6 +7,10 @@ author: James O'Halloran
 
 Today we are excited to release `tinacms@1.5.1` and `@tinacms/clil@1.5.8`. The full list of changes can be found [in the changeset PR](https://github.com/tinacms/tinacms/pull/3819 "changesets PR").
 
+```bash
+foo
+```
+
 ## Directories in Document List
 
 The Document List view for a collection will now nest documents within directories, instead of listing all documents as a flat list at the root.
