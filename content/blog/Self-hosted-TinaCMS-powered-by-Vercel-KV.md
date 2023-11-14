@@ -26,6 +26,8 @@ Tina Cloud provides organization and project-level user & role management, but w
 
 ## Does self-hosted Tina require Next.js / Vercel?
 
+While our self-hosted Next.js demo provides a really easy way to get started with self-hosting using Vercel, self-hosting Tina does not require Vercel and can be used with any framework that is supported by Tina. The main consideration when self-hosting is the backend API which provides the GraphQL and auth endpoints. The backend API can be hosted on any platform that supports Express request handlers, including AWS, Google Cloud, and Netlify.
+
 ## Future Plans
 
 Repo-based media is not currently available for self-hosted TinaCMS. We currently recommend one of our other media manager solutions when self-hosting, such as Cloudinary, AWS S3 or Digital Oceans. This is something that we are exploring and hope to make available. Additionally our new search capability currently requires Tina Cloud but is something we expect to add soon to self-hosting.
