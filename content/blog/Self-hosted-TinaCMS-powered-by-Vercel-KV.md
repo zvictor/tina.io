@@ -1,5 +1,5 @@
 ---
-title: Using Vercel KV to self-host TinaCMS
+title: Self-hosting TinaCMS with Vercel KV
 date: '2023-06-30T04:00:00.000Z'
 last_edited: '2023-07-07T04:00:00.000Z'
 author: Kelly Davis
