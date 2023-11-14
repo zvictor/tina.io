@@ -22,11 +22,11 @@ When you build your site with TinaCMS, the ultimate source of truth is your Mark
 
 Tina Cloud provides organization and project-level user & role management, but we recognize that every project has its own specific authentication and authorization requirements. TinaCMS already provides built-in support for custom auth solutions that can be adapted to a wide variety of situations. The latest iteration of self-hosted TinaCMS takes this a step further by integrating with [Auth.js](https://authjs.dev/) and providing a built-in collection-backed auth solution. This makes it possible to launch a self-hosted site without any additional customization for authentication and authorization. Additionally, by leveraging Auth.js, any of the available auth providers [offered by the framework](https://next-auth.js.org/providers/) (e.g Github, Twitter, Google, etc...) can easily be integrated with TinaCMS.
 
-## Does self-hosted Tina require Next.js / Vercel?
+## Does self-hosted TinaCMS require Next.js / Vercel?
 
 While our self-hosted Next.js demo provides an easy way to get started self-hosting using Vercel, self-hosted Tina does not require Vercel and can be used with any framework that is supported by Tina. The main consideration when self-hosting is the backend API which provides the GraphQL and auth endpoints. The backend API can be hosted on any platform that supports Express request handlers, including AWS, Google Cloud, and Netlify.
 
-## Is the Tina Data Layer open-source?
+## Is self-hosted TinaCMS open-source?
 
 Yes, TinaCMS is now fully open-source under the Apache 2.0 license.
 
