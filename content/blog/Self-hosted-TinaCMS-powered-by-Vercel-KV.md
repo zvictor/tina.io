@@ -10,8 +10,6 @@ Earlier this year, we [released](/blog/self-hosted-datalayer/ "released") the fi
 
 Since then, we've been hard at work on improving our self-hosted offering to make it easier to get started and less dependent on other vendor services (including our own). Today we are excited to announce the next iteration of self-hosted Tina, leveraging [Vercel KV](https://vercel.com/docs/storage/vercel-kv) for the data layer and a built-in auth solution based on [Auth.js](https://authjs.dev/). It is now possible for a developer to setup a fully functioning [Next.js](https://nextjs.org/) site running TinaCMS relying on only GitHub for source control and Vercel for hosting, auth, and data management.
 
-TODO: Insert license update here?
-
 ## What is Vercel KV?
 
 Vercel KV is a durable Redis database that enables you to store and retrieve JSON data and is available on both hobby (free) and paid plans. The service is provided in partnership with [Upstash](https://upstash.com/about) and does not require a separate Upstash account. Because of it's flexibility and performance, Vercel KV is a great fit for powering the self-hosted TinaCMS data layer.
@@ -26,14 +24,16 @@ Tina Cloud provides organization and project-level user & role management, but w
 
 ## Does self-hosted Tina require Next.js / Vercel?
 
-While our self-hosted Next.js demo provides a really easy way to get started with self-hosting using Vercel, self-hosting Tina does not require Vercel and can be used with any framework that is supported by Tina. The main consideration when self-hosting is the backend API which provides the GraphQL and auth endpoints. The backend API can be hosted on any platform that supports Express request handlers, including AWS, Google Cloud, and Netlify.
+While our self-hosted Next.js demo provides an easy way to get started self-hosting using Vercel, self-hosted Tina does not require Vercel and can be used with any framework that is supported by Tina. The main consideration when self-hosting is the backend API which provides the GraphQL and auth endpoints. The backend API can be hosted on any platform that supports Express request handlers, including AWS, Google Cloud, and Netlify.
+
+## Is the Tina Data Layer open-source?
+
+Yes, TinaCMS is now fully open-source under the Apache 2.0 license.
 
 ## Future Plans
 
-Repo-based media is not currently available for self-hosted TinaCMS. We currently recommend one of our other media manager solutions when self-hosting, such as Cloudinary, AWS S3 or Digital Oceans. This is something that we are exploring and hope to make available. Additionally our new search capability currently requires Tina Cloud but is something we expect to add soon to self-hosting.
+Repo-based media is not currently available for self-hosted TinaCMS. We currently recommend one of our other media manager solutions when self-hosting, such as Cloudinary, AWS S3 or Digital Oceans. This is something that we are exploring and hope to make available. Additionally our search capability currently requires Tina Cloud but is something we expect to add soon to self-hosting.
 
 ## Getting Started
 
-Visit the self-hosted [demo](https://github.com/tinacms/tina-self-hosted-demo#deploy-this-repository-to-vercel) repo and click the Deploy button to launch the demo on Vercel.
-
-TODO link to docs for getting started
+Visit the self-hosted [docs](/docs/self-hosted/starters/nextjs-vercel/) and click the Deploy button to launch the self-hosted starter template on Vercel.
